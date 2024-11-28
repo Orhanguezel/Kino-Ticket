@@ -108,20 +108,28 @@ function updateUI(cinema = null) {
     loadHome(cinema);
     loadFooter(cinema);
 
-    if (cinema) {
-        document
-            .getElementById("startReservationButton")
-            .addEventListener("click", () => import("./buchenReservieren.js").then(module => module.startReservation(cinema.id)));
-    }
+    setTimeout(() => {
+        if (cinema) {
+            const startReservationButton = document.getElementById("startReservationButton");
+            if (startReservationButton) {
+                startReservationButton.addEventListener("click", () =>
+                    import("./buchenReservieren.js").then(module => module.startReservation(cinema.id))
+                );
+            }
+        }
 
-    document
-        .getElementById("toMainPageButton")
-        .addEventListener("click", goToMainPage);
+        const toMainPageButton = document.getElementById("toMainPageButton");
+        if (toMainPageButton) {
+            toMainPageButton.addEventListener("click", goToMainPage);
+        }
 
-    document.querySelectorAll(".cinema-select").forEach(button => {
-        button.addEventListener("click", (e) => selectCinema(parseInt(e.target.dataset.id)));
-    });
+        const cinemaSelectButtons = document.querySelectorAll(".cinema-select");
+        cinemaSelectButtons.forEach(button => {
+            button.addEventListener("click", (e) => selectCinema(parseInt(e.target.dataset.id)));
+        });
+    }, 0); // setTimeout is used to ensure that the buttons are loaded before adding event listeners
 }
+
 
 function goToMainPage() {
     localStorage.removeItem("selectedCinema");
@@ -139,8 +147,11 @@ function selectCinema(cinemaId) {
 }
 
 export function init() {
-    const savedCinema = JSON.parse(localStorage.getItem("selectedCinema"));
-    updateUI(savedCinema || null);
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedCinema = JSON.parse(localStorage.getItem("selectedCinema"));
+        updateUI(savedCinema || null);
+    });
 }
+
 
 init();
