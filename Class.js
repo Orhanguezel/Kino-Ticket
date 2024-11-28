@@ -28,11 +28,14 @@ class Show {
 }
 
 class Cinema {
-    constructor(id, name, address, logo) {
+    constructor(id, name, address, logo, footerLogo, description, backgroundImage) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.logo = logo;
+        this.footerLogo = footerLogo;
+        this.description = description;
+        this.backgroundImage = backgroundImage;
         this.salons = [];
         this.shows = [];
     }
