@@ -1,62 +1,70 @@
 import { cinemas } from "./script.js";
-import { getCinemaSalons } from "./filmsData.js";
+import { getCinemaSalons, getCinemaShows } from "./filmsData.js";
 
 export function startReservation(cinemaId) {
-    const cinema = cinemas.find((c) => c.id === cinemaId);
-    if (!cinema) {
-        console.error("Sinema bulunamadı.");
-        return;
-    }
-
+    const selectedCinema = cinemas.find((c) => c.id === cinemaId);
+    const cinemaShows = getCinemaShows(cinemaId);
     const home = document.getElementById("home");
+
     home.innerHTML = `
-        <h2>Buchung oder Reservierung - ${cinema.name}</h2>
+        <h2>Buchung oder Reservierung - ${selectedCinema.name}</h2>
         <p>Film wählen:</p>
-        <select id="filmSelect">
-            <option value="">Film auswählen...</option>
-            ${cinema.shows
-                .map((show) => `<option value="${show.film.id}">${show.film.name}</option>`)
-                .join("")}
-        </select>
-        <div id="salonSelection" style="margin-top: 20px;"></div>
-    `;
-
-    document.getElementById("filmSelect").addEventListener("change", (e) =>
-        showSalonSelection(cinemaId, parseInt(e.target.value))
-    );
-}
-// 
-
-
-function showSalonSelection(cinemaId, filmId) {
-    const salons = getCinemaSalons(cinemaId);
-    const salonContainer = document.getElementById("salonSelection");
-
-    salonContainer.innerHTML = `
-        <h3>Salon wählen:</h3>
-        <div class="salon-list">
-            ${salons
+        <div id="filmOptions" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            ${cinemaShows
                 .map(
-                    (salon) => `
-                    <div class="salon-item">
-                        <img src="${salon.image}" alt="${salon.name}" style="width: 100px; height: auto;">
-                        <h4>${salon.name}</h4>
-                        <p>Sitze: ${salon.seats}</p>
-                        <p>Preis: ${salon.price}€</p>
-                        <button class="select-salon" data-id="${salon.id}">Wählen</button>
-                    </div>
-                `
+                    (show) => `
+                <label style="text-align: center; max-width: 150px;">
+                    <input type="radio" name="film" value="${show.film.id}" style="display: none;">
+                    <img src="${show.film.image}" alt="${show.film.name}" style="width: 100%; cursor: pointer; border: 1px solid #ccc; border-radius: 5px;">
+                    <div>${show.film.name}</div>
+                </label>
+            `
                 )
                 .join("")}
         </div>
+        <div id="salonSelection" style="margin-top: 20px;"></div>
     `;
 
-    document.querySelectorAll(".select-salon").forEach((button) =>
-        button.addEventListener("click", (e) =>
-            showSeatSelection(cinemaId, parseInt(e.target.dataset.id))
-        )
-    );
+    document.querySelectorAll("#filmOptions input[type='radio']").forEach((input) => {
+        input.addEventListener("change", (e) => {
+            const filmId = parseInt(e.target.value, 10);
+            showSalonSelection(cinemaId, filmId);
+        });
+    });
 }
+
+function showSalonSelection(cinemaId, filmId) {
+    const cinemaShows = getCinemaShows(cinemaId).filter((show) => show.film.id === filmId);
+    const salonContainer = document.getElementById("salonSelection");
+
+    salonContainer.innerHTML = `
+        <h3>Salons für den Film:</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            ${cinemaShows
+                .map(
+                    (show) => `
+                <label style="text-align: center; max-width: 150px;">
+                    <input type="radio" name="salon" value="${show.salonId}" style="display: none;">
+                    <img src="./assets/salons/salon${show.salonId}.jpg" alt="Salon ${show.salonId}" style="width: 100%; cursor: pointer; border: 1px solid #ccc; border-radius: 5px;">
+                    <div>Salon ${show.salonId} - ${show.time}</div>
+                </label>
+            `
+                )
+                .join("")}
+        </div>
+        <button id="confirmSalon" class="btn-primary" style="margin-top: 20px;">Weiter</button>
+    `;
+
+    document.getElementById("confirmSalon").addEventListener("click", () => {
+        const selectedSalon = document.querySelector("input[name='salon']:checked");
+        if (selectedSalon) {
+            alert(`Salon ${selectedSalon.value} wurde ausgewählt!`);
+        } else {
+            alert("Bitte wählen Sie einen Salon aus.");
+        }
+    });
+}
+
 
 // Rezervesyon ve sepet işlemleri
 

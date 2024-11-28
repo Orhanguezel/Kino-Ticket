@@ -7,8 +7,13 @@ export const cineGroupInfo = {
     title: "CineGrup - Ihr Kinoerlebnis",
     address: "Berlin",
     description: "Willkommen bei CineGrup! Wählen Sie ein Kino aus, um loszulegen.",
-    footer: "© 2024 CineGrup. Alle Rechte vorbehalten.",
+    design: "OG",
+    get footer() {
+        return `© 2024 CineGrup. Alle Rechte vorbehalten. ${this.design}`;
+    }
 };
+
+
 
 export const cinemas = [
     new Cinema(
@@ -40,7 +45,7 @@ cinemas.forEach((cinema) => {
 export function loadHeader(cinema = null) {
     const header = document.getElementById("header");
     header.innerHTML = `
-        <img src="${cinema ? cinema.logo : cineGroupInfo.logo}" alt="${cinema ? cinema.name : "CineGrup"}" style="height: 50px;">
+        <img src="${cinema ? cinema.logo : cineGroupInfo.logo}" alt="${cinema ? cinema.name : "CineGrup"}">
         <h1>${cinema ? cinema.name : cineGroupInfo.title}</h1>
     `;
 }
@@ -70,9 +75,14 @@ export function loadHome(cinema = null) {
 
 export function loadFooter(cinema = null) {
     const footer = document.getElementById("footer");
+    const ogUrl = "https://orhanguezel.github.io/personal/"; 
+
     footer.innerHTML = `
-        <img src="${cinema ? cinema.footerLogo : cineGroupInfo.footerLogo}" alt="${cinema ? cinema.name : "CineGrup"}" style="height: 50px;">
-        <p>${cinema ? cinema.address : cineGroupInfo.footer}</p>
+        <img src="${cinema ? cinema.footerLogo : cineGroupInfo.footerLogo}" alt="${cinema ? cinema.name : "CineGrup"}">
+        <p>${cinema ? cinema.address : cineGroupInfo.address}</p>
+        <p>
+            ${cinema ? cinema.description : cineGroupInfo.footer.replace("OG", `<a href="${ogUrl}" target="_blank" rel="noopener noreferrer">OG</a>`)}
+        </p>
     `;
 }
 

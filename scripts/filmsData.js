@@ -22,20 +22,29 @@ class Film {
         this.id = id;
         this.name = name;
         this.duration = duration;
-        this.image = image;
-        this.showtimes = showtimes;
+        this.image = image; // Afişin yolunu temsil eder
+        this.showtimes = showtimes; // Gösterim saatleri
     }
 }
 
 // Filmler listesi
 export const films = [
-    new Film(1, "Avatar: The Way of Water", 180, "avatar.jpg", ["12:00", "15:30", "19:00"]),
-    new Film(2, "Oppenheimer", 195, "oppenheimer.jpg", ["10:30", "14:00", "18:00"]),
-    new Film(3, "Barbie", 120, "barbie.jpg", ["11:00", "13:30", "16:00"]),
-    new Film(4, "The Marvels", 130, "marvels.jpg", ["12:45", "17:00", "20:30"]),
-    new Film(5, "Dune Part 2", 155, "dune.jpg", ["14:00", "19:00"]),
-    new Film(6, "Killers of the Flower Moon", 206, "killers.jpg", ["12:00", "16:00", "20:00"]),
+    new Film(1, "Avatar: The Way of Water", 180, "./assets/filmafis/avatar.jpg", ["12:00", "15:30", "19:00"]),
+    new Film(2, "Oppenheimer", 195, "./assets/filmafis/oppenheimer.jpg", ["10:30", "14:00", "18:00"]),
+    new Film(3, "Barbie", 120, "./assets/filmafis/barbie.jpg", ["11:00", "13:30", "16:00"]),
+    new Film(4, "The Marvels", 130, "./assets/filmafis/marvel.jpg", ["12:45", "17:00", "20:30"]),
+    new Film(5, "Dune Part 2", 155, "./assets/filmafis/dune.jpg", ["14:00", "19:00"]),
+    new Film(6, "Killers of the Flower Moon", 206, "./assets/filmafis/killers.jpg", ["12:00", "16:00", "20:00"]),
 ];
+
+export function getCinemaShows(cinemaId) {
+    return cinemaShows[cinemaId]?.map((show) => {
+        const film = films.find((f) => f.id === show.filmId);
+        return { film, salonId: show.salonId, time: show.time };
+    }) || [];
+}
+
+
 
 // Gösterimler ve sinema bağlantıları
 export const cinemaShows = {
@@ -50,11 +59,3 @@ export const cinemaShows = {
         { filmId: 6, salonId: 3, time: "17:30" },
     ],
 };
-
-// Gösterimleri döndüren fonksiyon
-export function getCinemaShows(cinemaId) {
-    return cinemaShows[cinemaId]?.map((show) => {
-        const film = films.find((f) => f.id === show.filmId);
-        return { film, salonId: show.salonId, time: show.time };
-    }) || [];
-}

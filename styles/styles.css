@@ -5,8 +5,11 @@ body {
     background-color: #f4f4f4;
 }
 
+header{
+    background-color: #fff;
+}
+
 header, footer {
-    background-color: #333;
     min-height: 100px;
     color: #fff;
     text-align: center;
@@ -17,7 +20,7 @@ header img {
     position: absolute;
     display: flex;
     width: 150px;
-    height: 100px!important;
+    height: 120px!important;
 }
 
 
@@ -26,7 +29,27 @@ header h1, footer p {
     justify-content: center;
     align-items: center;
     margin: 0;
+    color:#333;
 }
+
+footer {
+    background-color: #333;
+}
+
+footer p {
+    color: #fff;
+}
+
+footer p a {
+    color: yellow;
+    text-decoration: none;
+}
+footer p a:hover {
+    color: #fff;
+    background-color: #460b0b;
+    text-decoration: none;
+}
+
 
 footer img {
     width: 250px;
