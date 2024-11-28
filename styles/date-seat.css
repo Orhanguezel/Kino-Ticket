@@ -1,0 +1,53 @@
+/* Tarih ve saat formu */
+#dateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+#dateForm label {
+    font-weight: bold;
+}
+
+#dateForm input, #dateForm select {
+    padding: 5px;
+    font-size: 14px;
+}
+
+#dateForm button {
+    margin-top: 10px;
+}
+
+/* Koltuk planı */
+.seat-plan {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.seat.occupied {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.seat.available:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.seat.selected {
+    background-color: #28a745;
+    color: white;
+}
