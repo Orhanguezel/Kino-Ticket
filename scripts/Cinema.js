@@ -1,3 +1,6 @@
+import { Salon } from "./Salon.js";
+import { getCinemaShows } from "./filmsData.js";
+
 export class Cinema {
     constructor(id, name, address, logo, footerLogo, description, backgroundImage) {
         this.id = id;
@@ -29,12 +32,29 @@ export class Cinema {
     }
 }
 
-export class Salon {
-    constructor(id, name, image, seats, price) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.seats = seats;
-        this.price = price;
-    }
-}
+export const cinemas = [
+    new Cinema(
+        1,
+        "Cineplex Berlin Steglitz",
+        "Schloßstraße 4, 12163 Berlin",
+        "./assets/logo/cineberlin.png",
+        "./assets/logo/footer/cineberlin2.png",
+        "Erleben Sie die besten Filme bei Cineplex Berlin Steglitz!",
+        "./assets/cinema/berlin-bg.jpg"
+    ),
+    new Cinema(
+        2,
+        "Cineplex Neukölln",
+        "Karl-Marx-Straße 66, 12043 Köln",
+        "./assets/logo/cinekoln.png",
+        "./assets/logo/footer/cinekoln2.png",
+        "Genießen Sie ein einmaliges Kinoerlebnis bei Cineplex Neukölln.",
+        "./assets/cinema/neukolln-bg.jpg"
+    ),
+];
+
+// Gösterimleri ekle
+cinemas.forEach((cinema) => {
+    const shows = getCinemaShows(cinema.id);
+    shows.forEach((show) => cinema.addShow(show));
+});

@@ -1,46 +1,6 @@
-import { Cinema } from "./Cinema.js";
-import { getCinemaShows } from "./filmsData.js";
-
-export const cineGroupInfo = {
-    logo: "./assets/logo/cinegrup.png",
-    footerLogo: "./assets/logo/footer/cinegrup2.png",
-    title: "CineGrup - Ihr Kinoerlebnis",
-    address: "Berlin",
-    description: "Willkommen bei CineGrup! Wählen Sie ein Kino aus, um loszulegen.",
-    design: "OG",
-    get footer() {
-        return `© 2024 CineGrup. Alle Rechte vorbehalten. ${this.design}`;
-    }
-};
-
-
-
-export const cinemas = [
-    new Cinema(
-        1,
-        "Cineplex Berlin Steglitz",
-        "Schloßstraße 4, 12163 Berlin",
-        "./assets/logo/cineberlin.png",
-        "./assets/logo/footer/cineberlin2.png",
-        "Erleben Sie die besten Filme bei Cineplex Berlin Steglitz!",
-        "./assets/cinema/berlin-bg.jpg"
-    ),
-    new Cinema(
-        2,
-        "Cineplex Neukölln",
-        "Karl-Marx-Straße 66, 12043 Köln",
-        "./assets/logo/cinekoln.png",
-        "./assets/logo/footer/cinekoln2.png",
-        "Genießen Sie ein einmaliges Kinoerlebnis bei Cineplex Neukölln.",
-        "./assets/cinema/neukolln-bg.jpg"
-    ),
-];
-
-// Gösterimleri ekle
-cinemas.forEach((cinema) => {
-    const shows = getCinemaShows(cinema.id);
-    shows.forEach((show) => cinema.addShow(show));
-});
+import { cinemas } from "./Cinema.js";
+import { cineGroupInfo } from "./cineGroupInfo.js";
+import { startReservation } from "./buchenReservieren.js";
 
 export function loadHeader(cinema = null) {
     const header = document.getElementById("header");
@@ -94,7 +54,7 @@ function updateUI(cinema = null) {
     setTimeout(() => {
         if (cinema) {
             document.getElementById("startReservationButton")?.addEventListener("click", () =>
-                import("./buchenReservieren.js").then((module) => module.startReservation(cinema.id))
+                startReservation(cinema.id)
             );
         }
 
