@@ -1,10 +1,11 @@
 import { getCart, clearCart, showTickets } from "./checkoutHandler.js";
+import { processPayment } from "./paymentHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const cart = getCart();
 
     if (cart.length === 0) {
-        alert("Sepet boş!");
+        alert("Sepet boş! Lütfen bilet ekleyin.");
         document.getElementById("checkoutContainer").innerHTML = "<p>Ihr Warenkorb ist leer.</p>";
         return;
     }
@@ -13,12 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     showTickets(cart);
 
     // Ödeme Tamamla Butonuna Olay Ekleyelim
-    const completePaymentButton = document.getElementById("completePayment");
-    if (completePaymentButton) {
-        completePaymentButton.addEventListener("click", () => {
-            alert("Zahlung erfolgreich! Ihre Tickets sind ausgestellt."); // Ödeme başarılı mesajı
-            clearCart(); // Sepeti temizle
-            window.location.href = "index.html"; // Ana sayfaya dön
-        });
-    }
+    document.getElementById("completePayment").addEventListener("click", () => {
+        processPayment(); // Ödeme işlemini başlat
+        alert("Zahlung erfolgreich! Ihre Tickets sind ausgestellt."); // Ödeme başarılı mesajı
+        clearCart(); // Sepeti temizle
+        window.location.href = "index.html"; // Ana sayfaya dön
+    });
 });
