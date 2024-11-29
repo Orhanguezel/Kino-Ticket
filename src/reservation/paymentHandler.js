@@ -1,6 +1,5 @@
-import { getCart, clearCart } from "./checkoutHandler.js";
+import { getCart, clearCart, showTickets } from "./checkoutHandler.js";
 
-// Ödeme İşlemleri
 export function processPayment() {
     const cart = getCart();
 
@@ -9,46 +8,18 @@ export function processPayment() {
         return;
     }
 
-    // Ödeme formunu oluştur
+    // Ödenecek toplam tutarı hesapla
+    const totalPrice = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+
+    // **checkoutContainer**'a hem biletleri hem de ödeme formunu ekle
     const checkoutContainer = document.getElementById("checkoutContainer");
+    if (!checkoutContainer) {
+        console.error("Checkout container bulunamadı!");
+        return;
+    }
+
     checkoutContainer.innerHTML = `
-        <h2>Ödeme İşlemi</h2>
-        <form id="paymentForm">
-            <label for="cardNumber">Kart Numarası:</label>
-            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
-
-            <label for="expiryDate">Son Kullanma Tarihi:</label>
-            <input type="text" id="expiryDate" placeholder="12/34" required>
-
-            <label for="cvv">CVV:</label>
-            <input type="text" id="cvv" placeholder="123" required>
-
-            <button type="button" id="confirmPayment" class="btn-primary">Ödeme Yap</button>
-        </form>
-    `;
-
-    document.getElementById("confirmPayment").addEventListener("click", () => {
-        // Kullanıcı girişlerini al
-        const cardNumber = document.getElementById("cardNumber").value;
-        const expiryDate = document.getElementById("expiryDate").value;
-        const cvv = document.getElementById("cvv").value;
-
-        // Test kredi kartı bilgileri
-        if (cardNumber === "1234 5678 9012 3456" && expiryDate === "12/34" && cvv === "123") {
-            alert("Ödeme başarılı! Biletleriniz hazırlanıyor...");
-            showTickets(cart); // Biletleri göster
-            clearCart(); // Sepeti temizle
-        } else {
-            alert("Geçersiz ödeme bilgileri. Lütfen tekrar deneyin.");
-        }
-    });
-}
-
-// Biletleri Göster
-function showTickets(cart) {
-    const checkoutContainer = document.getElementById("checkoutContainer");
-    checkoutContainer.innerHTML = `
-        <h2>Ödeme Başarılı! İşte Biletleriniz:</h2>
+        <h2>Ihre Tickets</h2>
         <div class="ticket-container">
             ${cart
                 .map(
@@ -68,6 +39,50 @@ function showTickets(cart) {
                 )
                 .join("")}
         </div>
-        <button class="btn-primary" onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
+        <h2>Ödeme İşlemi</h2>
+        <div class="payment-section">
+            <div class="card-example">
+                <h3>Örnek Kart</h3>
+                <div class="card-design">
+                    <div class="card-front">
+                        <p class="card-number">Kart Numarası: <strong>1234 5678 9012 3456</strong></p>
+                        <p class="card-expiry">Son Kullanma Tarihi: <strong>12/34</strong></p>
+                        <p class="card-cvv">CVV: <strong>123</strong></p>
+                        <p style="color: red; font-size: 0.9rem;">Bu bilgiler test amaçlıdır.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-form">
+                <form id="paymentForm">
+                    <label for="cardNumber">Kart Numarası:</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+
+                    <label for="expiryDate">Son Kullanma Tarihi (MM/YY):</label>
+                    <input type="text" id="expiryDate" placeholder="12/34" required>
+
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" placeholder="123" required>
+
+                    <p id="totalAmount"><strong>Ödenecek Tutar:</strong> ${totalPrice} €</p>
+                    <button type="button" id="confirmPayment" class="btn-primary">Ödeme Yap</button>
+                </form>
+            </div>
+        </div>
     `;
+
+    // Ödeme işlemini kontrol et
+    document.getElementById("confirmPayment").addEventListener("click", () => {
+        const cardNumber = document.getElementById("cardNumber").value.trim();
+        const expiryDate = document.getElementById("expiryDate").value.trim();
+        const cvv = document.getElementById("cvv").value.trim();
+
+        // Test kredi kartı bilgileri
+        if (cardNumber === "1234 5678 9012 3456" && expiryDate === "12/34" && cvv === "123") {
+            alert("Ödeme başarılı! Biletleriniz hazırlanıyor...");
+            showTickets(cart); // Biletleri göster
+            clearCart(); // Sepeti temizle
+        } else {
+            alert("Geçersiz ödeme bilgileri. Lütfen tekrar deneyin.");
+        }
+    });
 }

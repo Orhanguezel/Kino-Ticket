@@ -44,3 +44,16 @@
 .btn-primary:hover {
     background-color: #0056b3;
 }
+
+
+.example-card {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.example-card p {
+    margin: 5px 0;
+}
