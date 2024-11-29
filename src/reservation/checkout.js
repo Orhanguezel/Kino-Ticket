@@ -1,4 +1,4 @@
-import { getCart, clearCart } from "../scripts/script.js";
+import { getCart, clearCart } from "./checkoutHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const cartItems = getCart();
@@ -12,62 +12,76 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCheckout(cartItems);
 
     document.getElementById("completePayment").addEventListener("click", () => {
-        completePayment(cartItems);
+        processPayment(cartItems);
     });
 });
 
 function renderCheckout(cartItems) {
+    const totalPrice = cartItems.length * 10;
     const checkoutContainer = document.getElementById("checkoutContainer");
-    const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
-
     checkoutContainer.innerHTML = `
-        <h2>Zusammenfassung</h2>
         ${cartItems
             .map(
                 (item) => `
-                <div class="checkout-item">
+                <div>
                     <p><strong>Kino:</strong> ${item.cinema}</p>
-                    <p><strong>Salon:</strong> ${item.salon}</p>
                     <p><strong>Sitzplatz:</strong> ${item.seat}</p>
-                    <p><strong>Preis:</strong> ${item.price.toFixed(2)} €</p>
                 </div>
             `
             )
             .join("")}
-        <h3>Gesamtpreis: ${totalPrice.toFixed(2)} €</h3>
-        <button id="completePayment" class="btn-primary">Bezahlen</button>
+        <h3>Gesamtpreis: ${totalPrice} €</h3>
+        <button id="completePayment">Bezahlen</button>
     `;
 }
 
-function completePayment(cartItems) {
-    const tickets = cartItems.map((item) => ({
-        ticketId: Math.random().toString(36).substr(2, 9),
-        ...item,
-    }));
 
-    clearCart(); // Sepeti temizle
-    showTickets(tickets); // Biletleri göster
+
+
+
+function processPayment(cart) {
+    const cardNumber = document.getElementById("cardNumber").value;
+    const expiryDate = document.getElementById("expiryDate").value;
+    const cvv = document.getElementById("cvv").value;
+
+    // Sahte kredi kartı doğrulama
+    if (cardNumber === "1234 5678 9012 3456" && expiryDate === "12/34" && cvv === "123") {
+        localStorage.removeItem("cart"); // Sepeti temizle
+        showTickets(cart); // Biletleri Göster
+    } else {
+        alert("Ungültige Zahlungsinformationen. Bitte erneut versuchen.");
+    }
 }
 
-function showTickets(tickets) {
+function showTickets(cart) {
     const checkoutContainer = document.getElementById("checkoutContainer");
     checkoutContainer.innerHTML = `
         <h2>Ihre Tickets</h2>
-        ${tickets
+        ${cart
             .map(
-                (ticket) => `
+                (item) => `
                 <div class="ticket">
-                    <p><strong>Ticket-ID:</strong> ${ticket.ticketId}</p>
-                    <p><strong>Kino:</strong> ${ticket.cinema}</p>
-                    <p><strong>Salon:</strong> ${ticket.salon}</p>
-                    <p><strong>Sitzplatz:</strong> ${ticket.seat}</p>
-                    <p><strong>Datum:</strong> ${ticket.date}</p>
-                    <p><strong>Uhrzeit:</strong> ${ticket.time}</p>
-                    <p><strong>Name:</strong> ${ticket.name} ${ticket.surname}</p>
+                    <p><strong>Kino:</strong> ${item.cinema}</p>
+                    <p><strong>Salon:</strong> ${item.salon}</p>
+                    <p><strong>Sitzplatz:</strong> ${item.seat}</p>
+                    <p><strong>Datum:</strong> ${item.date}</p>
+                    <p><strong>Uhrzeit:</strong> ${item.time}</p>
+                    <p><strong>Name:</strong> ${item.name} ${item.surname}</p>
                 </div>
             `
             )
             .join("")}
         <button class="btn-primary" onclick="window.location.href='index.html'">Zurück zur Startseite</button>
     `;
+}
+
+function completePayment(cartItems) {
+    // Her bilet için benzersiz bir ID oluşturuluyor
+    const tickets = cartItems.map((item) => ({
+        ticketId: Math.random().toString(36).substr(2, 9), // Random bir ID
+        ...item, // Sepetteki tüm bilgiler
+    }));
+
+    clearCart(); // Sepeti temizle
+    showTickets(tickets); // Biletleri göster
 }
