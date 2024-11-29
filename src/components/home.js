@@ -1,12 +1,10 @@
 import { cinemas } from "../data/cinemas.js";
 import { cineGroupInfo } from "../data/cineGroupInfo.js";
-import { startReservation } from "../reservation/reservationHandler.js";
 
 export function loadHome(cinema = null) {
     const home = document.getElementById("home");
     home.style.backgroundImage = `url(${cinema ? cinema.backgroundImage : './assets/cinema/default-bg.jpg'})`;
-    home.style.backgroundSize = "cover";
-    home.style.backgroundPosition = "center";
+    home.style.transition = "background-image 0.5s ease-in-out";
 
     home.innerHTML = cinema
         ? `
@@ -25,3 +23,5 @@ export function loadHome(cinema = null) {
             </div>
         `;
 }
+
+

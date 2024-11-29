@@ -1,67 +1,65 @@
-/* Ana stil */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-h2, h3 {
-    text-align: center;
-    margin-top: 20px;
-}
-
-#filmOptions, #salonSelection {
+.salon-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
+    margin-top: 20px;
 }
 
-label {
+.salon-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 150px;
-    cursor: pointer;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: var(--card-bg-color);
+    width: 200px; /* Sabit genişlik */
+    height: auto; /* İçeriğe göre yükseklik */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-label img {
+.salon-card img {
     width: 100%;
-    border: 1px solid #ccc;
+    height: 120px;
+    object-fit: cover;
     border-radius: 5px;
-    transition: transform 0.2s ease;
+    margin-bottom: 10px;
 }
 
-label img:hover {
-    transform: scale(1.05);
+.salon-card h4 {
+    font-size: 1em;
+    margin: 10px 0;
+    text-align: center;
 }
 
-input[type="radio"] {
-    display: none;
+.salon-card p {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-bottom: 10px;
 }
 
-input[type="radio"]:checked + img {
-    border: 2px solid #007BFF;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.salon-card .btn-primary {
+    margin-top: auto;
+    padding: 10px;
+    font-size: 0.9em;
     cursor: pointer;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-button:hover {
-    background-color: #0056b3;
+.salon-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
-/* Salon seçeneklerinin temel stil ayarları */
+
+.salon-item {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .salon-option {
     border: 2px solid transparent;
     border-radius: 8px;
@@ -70,11 +68,11 @@ button:hover {
 }
 
 .salon-option:hover {
-    border-color: #007bff; /* Hover sırasında mavi kenarlık */
+    border-color: var(--primary-color);
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
 }
 
 .salon-option.selected {
-    border-color: #28a745; /* Seçili olan salonun yeşil kenarlığı */
+    border-color: var(--success-color);
     box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
 }

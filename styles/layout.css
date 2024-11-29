@@ -1,0 +1,23 @@
+/* Genel Başlık Stilleri */
+h1, h2, h3 {
+    font-family: var(--font-family-primary);
+    color: var(--primary-color);
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Genel Buton Stilleri */
+button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}

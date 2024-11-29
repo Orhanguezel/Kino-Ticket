@@ -1,0 +1,27 @@
+/* Renk Paleti */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --background-color: #f4f4f4;
+    --light-color: #ffffff;
+    --dark-color: #333333;
+    --warning-color: #ff0000;
+    --success-color: #28a745;
+    --info-color: #17a2b8;
+    --font-family-primary: Arial, sans-serif;
+    --font-family-secondary: "Courier New", Courier, monospace;
+    --hover-border-color: #28a745; /* Hover durumunda border rengi */
+    --text-color: #333; /* Genel metin rengi */
+    --card-bg-color: #f8f9fa; /* Kart arka plan rengi */
+    --border-color: #ddd; /* Kart sınır rengi */
+}
+
+/* Temel Ayarlar */
+body {
+    font-family: var(--font-family-primary);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--dark-color);
+}

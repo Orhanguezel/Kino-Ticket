@@ -8,7 +8,7 @@ export const cineGroupInfo = {
     address: "Deutschlandweit verfügbar.",
     design: "OG",
     get footer() {
-        return `© 2024 CineGrup, entwickelt von ${this.design}`;
+        return `© 2024 CineGrup, entwickelt von ${ this.design}`;
     },
 };
 
