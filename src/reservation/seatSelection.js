@@ -2,6 +2,14 @@ import { cinemas } from "../data/cinemas.js";
 import { getCinemaSalons } from "../data/filmsData.js";
 import { proceedToCheckout, setCart, getCart } from "./checkoutHandler.js";
 
+// İndirimler
+const DISCOUNTS = {
+    child: 0.3, // Çocuk indirimi %30
+    publicDay: 0.2, // Halk günü indirimi %20
+};
+
+const PUBLIC_DAYS = ["Monday", "Wednesday"]; // Halk günleri
+
 // Koltuk Seçimi ve Detaylar
 export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime) {
     const cinema = cinemas.find((c) => c.id === cinemaId);
@@ -26,6 +34,7 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
 
     home.innerHTML = `
         <h2>${cinema.name} - ${salon.name}</h2>
+        <p>Sitzplätze für den ${selectedDate} um ${selectedTime}:</p>
         <div class="seat-plan">
             ${seats
                 .map(
@@ -66,101 +75,57 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
 }
 
 function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) {
-    const home = document.getElementById("home");
-    home.innerHTML = `
-        <form id="detailsForm">
-            ${selectedSeats
-                .map(
-                    (seat, index) => `
-                    <div>
-                        <label>${seat} - Vorname:</label>
-                        <input type="text" id="name${index}" required>
-                        <label>Nachname:</label>
-                        <input type="text" id="surname${index}" required>
-                    </div>`
-                )
-                .join("")}
-            <button type="button" id="addToCart">In den Warenkorb legen</button>
-        </form>
-    `;
-
-    document.getElementById("addToCart").addEventListener("click", () => {
-        const details = selectedSeats.map((seat, index) => ({
-            cinema: cinema.name,
-            salon: salon.name,
-            seat,
-            name: document.getElementById(`name${index}`).value,
-            surname: document.getElementById(`surname${index}`).value,
-            date: selectedDate,
-            time: selectedTime,
-        }));
-
-        const cart = getCart();
-        setCart([...cart, ...details]);
-        alert("Koltuklar sepete eklendi!");
-        proceedToCheckout();
-    });
-}
-
-
-// Rezervasyonu Tamamlama
-function finalizeReservation(selectedSeats, cinema, salon, selectedDate, selectedTime) {
-  const reservationDetails = selectedSeats.map((seat, index) => ({
-      cinema: cinema.name,
-      salon: salon.name,
-      seat: seat,
-      name: `User ${index + 1}`, // Placeholder for user input
-      surname: `Surname ${index + 1}`, // Placeholder for user input
-      category: "Erwachsener", // Default olarak Erwachsener
-      date: selectedDate,
-      time: selectedTime,
-  }));
-
-  const currentCart = getCart();
-  const updatedCart = [...currentCart, ...reservationDetails];
-  setCart(updatedCart);
-
-  alert("Koltuklar sepete eklendi!");
-  proceedToCheckout(); // Ödeme sayfasına yönlendirme
-}
-
-function updateCartLocalStorage() {
-  localStorage.setItem("cart", JSON.stringify(cart)); // Sepeti Local Storage'a kaydet
-}
-
-
-
-// Sepet Görüntüleme
-function showCart() {
   const home = document.getElementById("home");
   home.innerHTML = `
-      <h2>Warenkorb</h2>
-      ${cart
-          .map(
-              (item) => `
-          <div>
-              <p><strong>Kino:</strong> ${item.cinema}</p>
-              <p><strong>Salon:</strong> ${item.salon}</p>
-              <p><strong>Sitzplatz:</strong> ${item.seat}</p>
-              <p><strong>Name:</strong> ${item.name} ${item.surname}</p>
-              <p><strong>Kategorie:</strong> ${
-                  item.category === "child" ? "Kind" : "Erwachsener"
-              }</p>
-              <p><strong>Datum:</strong> ${item.date}</p>
-              <p><strong>Uhrzeit:</strong> ${item.time}</p>
-              <p><strong>Preis:</strong> 10,00 €</p>
-          </div>
-      `
-          )
-          .join("")}
-      <button class="btn-primary" id="checkoutButton">Weiter zur Kasse</button>
+      <h2>Kundendetails</h2>
+      <form id="detailsForm">
+          ${selectedSeats
+              .map(
+                  (seat, index) => `
+                  <div>
+                      <h3>Sitzplatz: ${seat}</h3>
+                      <label for="name${index}">Vorname:</label>
+                      <input type="text" id="name${index}" required>
+                      <label for="surname${index}">Nachname:</label>
+                      <input type="text" id="surname${index}" required>
+                      <label for="category${index}">Kategorie:</label>
+                      <select id="category${index}">
+                          <option value="adult">Erwachsener</option>
+                          <option value="child">Kind</option>
+                      </select>
+                  </div>`
+              )
+              .join("")}
+          <button type="button" id="addToCart" class="btn-primary">In den Warenkorb legen</button>
+      </form>
   `;
 
-  document.getElementById("checkoutButton")?.addEventListener("click", () => {
-      window.location.href = "checkout.html";
+  document.getElementById("addToCart").addEventListener("click", () => {
+      const details = selectedSeats.map((seat, index) => {
+          const category = document.getElementById(`category${index}`).value;
+          let price = salon.price;
+
+          // İndirim hesaplama
+          if (category === "child") price -= price * DISCOUNTS.child;
+          const dayName = new Date(selectedDate).toLocaleString("en-US", { weekday: "long" });
+          if (PUBLIC_DAYS.includes(dayName)) price -= price * DISCOUNTS.publicDay;
+
+          return {
+              cinema: cinema.name,
+              salon: salon.name,
+              seat,
+              price: parseFloat(price.toFixed(2)),
+              name: document.getElementById(`name${index}`).value,
+              surname: document.getElementById(`surname${index}`).value,
+              category,
+              date: selectedDate,
+              time: selectedTime,
+          };
+      });
+
+      const cart = getCart();
+      setCart([...cart, ...details]);
+      alert("Biletiniz sepete eklendi!");
+      proceedToCheckout();
   });
 }
-
-// Örnek Kullanımı
-showCart();
-updateCartLocalStorage();
