@@ -1,4 +1,3 @@
-import { getCart, clearCart } from "../scripts/script.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const cartItems = getCart() || []; // Sepet boşsa varsayılan olarak boş array atanır.

@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/Orhanguezel/Kino-Ticket/issues"
   },
-  "homepage": "https://github.com/Orhanguezel/Kino-Ticket#readme"
+  "homepage": "https://github.com/Orhanguezel/Kino-Ticket#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
 }

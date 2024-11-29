@@ -1,5 +1,5 @@
-import { cinemas, getCinemaSalons } from "../data/cinemas.js";
-import { cart } from "../data/cart.js";
+import { cinemas} from "../data/cinemas.js";
+import { getCinemaSalons } from "../data/filmsData.js";
 
 // Koltuk Seçimi ve Detaylar
 export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime) {

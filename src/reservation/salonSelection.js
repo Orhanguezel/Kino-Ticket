@@ -1,4 +1,5 @@
 import { getCinemaShows } from "../data/filmsData.js";
+import { showDateSelection } from "./dateSelection.js";
 
 export function showSalonSelection(cinemaId, filmId) {
   // Gösterimleri al
@@ -41,7 +42,7 @@ export function showSalonSelection(cinemaId, filmId) {
           })
           .join("")}
     </div>
-    <button id="confirmSalon" class="btn-primary" style="margin-top: 20px;">Weiter</button>
+    <button id="confirmSalon" class="btn-primary" style="margin-top: 20px;">Weiter</button>  //// WEITER BUTTON
   `;
 
   // Radio butonlarına olay dinleyicileri ekle

@@ -1,4 +1,3 @@
-import { Salon } from "../reservation/salonData.js";
 import { getCinemaShows } from "./filmsData.js";
 
 export class Cinema {

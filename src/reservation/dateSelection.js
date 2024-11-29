@@ -1,43 +1,38 @@
-import { getCinemaShows, getCinemaSalons } from "../data/filmsData.js";
+import { getCinemaSalons } from "../data/filmsData.js";
 import { cinemas } from "../data/cinemas.js";
 import { showSeatSelection } from "./seatSelection.js";
 
 export function showDateSelection(cinemaId, salonId) {
+  console.log(`showDateSelection çağrıldı. Cinema ID: ${cinemaId}, Salon ID: ${salonId}`);
   const home = document.getElementById("home");
   const selectedCinema = cinemas.find((c) => c.id === cinemaId);
-  const selectedSalon = getCinemaSalons(cinemaId).find(
-    (s) => s.id === parseInt(salonId)
-  );
+  const selectedSalon = getCinemaSalons(cinemaId).find((s) => s.id === parseInt(salonId));
 
   if (!selectedSalon) {
+    console.error("Salon verisi bulunamadı:", { salonId, cinemaId });
     alert("Salon verisi bulunamadı.");
     return;
   }
 
-  home.innerHTML = `
-        <h2>${selectedCinema.name} - ${selectedSalon.name}</h2>
-        <p>Wählen Sie ein Datum und eine Uhrzeit für die Sitzung:</p>
-        <form id="dateForm">
-            <label for="dateSelect">Datum:</label>
-            <input type="date" id="dateSelect" required>
-            
-            <label for="timeSelect">Uhrzeit:</label>
-            <select id="timeSelect" required>
-                <option value="">Uhrzeit wählen...</option>
-                ${selectedSalon.shows
-                  ?.map(
-                    (show) =>
-                      `<option value="${show.time}">${show.time}</option>`
-                  )
-                  .join("")}
-            </select>
-            <button type="button" id="proceedToSeats" class="btn-primary">Weiter</button>
-        </form>
-    `;
+  console.log("Bulunan salon:", selectedSalon);
 
-  document.getElementById("proceedToSeats").addEventListener("click", () => {
-    const selectedDate = document.getElementById("dateSelect").value;
-    const selectedTime = document.getElementById("timeSelect").value;
+  home.innerHTML = `
+    <h2>${selectedCinema.name} - ${selectedSalon.name}</h2>
+    <form id="dateForm">
+        <label for="dateSelect">Datum:</label>
+        <input type="date" id="dateSelect" required>
+        <label for="timeSelect">Uhrzeit:</label>
+        <select id="timeSelect" required>
+            <option value="">Uhrzeit wählen...</option>
+            ${selectedSalon.shows.map(show => `<option value="${show.time}">${show.time}</option>`).join("")}
+        </select>
+        <button type="button" id="proceedToSeats" class="btn-primary">Weiter</button>
+    </form>
+  `;
+
+  document.getElementById("proceedToSeats")?.addEventListener("click", () => {
+    const selectedDate = document.getElementById("dateSelect")?.value;
+    const selectedTime = document.getElementById("timeSelect")?.value;
 
     if (!selectedDate || !selectedTime) {
       alert("Bitte wählen Sie ein gültiges Datum und eine Uhrzeit.");
@@ -47,6 +42,9 @@ export function showDateSelection(cinemaId, salonId) {
     showSeatSelection(cinemaId, salonId, selectedDate, selectedTime);
   });
 }
+
+
+
 
 // "Salon Seçimi Onay" Event Listener (Dışarıya Taşındı)
 export function attachConfirmSalonListener(cinemaId) {
@@ -59,3 +57,5 @@ export function attachConfirmSalonListener(cinemaId) {
     }
   });
 }
+
+
