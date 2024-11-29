@@ -6,7 +6,13 @@ export function showDateSelection(cinemaId, salonId) {
   console.log(`showDateSelection çağrıldı. Cinema ID: ${cinemaId}, Salon ID: ${salonId}`);
   const home = document.getElementById("home");
   const selectedCinema = cinemas.find((c) => c.id === cinemaId);
-  const selectedSalon = getCinemaSalons(cinemaId).find((s) => s.id === parseInt(salonId));
+  const selectedSalon = getCinemaSalons(cinemaId)?.find((s) => s.id === parseInt(salonId));
+
+  if (!selectedCinema) {
+    console.error("Sinema verisi bulunamadı:", cinemaId);
+    alert("Sinema verisi bulunamadı.");
+    return;
+  }
 
   if (!selectedSalon) {
     console.error("Salon verisi bulunamadı:", { salonId, cinemaId });

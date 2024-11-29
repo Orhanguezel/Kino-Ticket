@@ -10,7 +10,7 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
     return;
   }
 
-  const salon = getCinemaSalons(cinemaId).find((s) => s.id === salonId);
+  const salon = getCinemaSalons(cinemaId)?.find((s) => s.id === parseInt(salonId));
   if (!salon) {
     console.error("Geçersiz salonId:", salonId);
     alert("Salon verisi bulunamadı!");
@@ -19,11 +19,17 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
 
   const home = document.getElementById("home");
   const rows = Math.ceil(salon.seats / 10);
-  const seats = Array.from({ length: salon.seats }, (_, i) => ({
-    id: i + 1,
-    row: String.fromCharCode(65 + Math.floor(i / 10)),
-    occupied: Math.random() > 0.7,
-  }));
+  const seats = Array.from({ length: salon.seats }, (_, i) => {
+    const rowNumber = Math.floor(i / 10); // Satır numarası
+    const seatNumber = (i % 10) + 1; // Koltuk numarası
+    return {
+      id: i + 1,
+      row: String.fromCharCode(65 + rowNumber), // Satır harfi (A, B, C, ...)
+      seatNumber, // Koltuk numarası (1-10)
+      occupied: Math.random() > 0.7, // Koltuk doluluk durumu
+    };
+  });
+  
 
   home.innerHTML = `
     <h2>${cinema.name} - ${salon.name}</h2>
@@ -75,6 +81,7 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
     );
   });
 }
+
 
 // Koltuk Detayları Girişi
 function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) {
