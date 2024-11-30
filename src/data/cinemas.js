@@ -50,7 +50,7 @@ export class Cinema {
 export const cinemas = [
   new Cinema(
     1,
-    "Cineplex Berlin Steglitz",
+    "Cineplex Berlin",
     "Schloßstraße 4, 12163 Berlin",
     "./assets/logo/cineberlin.png",
     "./assets/logo/footer/cineberlin2.png",
@@ -59,7 +59,7 @@ export const cinemas = [
   ),
   new Cinema(
     2,
-    "Cineplex Neukölln",
+    "Cineplex Köln",
     "Karl-Marx-Straße 66, 12043 Köln",
     "./assets/logo/cinekoln.png",
     "./assets/logo/footer/cinekoln2.png",
