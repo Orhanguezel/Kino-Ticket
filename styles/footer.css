@@ -6,8 +6,6 @@
     background-color: var(--footer-color);
     color: #fff;
     flex-wrap: wrap;
-    font-family: 'Lexend Deca', sans-serif;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .footer-oben {
@@ -41,7 +39,7 @@
     align-items: center;
     justify-content: center;
     flex: 2;
-    min-width: 400px;
+    min-width: 420px;
 }
 
 .footer-center .footer-nav ul {
@@ -69,6 +67,21 @@
     color: #ffd700;
 }
 
+.buy-now{
+    background-color: var(--dark-color);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.buy-now:hover{
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+
 /* Sağ Bölüm (Ödeme İkonları) */
 .footer-right {
     display: flex;
@@ -90,10 +103,6 @@
     height: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
-}
-
-.payment-icons img:hover {
-    transform: scale(1.1);
 }
 
 /* Alt Bölüm */
