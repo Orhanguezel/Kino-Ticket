@@ -25,12 +25,12 @@ export function loadFooter(cinema = null) {
                 <div class="footer-center">
                     <nav class="footer-nav">
                         <ul>
-    <li><a href="#" id="homeLink"><i class="fas fa-home"></i> Startseite</a></li>
-    <li><a href="#" id="cartLink"><i class="fas fa-shopping-cart"></i> Warenkorb</a></li>
-    <li><a href="#"><i class="fas fa-info-circle"></i> Über uns</a></li>
-    <li><a href="#"><i class="fas fa-film"></i> Filme</a></li>
-    <li><a href="#"><i class="fas fa-envelope"></i> Kontakt</a></li>
-    <li><a href="#" class="buy-now"><i class="fas fa-shopping-bag"></i> Jetzt kaufen</a></li>
+    <li><a href="#" id="homeLink"> Startseite</a></li>
+    <li><a href="#" id="cartLink"></i> Warenkorb</a></li>
+    <li><a href="#"> Über uns</a></li>
+    <li><a href="#"> Filme</a></li>
+    <li><a href="#"> Kontakt</a></li>
+    <li><a href="#" class="buy-now"> Jetzt kaufen</a></li>
 </ul>
 
                     </nav>

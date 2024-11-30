@@ -1,11 +1,47 @@
 /* Genel Başlık Stilleri */
 
-
 h1, h2, h3 {
     font-family: var(--font-family-primary);
     color: var(--primary-color);
     text-align: center;
     margin: 20px 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+}
+
+h5 {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: 1.2px;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+}
+
+a {
+    font-size: 1.2em;
+    text-decoration: none;
+
 }
 
 /* Genel Buton Stilleri */
@@ -20,48 +56,34 @@ button {
     transition: all 0.3s ease;
 }
 
-/* Birincil (Primary) Buton */
-.btn-primary {
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
 
-.btn-primary:hover {
-    background-color: var(--primary-hover-color);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
 
-/* İkincil (Secondary) Buton */
-.btn-secondary {
-    background-color: var(--secondary-color);
-    color: var(--light-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
 
-.btn-secondary:hover {
-    background-color: var(--secondary-hover-color);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
+@media (max-width: 768px) {
 
-/* Ana Sayfa ve Sinema Seçim Alanları */
-.cinema-actions {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-.cinema-details {
-    background-color: rgba(0, 0, 0, 0.85);
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 800px;
-    margin: auto;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    text-align: center;
-    color: var(--light-color);
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    h4 {
+        font-size: 1rem;
+   
+    }
+    
+    p {
+        font-size: 1.2rem;
+    }
+    
+    a {
+        font-size: 1.2rem;
+    }
 }

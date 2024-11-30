@@ -1,102 +1,84 @@
 /* Genel Footer Yapısı */
 .footer-container {
     display: flex;
+    flex-direction: column; /* Mobilde dikey düzen */
     justify-content: center;
-    padding: 20px 40px;
+    align-items: center;
+    padding: 20px;
     background-color: var(--footer-color);
     color: #fff;
-    flex-wrap: wrap;
+    gap: 20px; /* Bölümler arası boşluk */
 }
 
+/* Oberer Bereich */
 .footer-oben {
     display: flex;
-    justify-content: space-between;
-    color: #fff;
     flex-wrap: wrap;
-    border-bottom:2px solid rgba(247, 242, 242, 0.2);
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid rgba(247, 242, 242, 0.2);
+    padding-bottom: 20px;
+    width: 100%;
 }
 
-/* Sol Bölüm (Logo ve Bilgiler) */
+/* Sol Bölüm */
 .footer-left {
     flex: 1;
-    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 10px;
 }
 
 .footer-left img {
-    padding-left: 40px;
-    max-width: 150px;
+    max-width: 120px;
     height: auto;
 }
 
-.footer-left p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* Orta Bölüm (Menü) */
+/* Orta Menü */
 .footer-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex: 2;
-    min-width: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer-center .footer-nav ul {
+    display: flex;
+    flex-wrap: wrap; /* Öğeleri sarar */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.footer-center .footer-nav ul li {
-    margin: 5px;
+    
 }
 
 .footer-center .footer-nav ul li a {
     color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 .footer-center .footer-nav ul li a:hover {
     color: #ffd700;
 }
 
-.buy-now{
-    background-color: var(--dark-color);
-    color: var(--primary-color);
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-.buy-now:hover{
-    background-color: var(--primary-color);
-    color: var(--dark-color);
-}
-
-
-/* Sağ Bölüm (Ödeme İkonları) */
+/* Sağ Bölüm */
 .footer-right {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
-    min-width: 450px;
 }
 
 .payment-icons {
     display: flex;
-    justify-content: center;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
 }
 
 .payment-icons img {
@@ -106,52 +88,53 @@
     transition: transform 0.3s ease;
 }
 
-/* Alt Bölüm */
-.footer-unten{
-    display: flex;
-    justify-content: center;
-    color: #fff;
-    flex-wrap: wrap;
-}
-.footer-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+/* Unterer Bereich */
+.footer-unten {
+    text-align: center;
     margin-top: 20px;
-    font-size: 14px;
-    padding-top: 10px;
 }
+
+.footer-bottom {
+    font-size: 14px;
+    color: #fff;
+}
+
 .footer-bottom a {
     color: #ffd700;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
+
 .footer-bottom a:hover {
     color: red;
 }
 
 /* Responsive Ayarlar */
 @media (max-width: 768px) {
-    .footer-container {
+    .footer-oben {
         flex-direction: column;
         align-items: center;
-        text-align: center;
     }
 
     .footer-left,
     .footer-center,
     .footer-right {
-        max-width: 100%;
-        margin: 10px 0;
+        flex: none;
+        width: 100%; /* Tüm satırı kapla */
+        text-align: center;
     }
 
     .footer-center .footer-nav ul {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: column; /* Menü elemanlarını dikey sırala */
+        margin:40px 0;
     }
 
-    .payment-icons {
-        justify-content: center;
+    .footer-center .footer-nav ul li a {
+        line-height: 2;
+
+    }
+
+    .payment-icons img {
+        max-width: 50px;
     }
 }
