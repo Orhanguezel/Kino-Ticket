@@ -1,34 +1,147 @@
-/* Footer */
-footer {
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    padding: 10px 20px;
+/* Genel Footer Yapısı */
+.footer-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 40px;
+    background-color: var(--footer-color);
+    color: #fff;
+    flex-wrap: wrap;
+    font-family: 'Lexend Deca', sans-serif;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-oben {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    flex-wrap: wrap;
+    border-bottom:2px solid rgba(247, 242, 242, 0.2);
+}
+
+/* Sol Bölüm (Logo ve Bilgiler) */
+.footer-left {
+    flex: 1;
+    max-width: 300px;
     text-align: center;
-    position: relative;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-    height: auto;
-    max-height: 100px;
-    z-index: -1;
 }
 
-footer img {
-    width: 80px;
+.footer-left img {
+    max-width: 150px;
     height: auto;
-    margin-bottom: 5px;
 }
 
-footer p {
-    font-size: 12px;
+.footer-left p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Orta Bölüm (Menü) */
+.footer-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 2;
+    min-width: 400px;
+}
+
+.footer-center .footer-nav ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
-    line-height: 1.4;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-footer p a {
-    color: var(--info-color);
+.footer-center .footer-nav ul li {
+    margin: 5px;
+}
+
+.footer-center .footer-nav ul li a {
+    color: #fff;
     text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
 }
 
-footer p a:hover {
-    color: var(--light-color);
-    text-decoration: underline;
+.footer-center .footer-nav ul li a:hover {
+    color: #ffd700;
+}
+
+/* Sağ Bölüm (Ödeme İkonları) */
+.footer-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-width: 450px;
+}
+
+.payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.payment-icons img {
+    max-width: 60px;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.payment-icons img:hover {
+    transform: scale(1.1);
+}
+
+/* Alt Bölüm */
+.footer-unten{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    flex-wrap: wrap;
+}
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 14px;
+    padding-top: 10px;
+}
+.footer-bottom a {
+    color: #ffd700;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-bottom a:hover {
+    color: red;
+}
+
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    .footer-center .footer-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .payment-icons {
+        justify-content: center;
+    }
 }

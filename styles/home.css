@@ -6,8 +6,7 @@
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    height: 100vh;
-    overflow-y: auto;
+    min-height: calc(100vh - 100px); /* Footer'ın boyutunu hesaba kat */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,6 +39,7 @@
     margin-bottom: 30px;
     line-height: 1.6;
 }
+
 /* Cinema Actions ve List */
 .cinema-actions, .cinema-list {
     margin-top: 30px;
@@ -85,4 +85,15 @@
     background-color: var(--secondary-hover-color);
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer için yer bırak */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }

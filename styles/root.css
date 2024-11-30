@@ -7,9 +7,14 @@
     --dark-color: #333333;
     --error-color:red;
     --warning-color: #ff0000;
+    --footer-color: #D93A31;
+    --primary-color:#D93A31;
+    --secondary2-color: #2B2B35;
     --success-color: #28a745;
     --info-color: #17a2b8;
-    --font-family-primary: Arial, sans-serif;
+    --font-family-primary: 'Lexend Deca', sans-serif;
+    --primary-font-weight: 500;
+    --letter-spacing: 0px;
     --font-family-secondary: "Courier New", Courier, monospace;
     --hover-border-color: #28a745; /* Hover durumunda border rengi */
     --text-color: #333; /* Genel metin rengi */
@@ -24,5 +29,8 @@ body {
     padding: 0;
     box-sizing: border-box;
     background-color: var(--background-color);
-    color: var(--dark-color);
+    line-height: 1.2;
+    letter-spacing: 1.2px;
+    position: relative; /* Arka planın üstüne içerik eklemek için konumlandırmayı relative yapıyoruz */
+    overflow-x: hidden;
 }
