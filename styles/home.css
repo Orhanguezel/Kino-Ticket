@@ -17,13 +17,10 @@
 
 /* Cinema Details ve Group Info */
 .cinema-details, .group-info {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 30px;
-    border-radius: 15px;
     display: inline-block;
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
+    width: 100%;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     text-align: center;
     color: var(--light-color);

@@ -45,28 +45,39 @@ export function loadHome(cinema = null) {
         </div>
       `;
 
-  // Alt bölüm
+// Alt bölüm
 const bottomSection = `
   <div class="bottom-section">
       <div class="bottom-section-content">
           <h2>Über unser Kino & Filme</h2>
-          <p>Lorem Ipsum ist einfach ein Blindtext der Druck- und Satzindustrie. Lorem Ipsum ist seit dem 16. Jahrhundert der Standard-Blinktext der Branche.</p>
-          <p>Es ist eine lange erwiesene Tatsache, dass ein Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich das Layout ansieht.</p>
+          <p>CineGrup ist Ihr vertrauenswürdiger Partner für unvergessliche Kinoerlebnisse. Mit modernster Technologie und einer breiten Auswahl an Filmen bieten wir Ihnen die perfekte Unterhaltung für jede Altersgruppe und jeden Geschmack.</p>
+          <p>Unsere Kinos sind mit hochauflösenden Leinwänden, HD 4K-Projektionen und Dolby-Atmos-Sound ausgestattet, um sicherzustellen, dass Sie jedes Detail genießen können. Ob Sie Blockbuster, Klassiker oder unabhängige Filme lieben – bei uns finden Sie alles.</p>
           <div class="bottom-statistics">
               <div class="stat">
                   <i class="fas fa-film"></i>
-                  <h3>20K</h3>
-                  <p>Aktive Kunden</p>
+                  <h3>50+</h3>
+                  <p>Kinos in ganz Deutschland</p>
+              </div>
+              <div class="stat">
+                  <i class="fas fa-users"></i>
+                  <h3>1M+</h3>
+                  <p>Zufriedene Kunden pro Jahr</p>
+              </div>
+              <div class="stat">
+                  <i class="fas fa-award"></i>
+                  <h3>25 Jahre</h3>
+                  <p>Erfahrung in der Kinobranche</p>
               </div>
               <div class="stat">
                   <i class="fas fa-tv"></i>
                   <h3>HD 4K</h3>
-                  <p>Beste Qualität</p>
+                  <p>Modernste Projektionstechnologie</p>
               </div>
           </div>
       </div>
   </div>
 `;
+
 
 
 

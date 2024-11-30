@@ -22,8 +22,7 @@
   .bottom-section-content {
     position: relative; 
     z-index: 1;
-    max-width: 900px;
-    margin: auto;
+
   }
   
   .bottom-section h2 {
@@ -36,7 +35,6 @@
   .bottom-section p {
     font-size: 16px;
     line-height: 1.8;
-    margin-bottom: 30px;
   }
   
   .bottom-statistics {
