@@ -1,8 +1,6 @@
 /* Genel CSS Ayarları */
 /* Üst Bölüm */
 
-
-
 #home {
     padding: 40px 20px;
     color: var(--light-color);
@@ -10,7 +8,7 @@
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    min-height: calc(100vh - 100px); /* Footer'ın boyutunu hesaba kat */
+    min-height: calc(100vh - 100px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,7 +17,7 @@
 
 /* Cinema Details ve Group Info */
 .cinema-details, .group-info {
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 30px;
     border-radius: 15px;
     display: inline-block;
@@ -89,15 +87,4 @@
     background-color: var(--secondary-hover-color);
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-/* Footer için yer bırak */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1;
 }

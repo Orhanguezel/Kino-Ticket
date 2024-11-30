@@ -33,4 +33,6 @@
 
 .top-section .explore-button:hover {
     background-color: var(--primary-hover-color);
+    color:#222;
+    border:1px solid var(--primary-color);
 }

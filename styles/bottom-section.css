@@ -1,0 +1,72 @@
+/* Bottom Section */
+.bottom-section {
+    background: url('./about_bg.png') no-repeat center center;
+    background-size: cover;
+    padding: 40px 20px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+  }
+  
+  .bottom-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+  
+  .bottom-section-content {
+    position: relative; 
+    z-index: 1;
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  .bottom-section h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .bottom-section p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+  
+  .bottom-statistics {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .stat {
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .stat i {
+    font-size: 36px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+  }
+  
+  .stat h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .stat p {
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  

@@ -9,6 +9,7 @@
     background-color: var(--primary-color);
     padding: 10px 20px;
     color: var(--light-color);
+    z-index: 1000;
 }
 
 .logo-title {
