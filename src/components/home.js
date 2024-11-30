@@ -6,7 +6,17 @@ export function loadHome(cinema = null) {
     home.style.backgroundImage = `url(${cinema ? cinema.backgroundImage : './assets/cinema/default-bg.jpg'})`;
     home.style.transition = "background-image 0.5s ease-in-out";
 
-    home.innerHTML = cinema
+    // Üst bölüm
+    const topSection = `
+        <div class="top-section">
+            <p>Welcome To Our Cinema</p>
+            <h1>Experience The Magic Of Cinema With Us</h1>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using</p>
+            <button class="explore-button">Explore More →</button>
+        </div>
+    `;
+
+    const mainContent = cinema
         ? `
             <div class="cinema-details">
                 <h2>Willkommen bei ${cinema.name}</h2>
@@ -30,6 +40,8 @@ export function loadHome(cinema = null) {
                 </div>
             </div>
         `;
+
+    home.innerHTML = topSection + mainContent;
 
     // Event Listeners
     if (cinema) {

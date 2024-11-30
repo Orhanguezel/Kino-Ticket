@@ -1,0 +1,36 @@
+/* Üst Bölüm */
+.top-section {
+    background-color: #ffffff; /* Beyaz arka plan */
+    padding: 40px 20px;
+    text-align: center;
+    color: #333; /* Koyu metin rengi */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    margin-bottom: 20px; /* Diğer bölümlerle ayrım */
+}
+
+.top-section p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.top-section h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.top-section .explore-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.top-section .explore-button:hover {
+    background-color: var(--primary-hover-color);
+}
