@@ -1,27 +1,39 @@
-import { getCart, showTickets } from "./checkoutHandler.js";
+import { getCart, showTickets, proceedToCheckout } from "./checkoutHandler.js";
 import { processPayment } from "./paymentHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const cart = getCart();
-    const checkoutContainer = document.getElementById("checkoutContainer");
+    const homeContainer = document.getElementById("home");
 
-    if (cart.length === 0) {
-        alert("Sepet boş! Lütfen bilet ekleyin.");
-        checkoutContainer.innerHTML = "<p>Ihr Warenkorb ist leer.</p>";
+    if (!homeContainer) {
+        console.error("Ana içerik konteyneri bulunamadı!");
         return;
     }
 
-    // Biletleri checkout sayfasında göster
+    // Varsayılan olarak Ana Sayfa mesajı göster
+    if (cart.length === 0) {
+        homeContainer.innerHTML = `
+            <h2>Hoşgeldiniz!</h2>
+            <p>CineGrup'la en iyi sinema deneyimini yaşayın.</p>
+        `;
+        return;
+    }
+
+    // Biletleri göster
     showTickets(cart);
 
-    // Dinamik olarak Ödeme Yap Butonu Ekle
-    const paymentButton = document.createElement("button");
-    paymentButton.textContent = "Ödeme Yap";
-    paymentButton.className = "btn-primary";
-    paymentButton.addEventListener("click", () => {
-        processPayment(); // Ödeme işlemini başlat
-    });
+    // Ödeme butonunu ekle
+    const paymentSection = document.createElement("div");
+    paymentSection.className = "payment-actions";
+    paymentSection.innerHTML = `
+        <p><strong>Toplam Ödenecek Tutar:</strong> ${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)} €</p>
+        <button class="btn-primary" id="paymentButton">Ödeme Yap</button>
+    `;
 
-    // Butonu checkout container'a ekle
-    checkoutContainer.appendChild(paymentButton);
+    homeContainer.appendChild(paymentSection);
+
+    // Ödeme işlemini başlat
+    document.getElementById("paymentButton").addEventListener("click", () => {
+        proceedToCheckout(); // Ödeme işlemini başlat
+    });
 });

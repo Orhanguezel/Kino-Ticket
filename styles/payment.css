@@ -1,27 +1,131 @@
 .payment-section {
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
     margin-top: 20px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 0 auto; /* Ortala */
 }
 
+/* Kart Örneği */
 .card-example {
-    background: var(--light-color);
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
-    width: 300px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%; /* Tam genişlik */
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-example:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .card-design {
-    background: var(--primary-color);
-    color: var(--light-color);
-    padding: 20px;
-    border-radius: 8px;
-    font-family: var(--font-family-primary);
+    background: #007bff; /* Ana Renk */
+    color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: inset 0px -3px 5px rgba(0, 0, 0, 0.2);
 }
 
+.card-number,
+.card-expiry,
+.card-cvv {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.card-number strong,
+.card-expiry strong,
+.card-cvv strong {
+    font-weight: bold;
+}
+
+.card-design p {
+    margin: 8px 0;
+}
+
+/* Ödeme Formu */
 .payment-form {
     flex: 1;
-    max-width: 400px;
+    width: 100%;
+    max-width: 450px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f7f7f7;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-form input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.payment-form button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.payment-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.payment-form button:active {
+    transform: translateY(0);
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+    .payment-section {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card-example,
+    .payment-form {
+        width: 100%;
+        max-width: none;
+    }
 }

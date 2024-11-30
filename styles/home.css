@@ -1,56 +1,88 @@
-/* Home Section */
+/* Genel CSS Ayarları */
 #home {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    padding: 40px 20px;
     color: var(--light-color);
     text-align: center;
-    padding: 30px 20px;
-    height: 50vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+}
+
+/* Cinema Details ve Group Info */
+.cinema-details, .group-info {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    border-radius: 15px;
+    display: inline-block;
+    width: 90%;
+    max-width: 800px;
     margin: 20px auto;
-    max-width: 1200px;
-    transition: background-image 0.5s ease-in-out;
-}
-
-#home h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-#home p {
-    font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-#home .btn-primary,
-#home .btn-secondary {
-    margin: 5px;
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-#home .btn-primary:hover {
-    background-color: var(--secondary-color);
-}
-
-#home .btn-secondary {
-    background-color: var(--info-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    text-align: center;
     color: var(--light-color);
 }
 
-#home .btn-secondary:hover {
+.cinema-details h2, .group-info h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.cinema-details p, .group-info p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+/* Cinema Actions ve List */
+.cinema-actions, .cinema-list {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px; /* Butonlar arasında boşluk ekler */
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Buttonlar */
+.cinema-actions button, .cinema-list button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 10px; /* Her bir butonun etrafına ek boşluk */
+}
+
+/* Primary Button */
+.cinema-actions button.btn-primary, .cinema-list button {
     background-color: var(--primary-color);
+    color: var(--light-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cinema-actions button.btn-primary:hover, .cinema-list button:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Secondary Button */
+.cinema-actions button.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cinema-actions button.btn-secondary:hover {
+    background-color: var(--secondary-hover-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
