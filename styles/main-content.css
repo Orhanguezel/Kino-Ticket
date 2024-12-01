@@ -1,35 +1,46 @@
-/* Main Content Genel Ayarları */  
+/* Main Content Genel Ayarları */
+
 .main-content {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     transition: background-image 0.5s ease-in-out;
-    padding: 0; /* Kenar boşlukları kaldırıldı */
-    margin: 0; /* Kenar boşlukları kaldırıldı */
-    width: 100%; /* Tam genişlik ayarlandı */
-    box-sizing: border-box; /* Taşma olmaması için kutu boyutu ayarlandı */
+    padding: 20px; /* İçerik boşluklarını düzenledik */
+    margin: 0;
+    width: 100%;
+    min-height: 100%; /* Min yüksekliği grid yapısına göre belirle */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* İçerikleri yukarıdan başlat */
+    overflow-y: auto; /* Taşan içerikler için kaydırma ekledik */
 }
 
 /* Cinema Details ve Group Info */
 .cinema-details, .group-info {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    display: block; /* Inline-block yerine tam genişlik için block */
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    padding: 30px;
+    margin: 0;
+    box-sizing: border-box;
     text-align: center;
     color: var(--dark-color);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
 }
 
 .cinema-details h2, .group-info h2 {
     font-weight: bold;
     margin-bottom: 20px;
-    color: var(--primary-color);
+    color: var(--light-color);
 }
 
 .cinema-details p, .group-info p {
     margin-bottom: 20px;
     line-height: 1.6;
+    color: var(--light-color);
 }
 
 /* Cinema Actions ve List */
@@ -83,15 +94,30 @@
 /* Responsive Ayarlar */
 @media (max-width: 768px) {
     .main-content {
-        padding: 20px; /* Mobilde iç boşluk eklendi */
+        padding: 20px;
+        min-height: auto; /* Mobilde otomatik yüksekliği etkinleştir */
     }
 
     .cinema-details, .group-info {
-        padding: 20px;
+        padding: 10px;
     }
 
     .cinema-actions button, .cinema-list button {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
+}
+@media screen and (max-width: 1100px) {
+    .grid-main {
+        min-height: auto;
+      }
+}
+
+
+@media (min-width: 1100px) {
+    .grid-main {
+        min-height: auto;
+      }
+
+
 }

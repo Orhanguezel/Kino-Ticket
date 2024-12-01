@@ -2,15 +2,16 @@ import { cineGroupInfo } from "../data/cineGroupInfo.js";
 
 export function loadFooter(cinema = null) {
   const footer = document.getElementById("footer");
-  const ogUrl = "https://orhanguezel.github.io/personal/";
 
   if (!footer) {
     console.error("Footer-Element nicht gefunden!");
     return;
   }
 
+  const ogUrl = "https://orhanguezel.github.io/personal/";
+
   footer.innerHTML = `
-        <div class="footer-container">
+        <div class="footer-container grid-footer">
             <!-- Oberer Bereich -->
             <div class="footer-oben">
                 <!-- Linke Seite -->
@@ -25,14 +26,13 @@ export function loadFooter(cinema = null) {
                 <div class="footer-center">
                     <nav class="footer-nav">
                         <ul>
-    <li><a href="#" id="homeLink"> Startseite</a></li>
-    <li><a href="#" id="cartLink"></i> Warenkorb</a></li>
-    <li><a href="#"> Über uns</a></li>
-    <li><a href="#"> Filme</a></li>
-    <li><a href="#"> Kontakt</a></li>
-    <li><a href="#" class="buy-now"> Jetzt kaufen</a></li>
-</ul>
-
+                            <li><a href="#" id="homeLink">Startseite</a></li>
+                            <li><a href="#" id="cartLink">Warenkorb</a></li>
+                            <li><a href="#">Über uns</a></li>
+                            <li><a href="#">Filme</a></li>
+                            <li><a href="#">Kontakt</a></li>
+                            <li><a href="#" class="buy-now">Jetzt kaufen</a></li>
+                        </ul>
                     </nav>
                 </div>
                 

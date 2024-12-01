@@ -1,0 +1,114 @@
+/* Genel Grid Düzeni */
+
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      "hamburger logo header-nav"
+      "sidebar main main"
+      "sidebar main main"
+      "footer footer footer";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .grid-main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "top-section"
+      "main-content";
+    grid-gap: 20px;
+    min-height: 50vh;
+
+  }
+
+
+
+/* Grid Alanları */
+.grid-hamburger-menu {
+  grid-area: hamburger;
+}
+
+.grid-header {
+  grid-area: logo / logo / header-nav / header-nav;
+}
+
+.header-logo {
+  grid-area: logo;
+}
+
+.header-nav {
+  grid-area: header-nav;
+}
+
+.grid-sidebar {
+  grid-area: sidebar;
+}
+
+.grid-main {
+  grid-area: main;
+}
+
+.grid-footer {
+  grid-area: footer;
+}
+
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-areas:
+          "hamburger header-nav"
+          "sidebar sidebar"
+          "main main"
+          "footer footer";
+        grid-template-rows: auto 1fr auto;
+      }
+
+}
+
+@media screen and (max-width: 1100px) {
+  .grid-container {
+    grid-template-areas:
+      "hamburger header-nav"
+      "sidebar sidebar"
+      "main main"
+      "main main"
+      "footer footer";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr auto;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .grid-container {
+    grid-template-areas:
+      "hamburger logo header-nav"
+      "sidebar main main"
+      "sidebar image image"
+      "footer footer footer";
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .cinema-filter-grid .image {
+    grid-area: image;
+  }
+
+  .grid-main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "top-section main-content";
+  }
+
+  .top-section {
+    grid-area: top-section;
+  }
+
+  .main-content {
+    grid-area: main-content;
+  }
+
+  
+}

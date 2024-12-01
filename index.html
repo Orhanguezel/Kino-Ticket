@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/grid.css">
     <link rel="stylesheet" href="./styles/header.css">
     <link rel="stylesheet" href="./styles/top-section.css">
     <link rel="stylesheet" href="./styles/main-content.css">
@@ -37,31 +38,30 @@
 </head>
 <body>
     <header id="header">
-        <!-- Header içerikleri yüklenecek -->
+      <!-- Header içerikleri -->
     </header>
+  
     <main id="home">
-        <!-- Ana içerik -->
-        <div id="checkoutContainer"></div>
-
-        <div id="cartModal" class="modal">
-            <div class="modal-header">
-                <span>Sepetiniz</span>
-                <button id="closeModal">X</button>
-            </div>
-            <div id="cartContent">
-                <!-- Sepet içeriği buraya dinamik olarak yüklenecek -->
-            </div>
-            <div class="modal-footer">
-                <button id="checkoutButton">Ödeme Yap</button>
-            </div>
+      <!-- Ana içerik -->
+      <div id="checkoutContainer"></div>
+      <div id="cartModal" class="modal">
+        <div class="modal-header">
+          <span>Sepetiniz</span>
+          <button id="closeModal">X</button>
         </div>
-        
-
+        <div id="cartContent">
+          <!-- Sepet içeriği dinamik olarak -->
+        </div>
+        <div class="modal-footer">
+          <button id="checkoutButton">Ödeme Yap</button>
+        </div>
+      </div>
     </main>
-    <footer id="footer">
-        <!-- Footer içerikleri yüklenecek -->
+  
+    <footer id="footer" class="grid-footer">
+      <!-- Footer içerikleri -->
     </footer>
+  </body>
+  
 
-
-</body>
 </html>
