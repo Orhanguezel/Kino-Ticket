@@ -4,30 +4,32 @@
     background-position: center;
     background-attachment: fixed;
     transition: background-image 0.5s ease-in-out;
-    padding: 20px;
+    padding: 0; /* Kenar boşlukları kaldırıldı */
+    margin: 0; /* Kenar boşlukları kaldırıldı */
+    width: 100%; /* Tam genişlik ayarlandı */
+    box-sizing: border-box; /* Taşma olmaması için kutu boyutu ayarlandı */
 }
 
 /* Cinema Details ve Group Info */
 .cinema-details, .group-info {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
-    display: inline-block;
+    display: block; /* Inline-block yerine tam genişlik için block */
     width: 100%;
     text-align: center;
     color: var(--dark-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
 }
 
 .cinema-details h2, .group-info h2 {
     font-weight: bold;
     margin-bottom: 20px;
     color: var(--primary-color);
-    font-size: 2rem;
 }
 
 .cinema-details p, .group-info p {
     margin-bottom: 20px;
     line-height: 1.6;
-    font-size: 1.1rem;
 }
 
 /* Cinema Actions ve List */
@@ -81,7 +83,7 @@
 /* Responsive Ayarlar */
 @media (max-width: 768px) {
     .main-content {
-        padding: 20px;
+        padding: 20px; /* Mobilde iç boşluk eklendi */
     }
 
     .cinema-details, .group-info {

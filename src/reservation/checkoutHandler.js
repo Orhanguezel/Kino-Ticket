@@ -160,7 +160,7 @@ export function proceedToCheckout() {
 
 // Biletleri gösterme
 export function showTickets(cart) {
-    const checkoutContainer = document.getElementById("home");
+    const checkoutContainer = document.getElementById("mainContent");
 
     if (!checkoutContainer) {
         console.error("Ana içerik konteyneri bulunamadı!");

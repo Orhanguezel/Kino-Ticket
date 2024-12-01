@@ -3,16 +3,16 @@ import { processPayment } from "./paymentHandler.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const cart = getCart();
-    const homeContainer = document.getElementById("home");
+    const mainContent = document.getElementById("mainContent");
 
-    if (!homeContainer) {
+    if (!mainContent) {
         console.error("Ana içerik konteyneri bulunamadı!");
         return;
     }
 
     // Varsayılan olarak Ana Sayfa mesajı göster
     if (cart.length === 0) {
-        homeContainer.innerHTML = `
+        mainContent.innerHTML = `
             <h2>Hoşgeldiniz!</h2>
             <p>CineGrup'la en iyi sinema deneyimini yaşayın.</p>
         `;
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="btn-primary" id="paymentButton">Ödeme Yap</button>
     `;
 
-    homeContainer.appendChild(paymentSection);
+    mainContent.appendChild(paymentSection);
 
     // Ödeme işlemini başlat
     document.getElementById("paymentButton").addEventListener("click", () => {

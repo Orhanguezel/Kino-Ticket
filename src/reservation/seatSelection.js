@@ -23,7 +23,7 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
         return;
     }
 
-    const home = document.getElementById("home");
+    const mainContent = document.getElementById("mainContent");
     const seats = Array.from({ length: salon.seats }, (_, i) => ({
         id: i + 1,
         row: String.fromCharCode(65 + Math.floor(i / 10)),
@@ -31,7 +31,7 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
         occupied: Math.random() > 0.7,
     }));
 
-    home.innerHTML = `
+    mainContent.innerHTML = `
         <h2>${cinema.name} - ${salon.name}</h2>
         <p>Sitzplätze für den ${selectedDate} um ${selectedTime}:</p>
         <div class="seat-plan">

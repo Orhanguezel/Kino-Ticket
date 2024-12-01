@@ -4,7 +4,7 @@ import { showSeatSelection } from "./seatSelection.js";
 
 export function showDateSelection(cinemaId, salonId) {
   console.log(`showDateSelection çağrıldı. Cinema ID: ${cinemaId}, Salon ID: ${salonId}`);
-  const home = document.getElementById("home");
+  const mainContent = document.getElementById("mainContent");
   const selectedCinema = cinemas.find((c) => c.id === cinemaId);
   const selectedSalon = getCinemaSalons(cinemaId)?.find((s) => s.id === parseInt(salonId));
 
@@ -22,7 +22,7 @@ export function showDateSelection(cinemaId, salonId) {
 
   console.log("Bulunan salon:", selectedSalon);
 
-  home.innerHTML = `
+  mainContent.innerHTML = `
     <h2>${selectedCinema.name} - ${selectedSalon.name}</h2>
     <form id="dateForm">
         <label for="dateSelect">Datum:</label>
