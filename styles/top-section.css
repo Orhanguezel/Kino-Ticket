@@ -1,61 +1,66 @@
-/* Üst Bölüm */
+/* Top Section */
 .top-section {
-    background-color: var(light-color); /* Beyaz arka plan */
-    padding: 40px 20px;
-    text-align: center;
+    background-color: var(--light-color);
+    padding: 40px;
     color: var(--dark-color);
-    margin-top: 0!important;
-}
-
-.top-section p:nth-child(1) {
-    margin-bottom: 10px;
-    text-align: left;
-    color:var(--primary-color);
-}
-
-.top-section p:nth-child(3) {
+    text-align: left; 
     margin-bottom: 20px;
-    text-align: left;
-}
-
-.top-section h1 {
+  }
+  
+  .top-section h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: left;
-    color: #222;
-}
-
-.explore-button {
-    display: flex;
-    justify-content: start;
-    padding: 20px 20px!important;
-    font-size: 1rem;
+  }
+  
+  .top-section p {
+    margin-bottom: 15px;
+    color: var(--secondary-color); 
+  }
+  
+  .top-section .explore-button {
+    display: inline-block;
     background-color: var(--primary-color);
-    color: var(--light-color);
-    border: none;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.top-section .explore-button:hover {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .top-section .explore-button:hover {
     background-color: var(--primary-hover-color);
-    color:#222;
-    border:1px solid var(--primary-color);
-}
-
-/* Responsive Ayarlar */
-@media (max-width: 768px) {
-
+    transform: translateY(-3px); /* Hafif yukarı hareket */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Hover gölgesi */
+  }
+  
+  /* Responsive Ayarlar */
+  @media (max-width: 768px) {
+    .top-section {
+      padding: 20px;
+    }
+  
+    .top-section h1 {
+      font-size: 2rem;
+    }
+  
+    .top-section p {
+      font-size: 1rem;
+    }
+  
     .top-section .explore-button {
-        padding: 8px 16px;
-        font-size: 14px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
     }
-}
-
-
-@media screen and (max-width: 1100px) {
-    .top-section{
-        margin-top: 0;
+  }
+  
+  @media (min-width: 1100px) {
+    .top-section {
+      margin-right: 20px; /* Yan yana yerleşimde sağ boşluk */
     }
-
-}
+  }
+  

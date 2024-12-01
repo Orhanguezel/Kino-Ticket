@@ -21,10 +21,10 @@ export function startReservation(cinemaId) {
 
   // Tekrarlanan film ID'lerini takip etmek için bir Set kullanıyoruz
   const uniqueFilms = new Set();
-  const home = document.getElementById("home");
+  const mainContent = document.getElementById("mainContent");
 
   // Ana içerik
-  home.innerHTML = `
+  mainContent.innerHTML = `
     <h2>Buchung oder Reservierung - ${selectedCinema.name}</h2>
     <p>Film wählen:</p>
     <div id="filmOptions" class="film-options">

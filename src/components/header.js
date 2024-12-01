@@ -1,17 +1,28 @@
 import { cineGroupInfo } from "../data/cineGroupInfo.js";
+import { cinemas } from "../data/cinemas.js";
 import { showCartModal } from "../reservation/showCartModal.js";
 
 export function loadHeader(cinema = null) {
+  // Dinamik Arka Plan Ayarı
+  document.body.style.backgroundImage = `url('${
+    cinema ? cinema.backgroundImage : "./assets/cinema/default-bg.jpg"
+  }')`;
+  
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundAttachment = "fixed";
+  document.body.style.transition = "background-image 0.5s ease-in-out";
+
   const header = document.getElementById("header");
   header.innerHTML = `
         <div class="grid-container">
             <!-- Sol Üst: Hamburger Menü -->
             <div class="grid-hamburger-menu">
-                 <div class="lines">
+                <div class="lines">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
-                 </div>
+                </div>
             </div>
 
             <!-- Header -->
@@ -62,8 +73,34 @@ export function loadHeader(cinema = null) {
                   <p>Es ist eine allgemein bekannte Tatsache, dass der Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich ihr Layout ansieht.</p>
                   <button class="explore-button">Mehr entdecken →</button>
                 </section>
-                <section class="cinema-filter-grid">
-                  <div class="image">Görsel 1</div>
+                <section class="main-content" id="mainContent">
+                  ${
+                    cinema
+                      ? `
+                        <div class="cinema-details">
+                          <h2>Willkommen bei ${cinema.name}</h2>
+                          <p>${cinema.description}</p>
+                          <div class="cinema-actions">
+                              <button id="startReservationButton" class="btn-primary">Buchen oder Reservieren</button>
+                              <button id="toMainPageButton" class="btn-secondary">Zurück zur Startseite</button>
+                          </div>
+                        </div>
+                      `
+                      : `
+                        <div class="group-info">
+                          <h2>${cineGroupInfo.title}</h2>
+                          <p>${cineGroupInfo.description}</p>
+                          <div class="cinema-actions">
+                              ${cinemas
+                                .map(
+                                  (cinema) =>
+                                    `<button class="btn-primary cinema-select" data-id="${cinema.id}">${cinema.name}</button>`
+                                )
+                                .join("")}
+                          </div>
+                        </div>
+                      `
+                  }
                 </section>
             </main>
         </div>
@@ -88,8 +125,8 @@ export function loadHeader(cinema = null) {
   if (homeLink) {
     homeLink.addEventListener("click", (e) => {
       e.preventDefault();
-      if (typeof loadHome === "function") {
-        loadHome();
+      if (typeof updateUI === "function") {
+        updateUI(null);
       }
     });
   }
@@ -101,4 +138,26 @@ export function loadHeader(cinema = null) {
       showCartModal();
     });
   }
+
+  // Main Content'e Dinamik Arka Plan Uygulama
+  const mainContent = document.getElementById("mainContent");
+  if (mainContent) {
+    mainContent.style.backgroundImage = `url('${
+      cinema ? cinema.backgroundImage : "./assets/cinema/default-bg.jpg"
+    }')`;}
+
+
+  // Event Dinamik Sinema Seçim
+  document.querySelectorAll(".cinema-select").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const cinemaId = event.target.getAttribute("data-id");
+      const selectedCinema = cinemas.find((cinema) => cinema.id === cinemaId);
+
+      if (selectedCinema) {
+        updateUI(selectedCinema); // Sinema sayfasını yükle
+      } else {
+        console.error("Geçersiz sinema seçimi!");
+      }
+    });
+  });
 }

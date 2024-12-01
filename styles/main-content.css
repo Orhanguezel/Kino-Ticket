@@ -1,47 +1,40 @@
-/* Genel CSS Ayarları */
-/* Üst Bölüm */
-
-#home {
-    padding: 40px 20px;
-    color: var(--light-color);
-    text-align: center;
+/* Main Content Genel Ayarları */  
+.main-content {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    min-height: calc(100vh - 100px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    transition: background-image 0.5s ease-in-out;
+    padding: 20px;
 }
 
 /* Cinema Details ve Group Info */
 .cinema-details, .group-info {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     display: inline-block;
     width: 100%;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     text-align: center;
-    color: var(--light-color);
+    color: var(--dark-color);
 }
 
 .cinema-details h2, .group-info h2 {
     font-weight: bold;
     margin-bottom: 20px;
     color: var(--primary-color);
+    font-size: 2rem;
 }
 
 .cinema-details p, .group-info p {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     line-height: 1.6;
+    font-size: 1.1rem;
 }
 
 /* Cinema Actions ve List */
 .cinema-actions, .cinema-list {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
-    gap: 20px; /* Butonlar arasında boşluk ekler */
+    gap: 20px; /* Butonlar arasında boşluk */
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -49,37 +42,54 @@
 /* Buttonlar */
 .cinema-actions button, .cinema-list button {
     padding: 15px 30px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     border: none;
     border-radius: 8px;
     transition: all 0.3s ease;
-    margin: 10px; /* Her bir butonun etrafına ek boşluk */
+    margin: 10px;
+    text-transform: uppercase; /* Büyük harflerle görünüm */
 }
 
 /* Primary Button */
 .cinema-actions button.btn-primary, .cinema-list button {
     background-color: var(--primary-color);
     color: var(--light-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cinema-actions button.btn-primary:hover, .cinema-list button:hover {
     background-color: var(--primary-hover-color);
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Secondary Button */
 .cinema-actions button.btn-secondary {
     background-color: var(--secondary-color);
     color: var(--light-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cinema-actions button.btn-secondary:hover {
     background-color: var(--secondary-hover-color);
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .cinema-details, .group-info {
+        padding: 20px;
+    }
+
+    .cinema-actions button, .cinema-list button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
 }
