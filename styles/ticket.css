@@ -28,7 +28,6 @@
 .ticket h3 {
     text-align: center;
     color: #007bff;
-    font-size: 1.5rem;
     margin-bottom: 15px;
     border-bottom: 1px solid #007bff;
     padding-bottom: 8px;
@@ -38,7 +37,6 @@
 /* İçerik Paragrafları */
 .ticket p {
     margin: 5px 0;
-    font-size: 1rem;
     color: #333;
     line-height: 1.4;
 }
@@ -54,14 +52,6 @@
     .ticket {
         width: 220px;
         padding: 15px;
-    }
-
-    .ticket h3 {
-        font-size: 1.3rem;
-    }
-
-    .ticket p {
-        font-size: 0.95rem;
     }
 }
 
@@ -81,13 +71,5 @@
 @media (max-width: 480px) {
     .ticket {
         padding: 12px;
-    }
-
-    .ticket h3 {
-        font-size: 1.2rem;
-    }
-
-    .ticket p {
-        font-size: 0.9rem;
     }
 }

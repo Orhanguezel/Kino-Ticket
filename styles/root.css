@@ -20,6 +20,7 @@
     --text-color: #333; /* Genel metin rengi */
     --card-bg-color: #f8f9fa; /* Kart arka plan rengi */
     --border-color: #ddd; /* Kart sınır rengi */
+    --sidebar-width: clamp(80px, 10vw, 200px); /* Sidebar ve Hamburger menü genişliği */
 }
 
 /* Temel Ayarlar */

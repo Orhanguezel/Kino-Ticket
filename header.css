@@ -1,0 +1,113 @@
+/* Genel Grid Yapısı */
+.header-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "logo-title navbar-actions"
+        "navbar-search navbar-search";
+    gap: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Sol Üst: Logo ve Başlık */
+.logo-title {
+    grid-area: logo-title;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+}
+
+.logo-title img {
+    width: 50px;
+    height: auto;
+}
+
+.logo-title h1 {
+    font-size: 20px;
+    color: white;
+}
+
+/* Sağ Üst: Linkler */
+.navbar-actions {
+    grid-area: navbar-actions;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--light-color);
+    padding: 10px 20px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--dark-color);
+}
+
+/* Alt: Arama ve Sepet */
+.navbar-search {
+    grid-area: navbar-search;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 10px;
+}
+
+.search-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.search-links li a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.search-links li a:hover {
+    color: var(--primary-color);
+}
+
+/* Mobil Ayarlar */
+@media screen and (max-width: 768px) {
+    .header-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "logo-title"
+            "navbar-actions"
+            "navbar-search";
+    }
+
+    .logo-title {
+        justify-content: center;
+    }
+
+    .navbar-actions {
+        justify-content: center;
+    }
+}

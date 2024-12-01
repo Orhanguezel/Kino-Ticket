@@ -91,7 +91,6 @@
 
 .ticket p {
     margin: 5px 0;
-    font-size: 0.9rem;
 }
 
 /* Mobil Ekranlar için Responsive Ayar */
@@ -112,7 +111,4 @@
         padding: 10px;
     }
 
-    .ticket p {
-        font-size: 0.8rem;
-    }
 }
