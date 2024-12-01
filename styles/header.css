@@ -1,250 +1,301 @@
+
 .grid-container {
     display: grid;
     grid-template-areas:
-        "hamburger logo header-nav"
-        "sidebar main main"
-        "sidebar main main";
+      "hamburger logo header-nav"
+      "sidebar main main"
+      "sidebar main main";
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
     height: 100vh;
-    position: relative; /* İçeriklerin düzgün yerleşimi için */
+    position: relative;
+    margin: 0; /* Grid boşlukları sıfırlandı */
+    padding: 0;
+    row-gap: 0; /* Satır boşlukları sıfırlandı */
   }
-  
-  /* Hamburger Menü */
-  .grid-hamburger-menu {
-    grid-area: hamburger;
-    background-color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--sidebar-width);
-    height: var(--sidebar-width);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+
+  .grid-main {
+    grid-area: main;
+    background-color: var(--light-color);
+    padding: 10px;
+    margin: 0; /* Varsayılan margin kaldırıldı */
+  }
+
+/* Hamburger Menü */
+.grid-hamburger-menu {
+  grid-area: hamburger;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sidebar-width);
+  height: var(--sidebar-width);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .lines {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .line {
-    width: 30px;
-    height: 3px;
-    background-color:var(--light-color)
-  }
-  
-
-  /* Header */
-  .grid-header {
-    grid-area: logo / logo / header-nav / header-nav;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: var(--sidebar-width); /* Sidebar genişliği ile aynı */
-    width: calc(100% - var(--sidebar-width)); /* Ekran genişliğinin geri kalanı */
-    height: var(--sidebar-width); /* Sidebar yüksekliği ile aynı */
-    background-color: var(--light-color);
-    z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-  .header-logo {
-    grid-area: logo;
-    display: flex;
+.line {
+  width: 30px;
+  height: 3px;
+  background-color: var(--light-color);
+}
+
+/* Header */
+.grid-header {
+  grid-area: logo / logo / header-nav / header-nav;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width); /* Sidebar genişliği ile aynı */
+  width: calc(100% - var(--sidebar-width)); /* Ekran genişliğinin geri kalanı */
+  height: var(--sidebar-width); /* Sidebar yüksekliği ile aynı */
+  background-color: var(--light-color);
+  z-index: 999;
+}
+
+.header-logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  background-color: var(--light-color);
+  padding: 0 10px;
+  height: var(--sidebar-width)-10px;
+}
+
+.header-logo img {
+  width: var(--sidebar-width);
+  height: var(--sidebar-width);
+  margin-right: 10px;
+}
+
+.header-logo h1 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.header-nav {
+  grid-area: header-nav;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--light-color);
+  height: var(--sidebar-width);
+}
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 101;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-menu .bar {
+  height: 2px;
+  width: 100%;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links li {
+  color: var(--light-color);
+}
+
+.nav-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Sidebar */
+.grid-sidebar {
+  grid-area: sidebar;
+  background-color: var(--primary-color);
+  display: flex;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  padding: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: var(--sidebar-width);
+}
+
+/* Login/Register */
+.sidebar-login-register {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 45px;
+  padding: 10px;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  order: 1;
+}
+
+.sidebar-login-register a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-login-register a:hover {
+  background-color: var(--light-color); /* Hover durumunda renk değişimi */
+  color: var(--primary-color);
+}
+
+/* Cart */
+.sidebar-cart,
+.sidebar-search {
+  transform: rotate(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: var(--primary-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  gap: 20px;
+}
+
+/* İkonların Genel Ayarları */
+.sidebar-cart i,
+.sidebar-search i {
+  font-size: 1.2rem;
+}
+
+/* Main Content */
+.grid-main {
+  grid-area: main;
+  background-color: var(--light-color);
+  padding: 10px;
+  margin-top: var(--sidebar-width);
+}
+.cinema-filter-grid .image {
+  background-color: lightgray;
+  height: 200px;
+}
+
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-areas:
+          "hamburger header-nav"
+          "sidebar main"
+          "main main"; /* Fazla satır eklenmediğinden emin olun */
+        grid-template-rows: auto auto 1fr;
+      }
+
+  .grid-sidebar {
+    writing-mode: vertical-lr;
     align-items: center;
-    background-color: var(--light-color);
-    padding: 0 10px;
-    height: var(--sidebar-width)-10px;
-  }
-  
-  .header-logo img {
-    width: var(--sidebar-width);
-    height: var(--sidebar-width);
-    margin-right: 10px;
-  }
-  
-  .header-logo h1 {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  
-  .header-nav {
-    grid-area: header-nav;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
-    background-color: var(--light-color);
-    height: var(--sidebar-width)
+    width: 100%;
+    height: var(--sidebar-width);
+    margin: 0; /* Ekstra boşluk kaldırıldı */
+  padding: 0; /* İçerik boşluğu sıfırlandı */
   }
-  
-  .hamburger-menu {
+
+  .grid-main {
+    margin-top: 0; /* Ekstra boşluk kaldırıldı */
+    padding: 10px; /* İsteğe bağlı iç boşluk */
+  }
+
+  .sidebar-search,
+  .sidebar-cart {
+    transform: none;
+    writing-mode: horizontal-tb; /* Yatay moda dönüyor */
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .grid-container {
+    grid-template-areas:
+      "hamburger header-nav"
+      "sidebar sidebar"
+      "main main"
+      "main main";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
+
+  .header-nav {
+    justify-content: flex-end;
+  }
+
+  .header-nav ul {
     display: none;
+  }
+
+  .hamburger-menu {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
     width: 30px;
     height: 21px;
     cursor: pointer;
     z-index: 101;
     transition: transform 0.3s ease;
   }
-  
-  .hamburger-menu .bar {
-    height: 2px;
-    width: 100%;
-    background-color:var(--primary-color);
-    border-radius: 10px;
-    transition: all 0.3s ease;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  
-  }
-  
-  .nav-links li {
-    color: var(--light-color);
-  }
 
-    .nav-links a {
-        color: var(--primary-color);
-        text-decoration: none;
-    }
-  
-  /* Sidebar */
   .grid-sidebar {
-    grid-area: sidebar;
-    background-color: var(--primary-color);
-    display: flex;
+    margin-top: var(--sidebar-width);
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-around;
+    transform: none;
+    width: 100%;
+  }
+
+  .sidebar-login-register {
+    writing-mode: horizontal-tb;
+    transform: none;
+    flex-direction: row;
+    justify-content: center; 
     align-items: center;
-    padding: 10px;
-    width: var(--sidebar-width);
+    gap: 15px; 
+  }
+
+  .sidebar-cart,
+.sidebar-search {
+    transform: none;
+    writing-mode: horizontal-tb;
+  }
+
+  .grid-main {
+    margin-top: 0; /* Ekstra boşluk kaldırıldı */
+    padding: 10px; /* İsteğe bağlı iç boşluk */
+  }
 }
-  
-  .sidebar-search,
-  .sidebar-cart {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    writing-mode:vertical-lr;
-    transform: rotate(180deg);
-  
-    margin: 5px 0;
-    background-color: gray;
-    padding: 5px 10px;
-    color: white;
-    font-size: 1rem;
-  }
-  
-  /* Main Content */
-  
-  .grid-main {
-    grid-area: main;
-    background-color: var(--light-color);
-    padding: 10px;
-  
-  }
-  .main-content {
-    margin-bottom: 20px;
-  }
-  
-  .cinema-filter-grid .image {
-    background-color: lightgray;
-    height: 200px;
-  }
-  
-  /* Responsive Ayarlar */
-  @media (max-width: 768px) {
-    .grid-container {
-        grid-template-areas:
-            "hamburger header-nav"
-            "sidebar sidebar"
-            "main main";
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto 1fr;
-    }
-  
-    .grid-sidebar {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-  
-   
-  }
-  
-  @media screen and (max-width: 1100px)  {
-    .grid-container {
-        grid-template-areas:
-            "hamburger header-nav"
-            "sidebar sidebar"
-            "main main";
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto 1fr;
-    }
-
-    .header-nav {
-        justify-content: flex-end;
-    }
-    
-    .header-nav ul {
-        display: none;
-    
-    
-    }
-
-    .hamburger-menu {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 30px;
-        height: 21px;
-        cursor: pointer;
-        z-index: 101;
-        transition: transform 0.3s ease;
-    }
-  
-    .grid-sidebar {
-        margin-top: var(--sidebar-width);
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-        height: var(--sidebar-width);
-    }
-
-    .nav-links a {
-        display: none;
-    }
-  
-    .sidebar-search,
-  .sidebar-cart {
-    transform: rotate(270deg);
-  }
-  .grid-main {
-    padding: 10px;
-  
-  }
-  }
-  
-  @media screen and (min-width: 1100px)  {
-    .grid-main {
-        padding: 10px;
-        margin-top: var(--sidebar-width);
-    
-    }
-  }
-  
-  
-  

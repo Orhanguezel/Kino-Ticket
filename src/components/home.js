@@ -8,16 +8,6 @@ export function loadHome(cinema = null) {
   })`;
   home.style.transition = "background-image 0.5s ease-in-out";
 
-  // Üst bölüm
-  const topSection = `
-    <div class="top-section">
-        <p>Willkommen in unserem Kino</p>
-        <h1>Erleben Sie die Magie des Kinos mit uns</h1>
-        <p>Es ist eine allgemein bekannte Tatsache, dass der Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich ihr Layout ansieht.</p>
-        <button class="explore-button">Mehr entdecken →</button>
-    </div>
-  `;
-
   // Ana içerik
   const mainContent = cinema
     ? `
@@ -82,7 +72,7 @@ const bottomSection = `
 
 
 
-  home.innerHTML = topSection + mainContent + bottomSection;
+  home.innerHTML = mainContent + bottomSection;
 
   // Event Listeners
   if (cinema) {

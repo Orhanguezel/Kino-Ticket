@@ -17,7 +17,9 @@ export function loadHeader(cinema = null) {
             <!-- Header -->
             <header class="grid-header">
                 <div class="header-logo">
-                  <img src="${cinema?.logo || cineGroupInfo.logo}" alt="${cinema?.name || "CineGrup"}">
+                  <img src="${cinema?.logo || cineGroupInfo.logo}" alt="${
+    cinema?.name || "CineGrup"
+  }">
                   <h1>${cinema?.name || cineGroupInfo.title}</h1>
                 </div>
       
@@ -40,15 +42,25 @@ export function loadHeader(cinema = null) {
 
             <!-- Sidebar -->
             <aside class="grid-sidebar">
-                <div class="sidebar-search">Arama</div>
-                <div class="sidebar-cart" id="cartLink">Sepet</div>
+                <div class="sidebar-login-register">
+                    <a href="#" id="homeLink"> Login</a>
+                    <a href="#"> Register</a>
+                </div>
+                <div class="sidebar-cart" id="cartLink">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="sidebar-search">
+                    <i class="fas fa-search"></i>
+                </div>
             </aside>
       
             <!-- Main Content -->
             <main class="grid-main">
-                <section class="main-content">
-                  <h1>Experience the Magic of Cinema with Us</h1>
-                  <p>Açıklama metni buraya gelecek...</p>
+                <section class="top-section">
+                  <p>Willkommen in unserem Kino</p>
+                  <h1>Erleben Sie die Magie des Kinos mit uns</h1>
+                  <p>Es ist eine allgemein bekannte Tatsache, dass der Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich ihr Layout ansieht.</p>
+                  <button class="explore-button">Mehr entdecken →</button>
                 </section>
                 <section class="cinema-filter-grid">
                   <div class="image">Görsel 1</div>
