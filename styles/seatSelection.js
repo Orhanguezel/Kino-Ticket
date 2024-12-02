@@ -26,85 +26,79 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
     const mainContent = document.getElementById("mainContent");
     const seats = Array.from({ length: salon.seats }, (_, i) => ({
         id: i + 1,
-        row: String.fromCharCode(65 + Math.floor(i / 14)),
-        seatNumber: (i % 14) + 1,
+        row: String.fromCharCode(65 + Math.floor(i / 10)),
+        seatNumber: (i % 10) + 1,
         occupied: Math.random() > 0.7,
     }));
 
     mainContent.innerHTML = `
-        <div class="hall">
-            <div class="hall__screen"></div>
-            <div class="seats">
-                ${seats
-                    .map(
-                        (seat) => `
-                            <div class="seats__row" data-row="${seat.row}">
-                                <div class="seats__item ${seat.occupied ? "occupied" : "available"}" data-id="${seat.row}${seat.seatNumber}" ${
+        <h2>${cinema.name} - ${salon.name}</h2>
+        <p>Sitzplätze für den ${selectedDate} um ${selectedTime}:</p>
+        <div class="seat-plan">
+            ${seats
+                .map(
+                    (seat) =>
+                        `<button class="seat ${
+                            seat.occupied ? "occupied" : "available"
+                        }" data-id="${seat.row}${seat.seatNumber}" ${
                             seat.occupied ? "disabled" : ""
-                        }>${seat.row}${seat.seatNumber}</div>
-                            </div>
-                        `
-                    )
-                    .join("")}
-            </div>
-            <div class="info-box">
-                <p class="info-box__price">Seçili Koltuk: 0</p>
-                <button id="confirmSeats" class="button" disabled>Bestätigen</button>
-            </div>
+                        }>${seat.row}${seat.seatNumber}</button>`
+                )
+                .join("")}
         </div>
+        <button id="confirmSeats" class="btn-primary">Bestätigen</button>
     `;
 
     const selectedSeats = new Set();
-    const priceInfo = document.querySelector(".info-box__price");
-    const confirmButton = document.getElementById("confirmSeats");
 
-    document.querySelectorAll(".seats__item.available").forEach((seat) =>
-        seat.addEventListener("click", (e) => {
+    document.querySelectorAll(".seat.available").forEach((button) =>
+        button.addEventListener("click", (e) => {
             const id = e.target.dataset.id;
             if (selectedSeats.has(id)) {
                 selectedSeats.delete(id);
-                e.target.classList.remove("seats__item_selected");
+                e.target.classList.remove("selected");
             } else {
                 selectedSeats.add(id);
-                e.target.classList.add("seats__item_selected");
+                e.target.classList.add("selected");
             }
-            priceInfo.textContent = `Seçili Koltuk: ${selectedSeats.size}`;
-            confirmButton.disabled = selectedSeats.size === 0;
         })
     );
 
-    confirmButton.addEventListener("click", () => {
+    document.getElementById("confirmSeats").addEventListener("click", () => {
         if (selectedSeats.size === 0) {
-            alert("Lütfen en az bir koltuk seçin.");
+            alert("Bitte wählen Sie mindestens einen Sitzplatz aus.");
             return;
         }
 
+        // Modal içeriği
         const modalContent = `
-            <h3>Seçtiğiniz Koltuklar:</h3>
+            <h3>Ihre ausgewählten Sitze:</h3>
             <ul>
                 ${Array.from(selectedSeats)
                     .map((seat) => `<li>${seat}</li>`)
                     .join("")}
             </ul>
-            <button id="enterDetails" class="button">Devam</button>
-            <button id="cancelSelection" class="button button--secondary">İptal</button>
+            <button id="enterDetails" class="btn-primary">Details Eingeben</button>
+            <button id="cancelSelection" class="btn-secondary">Abbrechen</button>
         `;
 
+        // Modalı göster
         showModal(modalContent);
 
+        // Modalda detay girişine geçiş
         document.getElementById("enterDetails").addEventListener("click", () => {
             enterDetails(Array.from(selectedSeats), cinema, salon, selectedDate, selectedTime);
             document.querySelector(".overlay").remove();
             document.querySelector(".modal").remove();
         });
 
+        // Modalda iptal işlemi
         document.getElementById("cancelSelection").addEventListener("click", () => {
             document.querySelector(".overlay").remove();
             document.querySelector(".modal").remove();
         });
     });
 }
-
 
 function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) {
     const modalContent = `

@@ -1,104 +1,142 @@
-/* Genel Ayarlar */
-.seat-plan {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Esnek sütun yapısı */
-    gap: 10px; /* Koltuklar arası boşluk */
-    justify-content: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8); /* Arka plan siyah ve şeffaf */
-    border-radius: 10px;
-    width: 100%; /* Tam genişlik */
-    max-width: 800px; /* Maksimum genişlik */
-    margin: 20px auto;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Hafif gölge */
-}
 
-/* Koltuklar */
-.seat {
-    width: 100%; /* Koltuk genişliği grid ile uyumlu */
-    aspect-ratio: 1 / 1; /* Kare görünüm */
-    background-color: var(--card-bg-color); /* Temel kart rengi */
-    border: 2px solid var(--border-color); /* Çerçeve rengi */
-    border-radius: 5px;
-    font-size: 0.8em;
-    font-weight: bold;
-    color: var(--text-color);
+.hall {
     text-align: center;
-    line-height: 1;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 20px;
 }
 
-.seat:hover {
-    transform: scale(1.1); /* Hover'da büyüme efekti */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover'da gölge efekti */
-}
-
-/* Dolu Koltuk */
-.seat.occupied {
-    background-color: var(--error-color); /* Kırmızı dolu koltuklar */
-    color: #fff;
-    cursor: not-allowed;
-    border: 2px solid var(--error-border-color);
-}
-
-/* Seçilebilir Koltuk */
-.seat.available:hover {
-    background-color: #5cb85c; /* Yeşil */
-    color: white;
-    transform: scale(1.1); /* Hafif büyüme efekti */
+.hall__screen {
+    margin: 0 auto;
+    height: 80px;
+    width: 300px;
+    background: linear-gradient(to top, #ccc, #999);
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
 }
 
-/* Seçilmiş Koltuk */
-.seat.selected {
-    background-color: var(--primary-color); /* Seçili koltuk rengi */
-    color: #fff;
-    border: 2px solid var(--primary-hover-color);
+.seats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+    gap: 8px;
+    justify-content: center;
+    max-width: 90%;
+    margin: 0 auto;
 }
 
-/* Koltuk Etiketleri */
-.seat[data-id]:after {
-    content: attr(data-id);
+.seats__item {
+    width: 30px;
+    height: 30px;
+    background-color: #03a9f4;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    color: white;
     font-size: 0.8em;
-    color: white;
-    opacity: 0.8;
+    font-weight: bold;
 }
 
-/* Onaylama Butonu */
-#confirmSeats {
+.seats__item:hover {
+    transform: scale(1.1);
+}
+
+.seats__item_selected {
+    background-color: #ff9800;
+}
+
+.seats__item.occupied {
+    background-color: #e74c3c;
+    cursor: not-allowed;
+}
+
+.info-box {
+    margin-top: 20px;
+    background-color: #444;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    width: 90%;
+    max-width: 400px;
     margin: 20px auto;
-    display: block;
-    padding: 10px 20px;
+}
+
+.info-box__price {
     font-size: 1em;
-    font-weight: bold;
-    background-color: var(--primary-color);
+}
+
+.button {
+    background-color: #03a9f4;
     color: white;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
 }
 
-#confirmSeats:hover {
-    background-color: var(--hover-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+    background-color: #0288d1;
+}
+
+.button--secondary {
+    background-color: #e74c3c;
+}
+
+.button--secondary:hover {
+    background-color: #c0392b;
 }
 
 /* Responsive Tasarım */
 @media (max-width: 768px) {
-    .seat {
-        font-size: 0.7em; /* Küçük ekranlar için daha küçük font */
+    .hall__screen {
+        height: 60px;
+        width: 200px;
     }
 
-    .seat-plan {
-        grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); /* Daha küçük koltuk boyutları */
-        gap: 8px;
+    .seats {
+        grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+        gap: 5px;
+    }
+
+    .seats__item {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 0.7em;
+    }
+
+    .info-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        width: 95%;
+    }
+
+    .button {
+        width: 100%;
     }
 }
 
 @media (max-width: 480px) {
-    .seat {
-        font-size: 0.6em; /* Daha küçük ekranlar için */
+    .hall__screen {
+        height: 50px;
+        width: 150px;
+    }
+
+    .seats__item {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 0.6em;
     }
 }
