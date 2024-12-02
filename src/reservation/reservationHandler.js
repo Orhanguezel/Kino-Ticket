@@ -54,81 +54,82 @@ export function startReservation(cinemaId) {
   setupCarousel(cinemaShows, cinemaId);
 }
 
-function setupCarousel(cinemaShows) {
+function setupCarousel(cinemaShows, cinemaId) {
   const items = document.querySelectorAll(".carousel .items");
   let currentItem = 0;
 
   function updatePositions() {
-      items.forEach((item, index) => {
-          item.classList.remove("main-pos", "left-pos", "right-pos", "back-pos");
-          if (index === currentItem) {
-              item.classList.add("main-pos");
-          } else if (index === (currentItem + 1) % items.length) {
-              item.classList.add("right-pos");
-          } else if (index === (currentItem - 1 + items.length) % items.length) {
-              item.classList.add("left-pos");
-          } else {
-              item.classList.add("back-pos");
-          }
-      });
+    items.forEach((item, index) => {
+      item.classList.remove("main-pos", "left-pos", "right-pos", "back-pos");
+      if (index === currentItem) {
+        item.classList.add("main-pos");
+      } else if (index === (currentItem + 1) % items.length) {
+        item.classList.add("right-pos");
+      } else if (index === (currentItem - 1 + items.length) % items.length) {
+        item.classList.add("left-pos");
+      } else {
+        item.classList.add("back-pos");
+      }
+    });
   }
 
   function swap(direction) {
-      if (direction === "next") {
-          currentItem = (currentItem + 1) % items.length;
-      } else {
-          currentItem = (currentItem - 1 + items.length) % items.length;
-      }
-      updatePositions();
+    if (direction === "next") {
+      currentItem = (currentItem + 1) % items.length;
+    } else {
+      currentItem = (currentItem - 1 + items.length) % items.length;
+    }
+    updatePositions();
   }
 
   document.getElementById("next").addEventListener("click", () => swap("next"));
   document.getElementById("prev").addEventListener("click", () => swap("prev"));
 
+  // Mouse drag & drop ve touch swipe
   const carousel = document.querySelector(".carousel");
   let startX = 0;
   let isDragging = false;
 
   carousel.addEventListener("mousedown", (e) => {
-      startX = e.clientX;
-      isDragging = true;
+    startX = e.clientX;
+    isDragging = true;
   });
 
   carousel.addEventListener("mousemove", (e) => {
-      if (!isDragging) return;
-      const diff = e.clientX - startX;
-      if (diff > 50) {
-          swap("prev");
-          isDragging = false;
-      } else if (diff < -50) {
-          swap("next");
-          isDragging = false;
-      }
+    if (!isDragging) return;
+    const diff = e.clientX - startX;
+    if (diff > 50) {
+      swap("prev");
+      isDragging = false;
+    } else if (diff < -50) {
+      swap("next");
+      isDragging = false;
+    }
   });
 
   carousel.addEventListener("mouseup", () => {
-      isDragging = false;
+    isDragging = false;
   });
 
   carousel.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
+    startX = e.touches[0].clientX;
+    isDragging = true;
   });
 
   carousel.addEventListener("touchmove", (e) => {
-      if (!isDragging) return;
-      const diff = e.touches[0].clientX - startX;
-      if (diff > 50) {
-          swap("prev");
-          isDragging = false;
-      } else if (diff < -50) {
-          swap("next");
-          isDragging = false;
-      }
+    if (!isDragging) return;
+    const diff = e.touches[0].clientX - startX;
+    if (diff > 50) {
+      swap("prev");
+      isDragging = false;
+    } else if (diff < -50) {
+      swap("next");
+      isDragging = false;
+    }
   });
 
   carousel.addEventListener("touchend", () => {
-      isDragging = false;
+    isDragging = false;
   });
 
   updatePositions();
@@ -160,17 +161,32 @@ function setupCarousel(cinemaShows) {
         `;
         showModal(modalContent);
 
-        document.querySelectorAll(".select-salon").forEach((button) => {
-          button.addEventListener("click", (e) => {
-            const salonId = e.target.dataset.id;
-            const time = e.target.dataset.time;
-
-            document.querySelector(".overlay").remove();
-            document.querySelector(".modal").remove();
-
+        document.querySelectorAll(".salon-card").forEach((card) => {
+          card.addEventListener("click", (e) => {
+            // Salon bilgilerini al
+            const salonId = card.querySelector(".select-salon").dataset.id;
+            const time = card.querySelector(".select-salon").dataset.time;
+        
+            console.log(`Salon seçildi: ID=${salonId}, Saat=${time}`);
+        
+            // Modal kapatma işlemi
+            const overlay = document.querySelector(".overlay");
+            const modal = document.querySelector(".modal");
+        
+            if (overlay) {
+              overlay.remove(); // Overlay kaldırılıyor
+            }
+            if (modal) {
+              modal.remove(); // Modal kaldırılıyor
+            }
+        
+            // Salon seçimi işlemleri
             showDateSelection(cinemaId, salonId);
           });
         });
+        
+        
+        
       }
     });
   });

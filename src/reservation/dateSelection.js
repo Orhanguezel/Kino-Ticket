@@ -36,8 +36,13 @@ export function showDateSelection(cinemaId, salonId) {
     </form>
   `;
 
+  // Bugünden önceki tarihler devre dışı bırakılıyor
+  const dateSelect = document.getElementById("dateSelect");
+  const today = new Date().toISOString().split("T")[0]; // Bugünün tarihi (YYYY-MM-DD formatında)
+  dateSelect.min = today;
+
   document.getElementById("proceedToSeats")?.addEventListener("click", () => {
-    const selectedDate = document.getElementById("dateSelect")?.value;
+    const selectedDate = dateSelect.value;
     const selectedTime = document.getElementById("timeSelect")?.value;
 
     if (!selectedDate || !selectedTime) {
@@ -48,6 +53,7 @@ export function showDateSelection(cinemaId, salonId) {
     showSeatSelection(cinemaId, salonId, selectedDate, selectedTime);
   });
 }
+
 
 
 

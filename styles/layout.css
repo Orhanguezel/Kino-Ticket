@@ -57,6 +57,34 @@ button {
 }
 
 
+.btn-primary {
+    margin-top: 15px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--success-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:disabled {
+    background-color: var(--border-color);
+    color: var(--text-color);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+
 
 
 @media (max-width: 768px) {

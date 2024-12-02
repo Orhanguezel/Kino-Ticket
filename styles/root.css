@@ -1,7 +1,5 @@
 /* Renk Paleti */
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #0056b3;
     --background-color: #f4f4f4;
     --light-color: #ffffff;
     --yellow-color: #ffc107;
@@ -11,6 +9,7 @@
     --footer-color: #D93A31;
     --primary-color:#D93A31;
     --secondary2-color: #2B2B35;
+    --dritte-color: #3C4043;
     --success-color: #28a745;
     --info-color: #17a2b8;
     --font-family-primary: 'Lexend Deca', sans-serif;

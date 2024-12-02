@@ -67,6 +67,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+input[type="date"]:invalid {
+    border-color: var(--error-color);
+    background-color: #ffe5e5;
+}
+
 /* Responsive Tasarım */
 @media (max-width: 768px) {
     #dateForm {

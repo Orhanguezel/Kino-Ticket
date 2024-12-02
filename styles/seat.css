@@ -1,21 +1,22 @@
 /* Genel Ayarlar */
 .seat-plan {
     display: grid;
-    grid-template-columns: repeat(10, 50px); /* 10 sütun düzeni */
-    gap: 15px; /* Koltuklar arası boşluk */
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Esnek sütun yapısı */
+    gap: 10px; /* Koltuklar arası boşluk */
     justify-content: center;
-    margin: 20px auto;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.8); /* Arka plan siyah ve şeffaf */
     border-radius: 10px;
-    width: max-content;
+    width: 100%; /* Tam genişlik */
+    max-width: 800px; /* Maksimum genişlik */
+    margin: 20px auto;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Hafif gölge */
 }
 
 /* Koltuklar */
 .seat {
-    width: 50px;
-    height: 50px;
+    width: 100%; /* Koltuk genişliği grid ile uyumlu */
+    aspect-ratio: 1 / 1; /* Kare görünüm */
     background-color: var(--card-bg-color); /* Temel kart rengi */
     border: 2px solid var(--border-color); /* Çerçeve rengi */
     border-radius: 5px;
@@ -23,6 +24,7 @@
     font-weight: bold;
     color: var(--text-color);
     text-align: center;
+    line-height: 1;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -31,7 +33,6 @@
     transform: scale(1.1); /* Hover'da büyüme efekti */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover'da gölge efekti */
 }
-
 
 /* Dolu Koltuk */
 .seat.occupied {
@@ -59,85 +60,12 @@
 /* Koltuk Etiketleri */
 .seat[data-id]:after {
     content: attr(data-id);
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
+    font-size: 0.8em;
     color: white;
     opacity: 0.8;
 }
 
 /* Onaylama Butonu */
-#openModalForConfirmation {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1.1em;
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#openModalForConfirmation:hover {
-    background-color: var(--primary-hover-color); /* Hover rengini vurgula */
-}
-
-/* Modal */
-.modal .btn-primary {
-    display: block;
-    margin: 10px auto;
-    width: 80%;
-    padding: 10px 15px;
-    font-size: 1.1em;
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.modal .btn-primary:hover {
-    background-color: var(--primary-hover-color);
-}
-
-.modal .btn-secondary {
-    display: block;
-    margin: 10px auto;
-    width: 80%;
-    padding: 10px 15px;
-    font-size: 1.1em;
-    background-color: var(--error-color);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.modal .btn-secondary:hover {
-    background-color: var(--error-hover-color);
-}
-
-/* Responsive Tasarım */
-@media (max-width: 768px) {
-    .seat {
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 12px;
-    }
-
-    .seat-plan {
-        grid-template-columns: repeat(8, 40px); /* Küçük ekranlarda daha az koltuk sığdır */
-    }
-}
-
-/* Butonlar */
 #confirmSeats {
     margin: 20px auto;
     display: block;
@@ -155,4 +83,22 @@
 #confirmSeats:hover {
     background-color: var(--hover-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .seat {
+        font-size: 0.7em; /* Küçük ekranlar için daha küçük font */
+    }
+
+    .seat-plan {
+        grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); /* Daha küçük koltuk boyutları */
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .seat {
+        font-size: 0.6em; /* Daha küçük ekranlar için */
+    }
 }

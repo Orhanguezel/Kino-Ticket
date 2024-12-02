@@ -1,23 +1,25 @@
 /* Modal Genel Ayarları */
 .modal {
-    display: none; /* Varsayılan olarak gizli */
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--light-color);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     width: 90%;
-    max-width: 700px;
-    max-height: 80vh; /* Modal yüksekliğini sınırla */
-    overflow-y: auto; /* Taşma durumunda dikey kaydırma */
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    font-family: var(--font-family-primary);
 }
 
 /* Modal Header ve Footer */
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,38 +28,47 @@
 .modal-header {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 15px;
+    color: var(--dark-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
 }
 
 .modal-header button {
     background-color: transparent;
     border: none;
     font-size: 1.5rem;
-    font-weight: bold;
-    color: red;
+    color: var(--primary-color);
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .modal-header button:hover {
-    color: darkred;
+    color: var(--error-color);
 }
 
 .modal-footer {
-    justify-content: center;
-    margin-top: 10px;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 .modal-footer button {
-    background-color: var(--primary-color);
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .modal-footer button:hover {
-    background-color: var(--primary-hover-color);
+    background-color: #0056b3;
 }
 
 /* Bilet Stilleri */
@@ -67,48 +78,55 @@
     gap: 15px;
     max-height: 60vh; /* Çok sayıda bilet olduğunda taşmayı önler */
     overflow-y: auto; /* Dikey kaydırma */
-    padding: 10px;
+    padding: 15px 0;
 }
 
 .ticket {
     border: 2px solid #007bff;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 15px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(50% - 20px); /* 2 sütun yap */
-    transition: transform 0.2s ease-in-out;
+    background-color: #f8faff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(45% - 20px); /* 2 sütun yap */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ticket:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .ticket h3 {
     color: #007bff;
     margin-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 .ticket p {
     margin: 5px 0;
+    color: #333;
 }
 
 /* Mobil Ekranlar için Responsive Ayar */
 @media (max-width: 600px) {
     .modal {
         width: 95%;
-        max-height: 90vh; /* Daha fazla yer için max-height arttırıldı */
-        padding: 15px;
+        max-height: 90vh;
+        padding: 20px;
     }
 
-    .modal-header, .modal-footer {
+    .modal-header,
+    .modal-footer {
         flex-direction: column;
         align-items: center;
+    }
+
+    .modal-footer {
+        gap: 15px;
     }
 
     .ticket {
         flex: 1 1 100%; /* Tek sütun yap */
         padding: 10px;
     }
-
 }

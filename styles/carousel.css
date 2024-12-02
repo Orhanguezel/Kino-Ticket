@@ -1,3 +1,4 @@
+/* Carousel Container */
 section {
     width: 100%;
     max-width: 800px;
@@ -6,6 +7,7 @@ section {
     overflow: hidden;
 }
 
+/* Carousel Items */
 .carousel {
     display: flex;
     list-style: none;
@@ -28,47 +30,43 @@ section {
 }
 
 .items img {
-    width: 100%;
-    max-width: 90%;
-    height: auto;
-    max-height: 300px;
-    object-fit: contain;
-    border-radius: 10px;
+    height: 300px; 
+    width: auto; 
+    object-fit: contain; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
 
+/* Active Slide */
 .main-pos {
     opacity: 1;
     transform: scale(1);
     z-index: 3;
 }
 
+/* Right Slide */
 .right-pos {
     opacity: 0.5;
     transform: translateX(100%) scale(0.8);
     z-index: 2;
 }
 
+/* Left Slide */
 .left-pos {
     opacity: 0.5;
     transform: translateX(-100%) scale(0.8);
     z-index: 2;
 }
 
-.back-pos {
-    opacity: 0.2;
-    transform: scale(0.5);
-    z-index: 1;
-}
-
+/* Carousel Controls */
 .carousel-controls {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
+
 .carousel-btn {
-    background-color: #333;
+    background-color:var(--secondary2-color);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -79,5 +77,5 @@ section {
 }
 
 .carousel-btn:hover {
-    background-color: #555;
+    background-color:var(--dritte-color);
 }

@@ -89,6 +89,7 @@
 
     .film-name {
         font-size: 0.9em;
+        color: var(--light-color);
     }
 }
 
