@@ -7,6 +7,7 @@
     padding: 0;
     text-align: center;
     color: var(--light-color);
+ 
   }
   
 /* Footer'ın Alt Grid Alanını Düzgün Kaplaması */
@@ -18,6 +19,7 @@
     background-color: var(--footer-color);
     color: #fff;
     width: 100%; 
+
   }
 
 /* Footer-Oben: Üst Kısım */

@@ -1,31 +1,53 @@
 import { getCart, clearCart } from "./checkoutHandler.js";
-import { showModal } from "./modal.js";
+import { showModal, closeModal } from "./modal.js";
 
-export function processPayment() {
+export function showCartModal() {
     const cart = getCart();
 
     if (cart.length === 0) {
-        showModal("<p>Sepetiniz boş. Ödeme işlemi gerçekleştirilemiyor.</p>");
+        alert("Sepetiniz boş!");
         return;
     }
 
     const totalPrice = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
 
+    const cartContent = cart
+        .map(
+            (item) => `
+            <div class="ticket">
+                <h3>Kino Ticket</h3>
+                <p><strong>Kino:</strong> ${item.cinema}</p>
+                <p><strong>Salon:</strong> ${item.salon}</p>
+                <p><strong>Sitzplatz:</strong> ${item.seat}</p>
+                <p><strong>Ad:</strong> ${item.name} ${item.surname}</p>
+                <p><strong>Kategori:</strong> ${
+                    item.category === "child" ? "Çocuk" : "Yetişkin"
+                }</p>
+                <p><strong>Fiyat:</strong> ${item.price.toFixed(2)} €</p>
+            </div>
+        `
+        )
+        .join("");
+
     const modalContent = `
-        <h2>Ödeme İşlemi</h2>
-        <div class="ticket-container">
-            ${cart.map(item => `
-                <div class="ticket">
-                    <h3>Kino Ticket</h3>
-                    <p><strong>Kino:</strong> ${item.cinema}</p>
-                    <p><strong>Salon:</strong> ${item.salon}</p>
-                    <p><strong>Sitzplatz:</strong> ${item.seat}</p>
-                    <p><strong>Ad:</strong> ${item.name} ${item.surname}</p>
-                    <p><strong>Kategori:</strong> ${item.category === "child" ? "Çocuk" : "Yetişkin"}</p>
-                    <p><strong>Fiyat:</strong> ${item.price.toFixed(2)} €</p>
-                </div>
-            `).join("")}
+        <h2>Sepetiniz</h2>
+        ${cartContent}
+        <p><strong>Toplam Tutar:</strong> ${totalPrice} €</p>
+        <div class="modal-actions">
+            <button id="processPayment" class="btn-primary">Ödeme Yap</button>
         </div>
+    `;
+
+    showModal(modalContent);
+
+    // Ödeme butonuna tıklanıldığında ödeme işlemini başlat
+    document.getElementById("processPayment").addEventListener("click", () => {
+        processPayment(cart, totalPrice);
+    });
+}
+
+export function processPayment(cart, totalPrice) {
+    const modalContent = `
         <div class="payment-form">
             <div class="card-form">
                 <div class="card-item">
@@ -33,7 +55,6 @@ export function processPayment() {
                         <div class="card-item__wrapper">
                             <div class="card-item__top">
                                 <img src="/Kino-Ticket/assets/icons/kart.gif" alt="Card" class="card-gif">
-
                                 <div class="card-item__type">
                                     <img id="cardType" src="/Kino-Ticket/assets/icons/visa.png" class="card-item__typeImg" alt="Card Type">
                                 </div>
@@ -67,11 +88,14 @@ export function processPayment() {
                 <label for="cvvInput">CVV:</label>
                 <input type="text" id="cvvInput" placeholder="123" required>
                 <p><strong>Toplam Tutar:</strong> ${totalPrice} €</p>
-                <button type="button" id="confirmPayment" class="btn-primary">Ödeme Yap</button>
+                <div class="payment-actions">
+                    <button type="button" id="confirmPayment" class="btn-primary">Ödeme Yap</button>
+                </div>
             </form>
         </div>
     `;
 
+    closeModal(); // Önceki modalı kapat
     showModal(modalContent);
 
     // Dinamik Form Etkileşimi
@@ -98,6 +122,7 @@ export function processPayment() {
         if (cardNumber === "1234 5678 9012 3456" && expiryDate === "12/34" && cvv === "123") {
             alert("Ödeme başarılı! Biletleriniz hazırlanıyor...");
             clearCart();
+            closeModal(); // Modalı kapat
             showModal(`
                 <h2>Ödeme Onayı</h2>
                 <p>Ödemeniz başarıyla alınmıştır. Biletleriniz aşağıda listelenmiştir:</p>

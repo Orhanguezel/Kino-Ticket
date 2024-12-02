@@ -1,6 +1,6 @@
 import { cineGroupInfo } from "../data/cineGroupInfo.js";
 import { cinemas } from "../data/cinemas.js";
-import { showCartModal } from "../reservation/showCartModal.js";
+import { showCartModal } from "../reservation/paymentHandler.js";
 
 export function loadHeader(cinema = null) {
   // Dinamik Arka Plan Ayarı

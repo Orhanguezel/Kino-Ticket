@@ -1,27 +1,34 @@
-export function showModal(content) {
-    const existingModal = document.querySelector(".modal");
-    if (existingModal) {
-        console.warn("Modal zaten açık. Mevcut modal kapatılıyor.");
-        existingModal.remove(); // Eski modalı kaldır
-        document.querySelector(".overlay")?.remove(); // Overlay'i kaldır
-    }
+export function showModal(content, modalId = "defaultModal") {
+    closeModal(modalId); // Aynı ID'deki modal varsa kapat
 
+    // Overlay ve modal elementleri oluşturuluyor
     const overlay = document.createElement("div");
     overlay.className = "overlay";
-    document.body.appendChild(overlay);
+    overlay.setAttribute("data-modal-id", modalId);
 
     const modal = document.createElement("div");
     modal.className = "modal";
-    modal.innerHTML = content;
+    modal.setAttribute("data-modal-id", modalId);
+    modal.innerHTML = `
+        ${content}
+        <div class="modal-footer">
+            <button class="btn-secondary close-button" data-modal-id="${modalId}">Kapat</button>
+        </div>
+    `;
 
+    // Kapama işlemi için kapatma düğmesine event listener ekleniyor
+    modal.querySelector(".close-button").addEventListener("click", () => closeModal(modalId));
+    overlay.addEventListener("click", () => closeModal(modalId));
+
+    document.body.appendChild(overlay);
     document.body.appendChild(modal);
-
-    overlay.addEventListener("click", () => {
-        closeModal();
-    });
 }
 
-export function closeModal() {
-    document.querySelector(".modal")?.remove();
-    document.querySelector(".overlay")?.remove();
+export function closeModal(modalId = "defaultModal") {
+    // Belirtilen ID'ye sahip modal'ı ve overlay'i bulup kaldır
+    const overlay = document.querySelector(`.overlay[data-modal-id="${modalId}"]`);
+    const modal = document.querySelector(`.modal[data-modal-id="${modalId}"]`);
+
+    if (overlay) overlay.remove();
+    if (modal) modal.remove();
 }

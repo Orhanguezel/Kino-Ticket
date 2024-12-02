@@ -1,8 +1,8 @@
 import { cinemas } from "../data/cinemas.js";
 import { getCinemaSalons } from "../data/filmsData.js";
 import { setCart, getCart } from "./checkoutHandler.js";
-import { showModal } from "./modal.js";
-import { processPayment } from "./paymentHandler.js"; // Ödeme işlemini yönetir
+import { showModal, closeModal } from "./modal.js";
+import { showCartModal } from "./paymentHandler.js"; // Ödeme işlemini yönetir
 
 const DISCOUNTS = {
     child: 0.3,
@@ -92,17 +92,18 @@ function showSeatSummary(selectedSeats, cinema, salon, selectedDate, selectedTim
                 .join("")}
         </ul>
         <button id="enterDetails" class="button">Devam</button>
-        <button id="cancelSelection" class="button button--secondary">İptal</button>
     `;
 
     showModal(modalContent);
 
-    document.getElementById("enterDetails").addEventListener("click", () => {
-        enterDetails(Array.from(selectedSeats), cinema, salon, selectedDate, selectedTime);
-        closeModal();
-    });
-
-    document.getElementById("cancelSelection").addEventListener("click", closeModal);
+    const enterDetailsButton = document.getElementById("enterDetails");
+    if (enterDetailsButton) {
+        enterDetailsButton.addEventListener("click", () => {
+            enterDetails(Array.from(selectedSeats), cinema, salon, selectedDate, selectedTime);
+        });
+    } else {
+        console.error("enterDetails butonu bulunamadı.");
+    }
 }
 
 function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) {
@@ -127,14 +128,11 @@ function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) 
                 )
                 .join("")}
             <button type="button" id="addToCart" class="btn-primary">Sepete Ekle</button>
-            <button type="button" id="cancelDetails" class="btn-secondary">İptal</button>
         </form>
     `;
 
-    // Modalı göster
     showModal(modalContent);
 
-    // Sepete ekle butonuna event listener ekle
     const addToCartButton = document.getElementById("addToCart");
     if (addToCartButton) {
         addToCartButton.addEventListener("click", () => {
@@ -171,18 +169,23 @@ function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) 
 
             setCart([...getCart(), ...details]);
             alert("Biletler sepete eklendi!");
-            processPayment();
-            closeModal();
+            closeModal(); // Mevcut modalı kapat
+            // Ödeme sayfasına geçiş için yeni modal gösterimi
+            showPaymentModal();
         });
     } else {
         console.error("addToCart düğmesi bulunamadı!");
     }
+}
 
-    // İptal butonuna event listener ekle
-    const cancelDetailsButton = document.getElementById("cancelDetails");
-    if (cancelDetailsButton) {
-        cancelDetailsButton.addEventListener("click", closeModal);
-    } else {
-        console.error("cancelDetails düğmesi bulunamadı!");
+// Yeni ödeme modalını açan fonksiyon
+function showPaymentModal() {
+    const cart = getCart();
+
+    if (cart.length === 0) {
+        alert("Sepetiniz boş!");
+        return;
     }
+
+    showCartModal(); // Ödeme işlemini başlat
 }

@@ -39,6 +39,7 @@
   height: var(--sidebar-width); /* Sidebar yüksekliği ile aynı */
   background-color: var(--light-color);
   z-index: 999;
+  
 }
 
 .header-logo {
@@ -120,6 +121,7 @@
   justify-content: center;
   align-items: center;
   width: var(--sidebar-width);
+ 
 }
 
 /* Login/Register */

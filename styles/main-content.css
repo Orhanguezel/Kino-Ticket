@@ -5,20 +5,20 @@
     background-position: center;
     background-attachment: fixed;
     transition: background-image 0.5s ease-in-out;
-    padding: 20px; /* İçerik boşluklarını düzenledik */
+    padding: 20px;
     margin: 0;
     width: 100%;
-    min-height: 100%; /* Min yüksekliği grid yapısına göre belirle */
+    min-height: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* İçerikleri yukarıdan başlat */
-    overflow-y: auto; /* Taşan içerikler için kaydırma ekledik */
+    justify-content: center; 
+    overflow-y: auto; 
+    
 }
 
 /* Cinema Details ve Group Info */
 .cinema-details, .group-info {
-    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -95,7 +95,7 @@
 @media (max-width: 768px) {
     .main-content {
         padding: 20px;
-        min-height: auto; /* Mobilde otomatik yüksekliği etkinleştir */
+        min-height: auto; 
     }
 
     .cinema-details, .group-info {
@@ -108,9 +108,10 @@
     }
 }
 @media screen and (max-width: 1100px) {
-    .grid-main {
-        min-height: auto;
-      }
+    .main-content {
+        width: 100%;
+        margin: 0 auto;
+}
 }
 
 
