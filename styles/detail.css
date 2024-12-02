@@ -1,0 +1,107 @@
+
+/* Müşteri Detayları */
+.customer-details {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+}
+
+.customer-details h4 {
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.customer-details label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.customer-details input,
+.customer-details select {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.customer-details input:focus,
+.customer-details select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Butonlar */
+.btn-primary,
+.btn-secondary {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+    }
+
+    .customer-details {
+        padding: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 10px;
+    }
+
+    .customer-details {
+        padding: 8px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+}

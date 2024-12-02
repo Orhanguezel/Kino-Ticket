@@ -1,132 +1,81 @@
-/* Modal Genel Ayarları */
 .modal {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--light-color);
+    background-color: #fff;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     width: 90%;
-    max-width: 600px;
-    max-height: 85vh;
+    max-width: 800px;
+    max-height: 90vh;
     overflow-y: auto;
-    font-family: var(--font-family-primary);
-}
-
-/* Modal Header ve Footer */
-.modal-header,
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .modal-header {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--dark-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
-}
-
-.modal-header button {
-    background-color: transparent;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.modal-header button:hover {
-    color: var(--error-color);
-}
-
-.modal-footer {
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border-color);
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.modal-footer button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.modal-footer button:hover {
-    background-color: #0056b3;
-}
-
-/* Bilet Stilleri */
-.ticket-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    max-height: 60vh; /* Çok sayıda bilet olduğunda taşmayı önler */
-    overflow-y: auto; /* Dikey kaydırma */
-    padding: 15px 0;
-}
-
-.ticket {
-    border: 2px solid #007bff;
-    border-radius: 10px;
-    padding: 15px;
-    background-color: #f8faff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(45% - 20px); /* 2 sütun yap */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ticket:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.ticket h3 {
-    color: #007bff;
-    margin-bottom: 10px;
     font-size: 1.2rem;
-}
-
-.ticket p {
-    margin: 5px 0;
+    font-weight: bold;
     color: #333;
 }
 
-/* Mobil Ekranlar için Responsive Ayar */
+.modal-header .close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.modal-header .close-modal:hover {
+    color: #ff0000;
+}
+
+.modal-body {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Mobil Ekranlar */
 @media (max-width: 600px) {
+    .modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 1024px) {
     .modal {
         width: 95%;
         max-height: 90vh;
         padding: 20px;
     }
+}
 
-    .modal-header,
-    .modal-footer {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .modal-footer {
-        gap: 15px;
-    }
-
-    .ticket {
-        flex: 1 1 100%; /* Tek sütun yap */
-        padding: 10px;
+@media (max-width: 768px) {
+    .modal {
+        padding: 15px;
+        width: 95%;
     }
 }

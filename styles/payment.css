@@ -1,79 +1,74 @@
-.payment-section {
+/* Bilet Konteyneri */
+.ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Ortala */
+    padding: 20px;
+    max-height: 80vh; /* Modal içinde taşmayı önler */
+    overflow-y: auto; /* Dikey kaydırma */
+}
+
+/* Bilet Tasarımı */
+.ticket {
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    padding: 15px;
+    flex: 1 1 calc(25% - 20px); /* Büyük ekranlarda 4 sütun */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px;
+    max-width: 300px; /* Maksimum genişlik */
+}
+
+/* Hover Stili */
+.ticket:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Bilet Başlık */
+.ticket h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* Bilet İçeriği */
+.ticket p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.ticket p strong {
+    color: #0056b3;
+}
+
+/* Kredi Kartı Formu */
+.payment-form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
     align-items: center;
-    margin-top: 20px;
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-    max-width: 800px;
-    margin: 0 auto; /* Ortala */
-}
-
-/* Kart Örneği */
-.card-example {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 12px;
-    width: 100%; /* Tam genişlik */
-    max-width: 350px;
-    text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-example:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.card-design {
-    background: #007bff; /* Ana Renk */
-    color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    font-family: 'Arial', sans-serif;
-    box-shadow: inset 0px -3px 5px rgba(0, 0, 0, 0.2);
-}
-
-.card-number,
-.card-expiry,
-.card-cvv {
-    font-size: 1rem;
-    margin: 5px 0;
-}
-
-.card-number strong,
-.card-expiry strong,
-.card-cvv strong {
-    font-weight: bold;
-}
-
-.card-design p {
-    margin: 8px 0;
-}
-
-/* Ödeme Formu */
-.payment-form {
-    flex: 1;
     width: 100%;
-    max-width: 450px;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
+    max-width: 500px;
+    margin: 20px auto;
     padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .payment-form label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
     font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
     color: #333;
 }
 
@@ -82,16 +77,16 @@
     padding: 10px;
     font-size: 1rem;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
     border-radius: 8px;
+    border: 1px solid #ccc;
     background: #f7f7f7;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 .payment-form input:focus {
     border-color: #007bff;
-    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
     outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .payment-form button {
@@ -99,7 +94,7 @@
     padding: 12px;
     font-size: 1.1rem;
     font-weight: bold;
-    color: #ffffff;
+    color: #fff;
     background-color: #007bff;
     border: none;
     border-radius: 8px;
@@ -109,23 +104,91 @@
 
 .payment-form button:hover {
     background-color: #0056b3;
-    transform: translateY(-2px);
+    transform: scale(1.05);
 }
 
-.payment-form button:active {
-    transform: translateY(0);
+
+
+/* Kredi Kartı Görünümü */
+.card-example {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin-top: 15px;
+    max-width: 320px;
+    overflow: hidden;
 }
 
-/* Media Query for Responsive Design */
+.card-example img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.card-gif {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-item__typeImg {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+
+
+/* Responsive Tasarım */
+@media (max-width: 1024px) {
+    .ticket {
+        flex: 1 1 calc(50% - 20px); /* Orta ekranlarda 2 sütun */
+    }
+}
+
 @media (max-width: 768px) {
-    .payment-section {
+    .ticket-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
+        overflow-x: hidden;
     }
 
-    .card-example,
+    .ticket {
+        flex: 1 1 100%; /* Küçük ekranlarda tam genişlik */
+        max-width: 100%;
+    }
+
     .payment-form {
-        width: 100%;
-        max-width: none;
+        max-width: 100%;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
