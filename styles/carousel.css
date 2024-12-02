@@ -1,0 +1,83 @@
+section {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.5s ease-in-out;
+    justify-content: center;
+    align-items: center;
+}
+
+.items {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0.3;
+    transform: scale(0.8);
+}
+
+.items img {
+    width: 100%;
+    max-width: 90%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+.main-pos {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 3;
+}
+
+.right-pos {
+    opacity: 0.5;
+    transform: translateX(100%) scale(0.8);
+    z-index: 2;
+}
+
+.left-pos {
+    opacity: 0.5;
+    transform: translateX(-100%) scale(0.8);
+    z-index: 2;
+}
+
+.back-pos {
+    opacity: 0.2;
+    transform: scale(0.5);
+    z-index: 1;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.carousel-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: #555;
+}
