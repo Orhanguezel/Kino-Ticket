@@ -14,18 +14,6 @@
   z-index: 100;
 }
 
-.lines {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.line {
-  width: 30px;
-  height: 3px;
-  background-color: var(--light-color);
-}
-
 /* Header */
 .grid-header {
   grid-area: logo / logo / header-nav / header-nav;

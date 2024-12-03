@@ -1,0 +1,89 @@
+/* Sol Üst Hamburger Menü Stilleri */
+.grid-hamburger-menu {
+    grid-area: hamburger;
+
+}
+
+.grid-hamburger-menu .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.grid-hamburger-menu .line {
+    width:30px;
+    height: 3px;
+    background-color: var(--light-color);
+    border-radius: 2px;
+}
+
+/* Overlay için stil */
+.contact-overlay {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Siyah yarı saydam arka plan */
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.contact-overlay.active {
+    display: flex; /* Aktif olduğunda görünür */
+}
+
+.contact-overlay-content {
+    background-color: var(--light-color); /* İçerik kutusunun rengi */
+    color: var(--dark-color); /* Metin rengi */
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+}
+
+.contact-overlay-content h2 {
+    margin-bottom: 20px;
+}
+
+.contact-overlay-content .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.contact-overlay-content .contact-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.contact-overlay-content .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contact-overlay-content .social-icons a {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+.contact-overlay-content .social-icons a:hover {
+    color: var(--secondary-color); /* Hover durumunda farklı bir renk */
+}
+
+.contact-overlay-content iframe {
+    width: 100%;
+    height: 200px;
+    border: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+}

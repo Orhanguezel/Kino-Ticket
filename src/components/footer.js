@@ -1,4 +1,4 @@
-import { cineGroupInfo } from "../data/cineGroupInfo.js";
+import { cineGroupInfo } from "../data/cinemas.js";
 
 export function loadFooter(cinema = null) {
   const footer = document.getElementById("footer");
@@ -30,7 +30,6 @@ export function loadFooter(cinema = null) {
                             <li><a href="#" id="cartLink">Warenkorb</a></li>
                             <li><a href="#">Über uns</a></li>
                             <li><a href="#">Filme</a></li>
-                            <li><a href="#">Kontakt</a></li>
                         </ul>
                     </nav>
                 </div>

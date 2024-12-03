@@ -145,3 +145,15 @@ export function processPayment(cart, totalPrice) {
         }
     });
 }
+
+
+export function updateCartCount() {
+    const cart = getCart();
+    const cartCountElement = document.getElementById("cartCount");
+  
+    if (cartCountElement) {
+      const count = cart.length || 0;
+      cartCountElement.textContent = count > 0 ? count : "";
+      cartCountElement.style.visibility = count > 0 ? "visible" : "hidden";
+    }
+  }

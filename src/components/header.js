@@ -1,20 +1,14 @@
-import { cineGroupInfo } from "../data/cineGroupInfo.js";
-import { cinemas } from "../data/cinemas.js";
-import { showCartModal } from "../reservation/paymentHandler.js";
-import { getCart } from "../reservation/checkoutHandler.js";
+import { cineGroupInfo } from "../data/cinemas.js";
+import { showCartModal, updateCartCount } from "../reservation/paymentHandler.js";
+import { setupContactHamburgerMenu } from "./contactHamburger.js";
+import { getSelectedCinema, setupMainContent } from "../reservation/cinemaSelection.js"; 
 
 export function loadHeader(cinema = null) {
-  // Dinamik Arka Plan Ayarı
-  document.body.style.backgroundImage = `url('${
-    cinema ? cinema.backgroundImage : "./assets/cinema/default-bg.jpg"
-  }')`;
-  
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundPosition = "center";
-  document.body.style.backgroundAttachment = "fixed";
-  document.body.style.transition = "background-image 0.5s ease-in-out";
+  // Eğer sinema seçilmemişse localStorage'dan kontrol et
+  cinema = cinema || getSelectedCinema() || cineGroupInfo;
 
   const header = document.getElementById("header");
+
   header.innerHTML = `
         <div class="grid-container">
             <!-- Sol Üst: Hamburger Menü -->
@@ -46,7 +40,6 @@ export function loadHeader(cinema = null) {
                     <li><a href="#" id="homeLink">Startseite</a></li>
                     <li><a href="#">Über uns</a></li>
                     <li><a href="#">Filme</a></li>
-                    <li><a href="#">Kontakt</a></li>
                   </ul>
                 </nav>
             </header>
@@ -74,77 +67,23 @@ export function loadHeader(cinema = null) {
                   <p>Es ist eine allgemein bekannte Tatsache, dass der Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich ihr Layout ansieht.</p>
                   <button class="explore-button">Mehr entdecken →</button>
                 </section>
-                <section class="main-content" id="mainContent">
-                  ${
-                    cinema
-                      ? `
-                        <div class="cinema-details">
-                          <h2>Willkommen bei ${cinema.name}</h2>
-                          <p>${cinema.description}</p>
-                          <div class="cinema-actions">
-                              <button id="startReservationButton" class="btn-primary">Buchen oder Reservieren</button>
-                              <button id="toMainPageButton" class="btn-secondary">Zurück zur Startseite</button>
-                          </div>
-                        </div>
-                      `
-                      : `
-                        <div class="group-info">
-                          <h2>${cineGroupInfo.title}</h2>
-                          <p>${cineGroupInfo.description}</p>
-                          <div class="cinema-actions">
-                              ${cinemas
-                                .map(
-                                  (cinema) =>
-                                    `<button class="btn-primary cinema-select" data-id="${cinema.id}">${cinema.name}</button>`
-                                )
-                                .join("")}
-                          </div>
-                        </div>
-                      `
-                  }
-                </section>
+                <section class="main-content" id="mainContent"></section>
             </main>
         </div>
     `;
 
-  const hamburgerMenu = document.getElementById("hamburgerMenu");
-  const navLinks = document.querySelector(".nav-links");
-  const cartLink = document.getElementById("cartLink");
+  setupContactHamburgerMenu(cinema); // Dinamik hamburger menü
+  setupNavListeners();
 
-  // Navbar için hamburger menü kontrolü
-  if (hamburgerMenu) {
-    hamburgerMenu.addEventListener("click", () => {
-        if (navLinks) {
-            navLinks.classList.toggle("active");
-        }
-        hamburgerMenu.classList.toggle("open");
-    });
+  // Dinamik İçeriği ve Background Ayarını Başlat
+  setupMainContent(cinema);
 }
 
-document.addEventListener("click", (event) => {
-  if (
-      navLinks &&
-      navLinks.classList.contains("active") &&
-      !event.target.closest(".hamburger-menu") &&
-      !event.target.closest(".nav-links")
-  ) {
-      navLinks.classList.remove("active");
-      hamburgerMenu.classList.remove("open");
-  }
-});
 
-  // Home link kontrolü
+function setupNavListeners() {
+  const cartLink = document.getElementById("cartLink");
   const homeLink = document.getElementById("homeLink");
-  if (homeLink) {
-    homeLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (typeof updateUI === "function") {
-        updateUI(null);
-      }
-    });
-  }
 
-  // Cart modal açma
   if (cartLink) {
     cartLink.addEventListener("click", (e) => {
       e.preventDefault();
@@ -152,51 +91,15 @@ document.addEventListener("click", (event) => {
     });
   }
 
-  // Sepet içeriğini güncelleme
-  updateCartCount();
-
-  // Main Content'e Dinamik Arka Plan Uygulama
-  const mainContent = document.getElementById("mainContent");
-  if (mainContent) {
-    mainContent.style.backgroundImage = `url('${
-      cinema ? cinema.backgroundImage : "./assets/cinema/default-bg.jpg"
-    }')`;}
-
-
-  // Event Dinamik Sinema Seçim
-  document.querySelectorAll(".cinema-select").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const cinemaId = event.target.getAttribute("data-id");
-      const selectedCinema = cinemas.find((cinema) => cinema.id === cinemaId);
-
-      if (selectedCinema) {
-        updateUI(selectedCinema); // Sinema sayfasını yükle
-      } else {
-        console.error("Geçersiz sinema seçimi!");
-      }
+  if (homeLink) {
+    homeLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("selectedCinema");
+      goToMainPage() // Varsayılan duruma dön
     });
-  });
-}
-
-function updateCartCount() {
-  const cart = getCart();
-  const cartCount = cart.length;
-  const cartIcon = document.querySelector(".sidebar-cart");
-  const cartCountElement = document.getElementById("cartCount");
-
-  if (cartIcon && cartCountElement) {
-    if (cartCount > 0) {
-      cartIcon.setAttribute("data-count", cartCount);
-      cartCountElement.textContent = cartCount;
-
-      // Animasyon tetikleyici
-      cartCountElement.classList.add("bounce");
-      setTimeout(() => {
-        cartCountElement.classList.remove("bounce");
-      }, 500);
-    } else {
-      cartIcon.removeAttribute("data-count");
-      cartCountElement.textContent = "";
-    }
   }
+
+  updateCartCount();
 }
+
+updateCartCount();
