@@ -114,12 +114,24 @@ export function loadHeader(cinema = null) {
   // Navbar için hamburger menü kontrolü
   if (hamburgerMenu) {
     hamburgerMenu.addEventListener("click", () => {
-      if (navLinks) {
-        navLinks.classList.toggle("active");
-      }
-      hamburgerMenu.classList.toggle("open");
+        if (navLinks) {
+            navLinks.classList.toggle("active");
+        }
+        hamburgerMenu.classList.toggle("open");
     });
+}
+
+document.addEventListener("click", (event) => {
+  if (
+      navLinks &&
+      navLinks.classList.contains("active") &&
+      !event.target.closest(".hamburger-menu") &&
+      !event.target.closest(".nav-links")
+  ) {
+      navLinks.classList.remove("active");
+      hamburgerMenu.classList.remove("open");
   }
+});
 
   // Home link kontrolü
   const homeLink = document.getElementById("homeLink");
