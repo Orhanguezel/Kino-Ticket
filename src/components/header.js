@@ -1,6 +1,7 @@
 import { cineGroupInfo } from "../data/cineGroupInfo.js";
 import { cinemas } from "../data/cinemas.js";
 import { showCartModal } from "../reservation/paymentHandler.js";
+import { getCart } from "../reservation/checkoutHandler.js";
 
 export function loadHeader(cinema = null) {
   // Dinamik Arka Plan Ayarı
@@ -57,9 +58,10 @@ export function loadHeader(cinema = null) {
                     <a href="#" id="homeLink"> Login</a>
                     <a href="#"> Register</a>
                 </div>
-                <div class="sidebar-cart" id="cartLink">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
+                <div class="sidebar-cart" id="cartLink" data-count="0">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="cartCount" class="cart-count">0</span>
+</div>
                 <div class="sidebar-search">
                     <i class="fas fa-search"></i>
                 </div>
@@ -139,6 +141,9 @@ export function loadHeader(cinema = null) {
     });
   }
 
+  // Sepet içeriğini güncelleme
+  updateCartCount();
+
   // Main Content'e Dinamik Arka Plan Uygulama
   const mainContent = document.getElementById("mainContent");
   if (mainContent) {
@@ -160,4 +165,27 @@ export function loadHeader(cinema = null) {
       }
     });
   });
+}
+
+function updateCartCount() {
+  const cart = getCart();
+  const cartCount = cart.length;
+  const cartIcon = document.querySelector(".sidebar-cart");
+  const cartCountElement = document.getElementById("cartCount");
+
+  if (cartIcon && cartCountElement) {
+    if (cartCount > 0) {
+      cartIcon.setAttribute("data-count", cartCount);
+      cartCountElement.textContent = cartCount;
+
+      // Animasyon tetikleyici
+      cartCountElement.classList.add("bounce");
+      setTimeout(() => {
+        cartCountElement.classList.remove("bounce");
+      }, 500);
+    } else {
+      cartIcon.removeAttribute("data-count");
+      cartCountElement.textContent = "";
+    }
+  }
 }
