@@ -83,21 +83,68 @@ export function loadHeader(cinema = null) {
 function setupNavListeners() {
   const cartLink = document.getElementById("cartLink");
   const homeLink = document.getElementById("homeLink");
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
+  const navLinks = document.querySelector(".nav-links");
 
+  // Sepet modal açma
   if (cartLink) {
     cartLink.addEventListener("click", (e) => {
       e.preventDefault();
       showCartModal();
+      console.log("Cart modal opened");
     });
   }
 
+  // Ana sayfaya dönme
   if (homeLink) {
     homeLink.addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.removeItem("selectedCinema");
-      goToMainPage() // Varsayılan duruma dön
+      console.log("Navigated to main page");
+      goToMainPage(); // Varsayılan duruma dön
     });
   }
 
+  // Navbar için hamburger menü kontrolü
+  if (hamburgerMenu) {
+    hamburgerMenu.addEventListener("click", () => {
+      if (navLinks) {
+        navLinks.classList.toggle("active");
+      }
+      hamburgerMenu.classList.toggle("open");
+      console.log("Hamburger menu toggled");
+    });
+  }
+
+  // Navbar dışına tıklayınca kapanması
+  document.addEventListener("click", (event) => {
+    if (
+      navLinks &&
+      navLinks.classList.contains("active") &&
+      !event.target.closest(".hamburger-menu") &&
+      !event.target.closest(".nav-links")
+    ) {
+      navLinks.classList.remove("active");
+      hamburgerMenu.classList.remove("open");
+      console.log("Hamburger menu closed by outside click");
+    }
+  });
+
+  // Sepet içeriğini güncelleme
   updateCartCount();
+
+  // Dinamik sinema seçim
+  document.querySelectorAll(".cinema-select").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const cinemaId = event.target.getAttribute("data-id");
+      const selectedCinema = cinemas.find((cinema) => cinema.id === cinemaId);
+
+      if (selectedCinema) {
+        console.log(`Cinema selected: ${selectedCinema.name}`);
+        updateUI(selectedCinema); // Sinema sayfasını yükle
+      } else {
+        console.error("Geçersiz sinema seçimi!");
+      }
+    });
+  });
 }

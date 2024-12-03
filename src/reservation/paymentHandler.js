@@ -149,11 +149,24 @@ export function processPayment(cart, totalPrice) {
 
 export function updateCartCount() {
     const cart = getCart();
+    const cartCount = cart.length;
+    const cartIcon = document.querySelector(".sidebar-cart");
     const cartCountElement = document.getElementById("cartCount");
   
-    if (cartCountElement) {
-      const count = cart.length || 0;
-      cartCountElement.textContent = count > 0 ? count : "";
-      cartCountElement.style.visibility = count > 0 ? "visible" : "hidden";
+    if (cartIcon && cartCountElement) {
+      if (cartCount > 0) {
+        cartIcon.setAttribute("data-count", cartCount);
+        cartCountElement.textContent = cartCount;
+  
+        // Animasyon tetikleyici
+        cartCountElement.classList.add("bounce");
+        setTimeout(() => {
+          cartCountElement.classList.remove("bounce");
+        }, 500);
+      } else {
+        cartIcon.removeAttribute("data-count");
+        cartCountElement.textContent = "";
+      }
     }
   }
+  
