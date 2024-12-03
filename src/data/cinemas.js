@@ -74,7 +74,7 @@ export const cineGroupInfo = {
   address: "Deutschlandweit verfügbar.",
   phone: "(+888) 123 456 765",
   email: "cinegrup@cinegrup.com",
-  map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.839604108928!2d144.9630550159045!3d-37.81421797975127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xb8d1d5b0a6378e2c!2sMetro%20Manila%2C%20Filipinler!5e0!3m2!1str!2str!4v1612171371532!5m2!1str!2str",
+  map:  "https://www.google.com/maps/embed?pb=PLACEHOLDER_FOR_BERLIN",
   facebook: "#",
   twitter: "#",
   youtube: "#",

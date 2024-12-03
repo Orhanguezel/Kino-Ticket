@@ -1,8 +1,9 @@
 import { cineGroupInfo } from "../data/cinemas.js";
-import { showCartModal, updateCartCount } from "../reservation/paymentHandler.js";
+import { showCartModal } from "../reservation/paymentHandler.js";
 import { setupContactHamburgerMenu } from "./contactHamburger.js";
 import { getSelectedCinema, setupMainContent } from "../reservation/cinemaSelection.js"; 
 import { updateUI } from "../../controllers/uiController.js";
+import { updateCartCount } from "../reservation/checkoutHandler.js";
 
 export function loadHeader(cinema = null) {
   // Eğer sinema seçilmemişse localStorage'dan kontrol et

@@ -1,4 +1,5 @@
 // **Film Sınıfı**
+
 export class Film {
   constructor(id, name, duration, image, showtimes = []) {
     this.id = id;
