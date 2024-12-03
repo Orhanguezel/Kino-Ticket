@@ -1,6 +1,7 @@
 import { cineGroupInfo, cinemas } from "../data/cinemas.js";
 import { loadHeader } from "../components/header.js";
 import { startReservation } from "./reservationHandler.js";
+import { setupContactHamburgerMenu } from "../components/contactHamburger.js";
 
 export function selectCinema(cinemaId) {
   const cinema = cinemas.find((c) => c.id === cinemaId);
@@ -16,6 +17,7 @@ export function selectCinema(cinemaId) {
   // Header ve Main Content güncelle
   loadHeader(cinema);
   setupMainContent(cinema);
+  setupContactHamburgerMenu();
 }
 
 export function getSelectedCinema() {
@@ -72,13 +74,13 @@ export function setupMainContent(cinema) {
   // Dinamik sinema seçimi için butonları bağla
   setupCinemaSelection();
 
-  // Geri dönüş butonuna event listener ekle
   const toMainPageButton = document.getElementById("toMainPageButton");
   if (toMainPageButton) {
     toMainPageButton.addEventListener("click", () => {
       localStorage.removeItem("selectedCinema");
       loadHeader(); // Varsayılan header
       setupMainContent(cineGroupInfo); // Varsayılan içerik
+      setupContactHamburgerMenu(); // Varsayılan menü
     });
   }
 
@@ -100,9 +102,9 @@ export function setupMainContent(cinema) {
 function setupCinemaSelection() {
   document.querySelectorAll(".cinema-select").forEach((button) =>
     button.addEventListener("click", (e) => {
-      const cinemaId = e.target.dataset.id; 
+      const cinemaId = e.target.dataset.id;
       if (cinemaId) {
-        selectCinema(parseInt(cinemaId)); // Sadece sinema seçimi
+        selectCinema(parseInt(cinemaId)); // Sinema seçimi
       }
     })
   );

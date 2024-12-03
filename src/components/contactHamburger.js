@@ -1,16 +1,36 @@
-import { cinemas, cineGroupInfo } from "../data/cinemas.js";
+import { cineGroupInfo } from "../data/cinemas.js";
+
+// Seçili sinema bilgisini al
+function getSelectedCinema() {
+  const storedCinema = localStorage.getItem("selectedCinema");
+  return storedCinema ? JSON.parse(storedCinema) : cineGroupInfo;
+}
 
 export function setupContactHamburgerMenu() {
-  if (document.querySelector(".contact-overlay")) return; // Zaten varsa yeniden oluşturma
+  const initializeMenu = () => {
+    const gridHamburgerMenu = document.querySelector(".grid-hamburger-menu");
 
-  const gridHamburgerMenu = document.querySelector(".grid-hamburger-menu");
-  const contactOverlay = document.createElement("div");
+    // Eğer öğe bulunamazsa, bir hata yaz ve çık
+    if (!gridHamburgerMenu) {
+      console.warn("Grid hamburger menu element not found.");
+      return;
+    }
 
-  // Seçili sinema bilgisi alınıyor
-  const selectedCinema = getSelectedCinema();
+    // Daha önce eklenmiş bir overlay varsa tekrar oluşturma
+    const existingOverlay = document.querySelector(".contact-overlay");
+    if (existingOverlay) {
+      existingOverlay.remove(); // Eski overlay'i temizle
+    }
 
-  contactOverlay.classList.add("contact-overlay");
-  contactOverlay.innerHTML = `
+    const contactOverlay = document.createElement("div");
+
+    // Seçili sinema bilgisi alınıyor
+    const selectedCinema = getSelectedCinema();
+
+    contactOverlay.classList.add("contact-overlay");
+    contactOverlay.innerHTML = `
+
+
         <div class="contact-overlay-content">
             <button id="closeContactOverlay" style="float: right; font-size: 1.5rem; background: none; border: none; color: var(--dark-color); cursor: pointer;">&times;</button>
             <h2>Contact Us</h2>
@@ -44,28 +64,46 @@ export function setupContactHamburgerMenu() {
         </div>
     `;
 
-  document.body.appendChild(contactOverlay);
+    document.body.appendChild(contactOverlay);
 
-  gridHamburgerMenu.addEventListener("click", () => {
-    contactOverlay.classList.add("active");
-  });
+    // Hamburger menu click event
+    gridHamburgerMenu.addEventListener("click", () => {
+      contactOverlay.classList.add("active");
+    });
 
-  document.getElementById("closeContactOverlay").addEventListener("click", () => {
-    contactOverlay.classList.remove("active");
-  });
-
-  contactOverlay.addEventListener("click", (e) => {
-    if (e.target === contactOverlay) {
-      contactOverlay.classList.remove("active");
+    // Overlay kapatma butonu
+    const closeContactOverlayButton = document.getElementById("closeContactOverlay");
+    if (closeContactOverlayButton) {
+      closeContactOverlayButton.addEventListener("click", () => {
+        contactOverlay.classList.remove("active");
+      });
     }
-  });
-}
 
-// Seçili sinema bilgisini al
-function getSelectedCinema() {
-  const storedCinema = localStorage.getItem("selectedCinema");
-  if (storedCinema) {
-    return JSON.parse(storedCinema);
+    // Overlay dışına tıklama olayı
+    contactOverlay.addEventListener("click", (e) => {
+      if (e.target === contactOverlay) {
+        contactOverlay.classList.remove("active");
+      }
+    });
+  };
+
+  // Eğer gridHamburgerMenu DOM'da yoksa, MutationObserver ile DOM değişikliklerini dinle
+  const gridHamburgerMenu = document.querySelector(".grid-hamburger-menu");
+  if (!gridHamburgerMenu) {
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === "childList" || mutation.type === "subtree") {
+          const menu = document.querySelector(".grid-hamburger-menu");
+          if (menu) {
+            observer.disconnect(); // Artık gözlemlemeye gerek yok
+            initializeMenu(); // Menü'yü başlat
+          }
+        }
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  } else {
+    initializeMenu(); // Eğer öğe zaten mevcutsa direkt çalıştır
   }
-  return cineGroupInfo; // Varsayılan olarak grup bilgisi döndür
 }

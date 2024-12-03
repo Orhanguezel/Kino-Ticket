@@ -72,7 +72,7 @@ export function loadHeader(cinema = null) {
         </div>
     `;
 
-  setupContactHamburgerMenu(cinema); // Dinamik hamburger menü
+  setupContactHamburgerMenu(); // Dinamik hamburger menü
   setupNavListeners();
 
   // Dinamik İçeriği ve Background Ayarını Başlat
@@ -101,5 +101,3 @@ function setupNavListeners() {
 
   updateCartCount();
 }
-
-updateCartCount();
