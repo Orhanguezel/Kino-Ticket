@@ -2,48 +2,48 @@ import { showModal } from "./modal.js";
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Sepeti alma
+// Warenkorb abrufen
 export function getCart() {
     return cart;
 }
 
-// Sepeti güncelleme
+// Warenkorb aktualisieren
 export function setCart(newCart) {
     cart = newCart;
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Sepeti temizleme
+// Warenkorb leeren
 export function clearCart() {
     cart = [];
     localStorage.removeItem("cart");
 }
 
-// Sepeti Göster
+// Warenkorb anzeigen
 export function showCart() {
     const cart = getCart();
 
     if (cart.length === 0) {
-        showModal("<p>Sepetiniz boş.</p>");
+        showModal("<p>Ihr Warenkorb ist leer.</p>");
         return;
     }
 
     const cartContent = cart.map(item => `
         <div class="ticket">
-            <h3>Kino Ticket</h3>
+            <h3>Kino-Ticket</h3>
             <p><strong>Kino:</strong> ${item.cinema}</p>
-            <p><strong>Salon:</strong> ${item.salon}</p>
-            <p><strong>Koltuk:</strong> ${item.seat}</p>
-            <p><strong>Ad:</strong> ${item.name}</p>
-            <p><strong>Kategori:</strong> ${item.category === "child" ? "Çocuk" : "Yetişkin"}</p>
-            <p><strong>Fiyat:</strong> ${item.price.toFixed(2)} €</p>
+            <p><strong>Saal:</strong> ${item.salon}</p>
+            <p><strong>Sitzplatz:</strong> ${item.seat}</p>
+            <p><strong>Name:</strong> ${item.name}</p>
+            <p><strong>Kategorie:</strong> ${item.category === "child" ? "Kind" : "Erwachsener"}</p>
+            <p><strong>Preis:</strong> ${item.price.toFixed(2)} €</p>
         </div>
     `).join("");
 
     const modalContent = `
-        <h2>Sepetiniz</h2>
+        <h2>Ihr Warenkorb</h2>
         ${cartContent}
-        <button id="proceedToCheckout" class="btn-primary">Ödeme Yap</button>
+        <button id="proceedToCheckout" class="btn-primary">Zur Kasse</button>
     `;
 
     showModal(modalContent);

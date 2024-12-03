@@ -31,7 +31,6 @@ export function loadFooter(cinema = null) {
                             <li><a href="#">Über uns</a></li>
                             <li><a href="#">Filme</a></li>
                             <li><a href="#">Kontakt</a></li>
-                            <li><a href="#" class="buy-now">Jetzt kaufen</a></li>
                         </ul>
                     </nav>
                 </div>

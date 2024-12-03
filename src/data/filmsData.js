@@ -13,7 +13,7 @@ export class Film {
 export class Salon {
   constructor(id, name, image, seats, price) {
     if (!id || !name || !image || !seats || !price) {
-      console.error("Eksik veya geçersiz salon verisi:", { id, name, image, seats, price });
+      console.error("Ungültige oder fehlende Salondaten:", { id, name, image, seats, price });
     }
     this.id = id;
     this.name = name;
@@ -23,17 +23,17 @@ export class Salon {
   }
 }
 
-// **Film Listesi**
+// **Film Liste**
 export const films = [
-  new Film(1, "Avatar: The Way of Water", 180, "./assets/filmafis/avatar.jpg", ["12:00", "15:30", "19:00"]),
+  new Film(1, "Avatar: Der Weg des Wassers", 180, "./assets/filmafis/avatar.jpg", ["12:00", "15:30", "19:00"]),
   new Film(2, "Oppenheimer", 195, "./assets/filmafis/oppenheimer.jpg", ["10:30", "14:00", "18:00"]),
   new Film(3, "Barbie", 120, "./assets/filmafis/barbie.jpg", ["11:00", "13:30", "16:00"]),
   new Film(4, "The Marvels", 130, "./assets/filmafis/marvels.jpg", ["12:45", "17:00", "20:30"]),
-  new Film(5, "Dune Part 2", 155, "./assets/filmafis/dune.jpg", ["14:00", "19:00"]),
-  new Film(6, "Killers of the Flower Moon", 206, "./assets/filmafis/killers.jpg", ["12:00", "16:00", "20:00"]),
+  new Film(5, "Dune: Teil 2", 155, "./assets/filmafis/dune.jpg", ["14:00", "19:00"]),
+  new Film(6, "Mörder des Blumenmondes", 206, "./assets/filmafis/killers.jpg", ["12:00", "16:00", "20:00"]),
 ];
 
-// **Salon Verisi**
+// **Salon Daten**
 export const salons = [
   new Salon(1, "Saal 1", "salon1.jpg", 50, 12),
   new Salon(2, "Saal 2", "salon2.jpg", 30, 10),
@@ -43,7 +43,7 @@ export const salons = [
   new Salon(6, "Saal 6", "salon6.jpg", 80, 30),
 ];
 
-// **Sinema ve Gösterim Verileri**
+// **Kino- und Vorführungsdaten**
 export const cinemaShows = {
   1: [
     { filmId: 1, salonId: 1, time: "12:00" },
@@ -64,17 +64,17 @@ export const cinemaShows = {
   ],
 };
 
-// **Gösterim Verilerini Döndür**
+// **Vorführungsdaten abrufen**
 export function getCinemaShows(cinemaId) {
   if (!cinemaId) {
-    console.error("Cinema ID tanımlı değil!");
+    console.error("Kino-ID ist nicht definiert!");
     return [];
   }
 
-  console.log(`Cinema ID: ${cinemaId} için gösterimler aranıyor...`);
+  //console.log(`Vorführungen für Kino-ID: ${cinemaId} werden gesucht...`);
 
   if (!cinemaShows[cinemaId]) {
-    console.error(`Cinema ID ${cinemaId} için gösterim bulunamadı.`);
+    console.error(`Keine Vorführungen für Kino-ID ${cinemaId} gefunden.`);
     return [];
   }
 
@@ -84,23 +84,23 @@ export function getCinemaShows(cinemaId) {
       const salon = salons.find((s) => s.id === show.salonId);
 
       if (!film || !salon) {
-        console.error("Eksik veri bulundu:", { show });
+        console.error("Unvollständige Daten gefunden:", { show });
         return null;
       }
 
-      console.log("Bulunan gösterim:", { film, salon, time: show.time });
+     // console.log("Gefundene Vorführung:", { film, salon, time: show.time });
       return { film, salon, time: show.time };
     })
     .filter((entry) => entry !== null);
 }
 
-// **Salon Verilerini Döndür**
+// **Salondaten abrufen**
 export function getCinemaSalons(cinemaId) {
-  console.log(`Cinema ID: ${cinemaId} için salonlar kontrol ediliyor...`);
+  //console.log(`Salons für Kino-ID: ${cinemaId} werden geprüft...`);
   const cinemaShows = getCinemaShows(cinemaId);
 
   if (!cinemaShows || cinemaShows.length === 0) {
-    console.error(`Cinema ID ${cinemaId} için gösterim bulunamadı.`);
+    console.error(`Keine Vorführungen für Kino-ID ${cinemaId} gefunden.`);
     return [];
   }
 
@@ -118,6 +118,5 @@ export function getCinemaSalons(cinemaId) {
         })),
     }));
 
-  console.log("Bulunan salonlar:", uniqueSalons);
   return uniqueSalons;
 }

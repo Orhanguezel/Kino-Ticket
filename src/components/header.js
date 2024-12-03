@@ -43,11 +43,10 @@ export function loadHeader(cinema = null) {
                     <div class="bar"></div>
                   </div>
                   <ul class="nav-links">
-                    <li><a href="#" id="homeLink"> Startseite</a></li>
-                    <li><a href="#"> Über uns</a></li>
-                    <li><a href="#"> Filme</a></li>
-                    <li><a href="#"> Kontakt</a></li>
-                    <li><a href="#" class="buy-now"> Jetzt kaufen</a></li>
+                    <li><a href="#" id="homeLink">Startseite</a></li>
+                    <li><a href="#">Über uns</a></li>
+                    <li><a href="#">Filme</a></li>
+                    <li><a href="#">Kontakt</a></li>
                   </ul>
                 </nav>
             </header>
@@ -55,13 +54,13 @@ export function loadHeader(cinema = null) {
             <!-- Sidebar -->
             <aside class="grid-sidebar">
                 <div class="sidebar-login-register">
-                    <a href="#" id="homeLink"> Login</a>
-                    <a href="#"> Register</a>
+                    <a href="#" id="homeLink">Login</a>
+                    <a href="#">Register</a>
                 </div>
                 <div class="sidebar-cart" id="cartLink" data-count="0">
-    <i class="fas fa-shopping-cart"></i>
-    <span id="cartCount" class="cart-count">0</span>
-</div>
+                  <i class="fas fa-shopping-cart"></i>
+                  <span id="cartCount" class="cart-count">0</span>
+                </div>
                 <div class="sidebar-search">
                     <i class="fas fa-search"></i>
                 </div>

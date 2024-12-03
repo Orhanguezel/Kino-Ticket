@@ -2,7 +2,7 @@ import { cinemas } from "../data/cinemas.js";
 import { getCinemaSalons } from "../data/filmsData.js";
 import { setCart, getCart } from "./checkoutHandler.js";
 import { showModal, closeModal } from "./modal.js";
-import { showCartModal } from "./paymentHandler.js"; // Ödeme işlemini yönetir
+import { showCartModal } from "./paymentHandler.js";
 
 const DISCOUNTS = {
     child: 0.3,
@@ -14,13 +14,13 @@ const PUBLIC_DAYS = ["Monday", "Wednesday"];
 export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime) {
     const cinema = cinemas.find((c) => c.id === cinemaId);
     if (!cinema) {
-        alert("Sinema verisi bulunamadı!");
+        alert("Kinodaten konnten nicht gefunden werden!");
         return;
     }
 
     const salon = getCinemaSalons(cinemaId)?.find((s) => s.id === parseInt(salonId));
     if (!salon) {
-        alert("Salon verisi bulunamadı!");
+        alert("Salondaten konnten nicht gefunden werden!");
         return;
     }
 
@@ -49,8 +49,8 @@ export function showSeatSelection(cinemaId, salonId, selectedDate, selectedTime)
                     .join("")}
             </div>
             <div class="info-box">
-                <p class="info-box__price">Seçili Koltuk: 0</p>
-                <button id="confirmSeats" class="button" disabled>Devam Et</button>
+                <p class="info-box__price">Ausgewählte Plätze: 0</p>
+                <button id="confirmSeats" class="button" disabled>Weiter</button>
             </div>
         </div>
     `;
@@ -73,7 +73,7 @@ function setupSeatSelection(seats, cinema, salon, selectedDate, selectedTime) {
                 selectedSeats.add(id);
                 e.target.classList.add("seats__item_selected");
             }
-            priceInfo.textContent = `Seçili Koltuk: ${selectedSeats.size}`;
+            priceInfo.textContent = `Ausgewählte Plätze: ${selectedSeats.size}`;
             confirmButton.disabled = selectedSeats.size === 0;
         })
     );
@@ -85,13 +85,13 @@ function setupSeatSelection(seats, cinema, salon, selectedDate, selectedTime) {
 
 function showSeatSummary(selectedSeats, cinema, salon, selectedDate, selectedTime) {
     const modalContent = `
-        <h3>Seçtiğiniz Koltuklar:</h3>
+        <h3>Ausgewählte Plätze:</h3>
         <ul>
             ${Array.from(selectedSeats)
                 .map((seat) => `<li>${seat}</li>`)
                 .join("")}
         </ul>
-        <button id="enterDetails" class="button">Devam</button>
+        <button id="enterDetails" class="button">Weiter</button>
     `;
 
     showModal(modalContent);
@@ -102,32 +102,32 @@ function showSeatSummary(selectedSeats, cinema, salon, selectedDate, selectedTim
             enterDetails(Array.from(selectedSeats), cinema, salon, selectedDate, selectedTime);
         });
     } else {
-        console.error("enterDetails butonu bulunamadı.");
+        //console.error("Der Button 'enterDetails' konnte nicht gefunden werden.");
     }
 }
 
 function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) {
     const modalContent = `
-        <h3>Müşteri Detayları</h3>
+        <h3>Kundendetails</h3>
         <form id="detailsForm">
             ${selectedSeats
                 .map(
                     (seat, index) => `
                     <div class="customer-details">
-                        <h4>Koltuk: ${seat}</h4>
-                        <label for="name${index}">Ad:</label>
-                        <input type="text" id="name${index}" required placeholder="Ad">
-                        <label for="surname${index}">Soyad:</label>
-                        <input type="text" id="surname${index}" required placeholder="Soyad">
-                        <label for="category${index}">Kategori:</label>
+                        <h4>Sitzplatz: ${seat}</h4>
+                        <label for="name${index}">Vorname:</label>
+                        <input type="text" id="name${index}" required placeholder="Vorname">
+                        <label for="surname${index}">Nachname:</label>
+                        <input type="text" id="surname${index}" required placeholder="Nachname">
+                        <label for="category${index}">Kategorie:</label>
                         <select id="category${index}">
-                            <option value="adult">Yetişkin</option>
-                            <option value="child">Çocuk</option>
+                            <option value="adult">Erwachsener</option>
+                            <option value="child">Kind</option>
                         </select>
                     </div>`
                 )
                 .join("")}
-            <button type="button" id="addToCart" class="btn-primary">Sepete Ekle</button>
+            <button type="button" id="addToCart" class="btn-primary">In den Warenkorb</button>
         </form>
     `;
 
@@ -142,14 +142,14 @@ function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) 
                 const category = document.getElementById(`category${index}`).value;
 
                 if (!name || !surname) {
-                    alert("Lütfen tüm alanları doldurun.");
+                    alert("Bitte füllen Sie alle Felder aus.");
                     return null;
                 }
 
                 let price = salon.price;
                 if (category === "child") price -= price * DISCOUNTS.child;
 
-                const dayName = new Date(selectedDate).toLocaleString("en-US", { weekday: "long" });
+                const dayName = new Date(selectedDate).toLocaleString("de-DE", { weekday: "long" });
                 if (PUBLIC_DAYS.includes(dayName)) price -= price * DISCOUNTS.publicDay;
 
                 return {
@@ -168,24 +168,24 @@ function enterDetails(selectedSeats, cinema, salon, selectedDate, selectedTime) 
             if (details.includes(null)) return;
 
             setCart([...getCart(), ...details]);
-            alert("Biletler sepete eklendi!");
+            alert("Tickets wurden dem Warenkorb hinzugefügt!");
             closeModal(); // Mevcut modalı kapat
             // Ödeme sayfasına geçiş için yeni modal gösterimi
             showPaymentModal();
         });
     } else {
-        console.error("addToCart düğmesi bulunamadı!");
+       // console.error("Der Button 'addToCart' konnte nicht gefunden werden!");
     }
 }
 
-// Yeni ödeme modalını açan fonksiyon
+// Neue Zahlungsmodalauswahl
 function showPaymentModal() {
     const cart = getCart();
 
     if (cart.length === 0) {
-        alert("Sepetiniz boş!");
+        alert("Ihr Warenkorb ist leer!");
         return;
     }
 
-    showCartModal(); // Ödeme işlemini başlat
+    showCartModal(); // Başlatır ödeme işlemi
 }

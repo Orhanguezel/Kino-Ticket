@@ -5,7 +5,7 @@ export function showCartModal() {
     const cart = getCart();
 
     if (cart.length === 0) {
-        alert("Sepetiniz boş!");
+        alert("Ihr Warenkorb ist leer!");
         return;
     }
 
@@ -17,24 +17,24 @@ export function showCartModal() {
             <div class="ticket">
                 <h3>Kino Ticket</h3>
                 <p><strong>Kino:</strong> ${item.cinema}</p>
-                <p><strong>Salon:</strong> ${item.salon}</p>
+                <p><strong>Saala:</strong> ${item.salon}</p>
                 <p><strong>Sitzplatz:</strong> ${item.seat}</p>
-                <p><strong>Ad:</strong> ${item.name} ${item.surname}</p>
-                <p><strong>Kategori:</strong> ${
-                    item.category === "child" ? "Çocuk" : "Yetişkin"
+                <p><strong>Name:</strong> ${item.name} ${item.surname}</p>
+                <p><strong>Kategorie:</strong> ${
+                    item.category === "child" ? "Kind" : "Erwachsener"
                 }</p>
-                <p><strong>Fiyat:</strong> ${item.price.toFixed(2)} €</p>
+                <p><strong>Preis:</strong> ${item.price.toFixed(2)} €</p>
             </div>
         `
         )
         .join("");
 
     const modalContent = `
-        <h2>Sepetiniz</h2>
+        <h2>Ihr Warenkorb</h2>
         ${cartContent}
-        <p><strong>Toplam Tutar:</strong> ${totalPrice} €</p>
+        <p><strong>Gesamtbetrag:</strong> ${totalPrice} €</p>
         <div class="modal-actions">
-            <button id="processPayment" class="btn-primary">Ödeme Yap</button>
+            <button id="processPayment" class="btn-primary">Jetzt bezahlen</button>
         </div>
     `;
 
@@ -54,20 +54,19 @@ export function processPayment(cart, totalPrice) {
                     <div class="card-item__side -front">
                         <div class="card-item__wrapper">
                             <div class="card-item__top">
-                                <img src="/Kino-Ticket/assets/icons/kart.gif" alt="Card" class="card-gif">
+                                <img src="/Kino-Ticket/assets/icons/kart.gif" alt="Karte" class="card-gif">
                                 <div class="card-item__type">
-                                    <img id="cardType" src="/Kino-Ticket/assets/icons/visa.png" class="card-item__typeImg" alt="Card Type">
+                                    <img id="cardType" src="/Kino-Ticket/assets/icons/visa.png" class="card-item__typeImg" alt="Kartentyp">
                                 </div>
                             </div>
                             <label class="card-item__number" id="cardNumberLabel">1234 5678 9012 3456</label>
                             <div class="card-item__content">
                                 <label class="card-item__info">
-                                    <div class="card-item__holder">Card Holder</div>
+                                    <div class="card-item__holder">Karteninhaber</div>
                                     <div class="card-item__name" id="cardHolder">John Doe</div>
                                 </label>
                                 <div class="card-item__date">
-                                    <label class="card-item__dateItem" id="expiryMonth">12</label> /
-                                    <label class="card-item__dateItem" id="expiryYear">34</label>
+                                    <label class="card-item__dateItem" id="expiryMonth">12/34</label> 
                                 </div>
                             </div>
                         </div>
@@ -81,24 +80,24 @@ export function processPayment(cart, totalPrice) {
                 </div>
             </div>
             <form id="paymentForm">
-                <label for="cardNumberInput">Kart Numarası:</label>
+                <label for="cardNumberInput">Kartennummer:</label>
                 <input type="text" id="cardNumberInput" placeholder="1234 5678 9012 3456" required>
-                <label for="expiryDateInput">Son Kullanma Tarihi (MM/YY):</label>
+                <label for="expiryDateInput">Ablaufdatum (MM/YY):</label>
                 <input type="text" id="expiryDateInput" placeholder="12/34" required>
                 <label for="cvvInput">CVV:</label>
                 <input type="text" id="cvvInput" placeholder="123" required>
-                <p><strong>Toplam Tutar:</strong> ${totalPrice} €</p>
+                <p><strong>Gesamtbetrag:</strong> ${totalPrice} €</p>
                 <div class="payment-actions">
-                    <button type="button" id="confirmPayment" class="btn-primary">Ödeme Yap</button>
+                    <button type="button" id="confirmPayment" class="btn-primary">Bezahlen</button>
                 </div>
             </form>
         </div>
     `;
 
-    closeModal(); // Önceki modalı kapat
+    closeModal(); 
     showModal(modalContent);
 
-    // Dinamik Form Etkileşimi
+ 
     document.getElementById("cardNumberInput").addEventListener("input", (e) => {
         document.getElementById("cardNumberLabel").textContent = e.target.value || "1234 5678 9012 3456";
     });
@@ -120,29 +119,29 @@ export function processPayment(cart, totalPrice) {
         const cvv = document.getElementById("cvvInput").value.trim();
 
         if (cardNumber === "1234 5678 9012 3456" && expiryDate === "12/34" && cvv === "123") {
-            alert("Ödeme başarılı! Biletleriniz hazırlanıyor...");
+            alert("Zahlung erfolgreich! Ihre Tickets werden vorbereitet...");
             clearCart();
-            closeModal(); // Modalı kapat
+            closeModal(); 
             showModal(`
-                <h2>Ödeme Onayı</h2>
-                <p>Ödemeniz başarıyla alınmıştır. Biletleriniz aşağıda listelenmiştir:</p>
+                <h2>Zahlungsbestätigung</h2>
+                <p>Ihre Zahlung wurde erfolgreich abgeschlossen. Ihre Tickets sind unten aufgeführt:</p>
                 <div class="ticket-container">
                     ${cart.map(item => `
                         <div class="ticket">
                             <h3>Kino Ticket</h3>
                             <p><strong>Kino:</strong> ${item.cinema}</p>
-                            <p><strong>Salon:</strong> ${item.salon}</p>
+                            <p><strong>Saala:</strong> ${item.salon}</p>
                             <p><strong>Sitzplatz:</strong> ${item.seat}</p>
-                            <p><strong>Ad:</strong> ${item.name} ${item.surname}</p>
-                            <p><strong>Kategori:</strong> ${item.category === "child" ? "Çocuk" : "Yetişkin"}</p>
-                            <p><strong>Fiyat:</strong> ${item.price.toFixed(2)} €</p>
+                            <p><strong>Name:</strong> ${item.name} ${item.surname}</p>
+                            <p><strong>Kategorie:</strong> ${item.category === "child" ? "Kind" : "Erwachsener"}</p>
+                            <p><strong>Preis:</strong> ${item.price.toFixed(2)} €</p>
                         </div>
                     `).join("")}
                 </div>
-                <button class="btn-primary" onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
+                <button class="btn-primary" onclick="window.location.href='index.html'">Zur Startseite</button>
             `);
         } else {
-            alert("Geçersiz ödeme bilgileri. Lütfen tekrar deneyin.");
+            alert("Ungültige Zahlungsinformationen. Bitte versuchen Sie es erneut.");
         }
     });
 }

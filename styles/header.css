@@ -236,6 +236,7 @@
 
 /* Responsive Ayarlar */
 @media (max-width: 768px) {
+  
   .grid-sidebar {
     writing-mode: vertical-lr;
     align-items: center;

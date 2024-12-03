@@ -4,8 +4,8 @@ import { showModal, closeModal } from "./modal.js";
 
 export function showSalonSelection(cinemaId, filmId) {
     if (!cinemaId || !filmId) {
-        console.error("Geçersiz cinemaId veya filmId:", { cinemaId, filmId });
-        alert("Salon seçimi için geçersiz parametreler!");
+       // console.error("Ungültige cinemaId oder filmId:", { cinemaId, filmId });
+        alert("Ungültige Parameter für die Salonauswahl!");
         return;
     }
 
@@ -24,7 +24,7 @@ export function showSalonSelection(cinemaId, filmId) {
             ${cinemaShows
                 .map((show) => {
                     if (!show.salon) {
-                        console.error("Eksik salon verisi:", show);
+                        console.error("Fehlende Salon-Daten:", show);
                         return `<p>Fehler: Salon-Daten nicht verfügbar.</p>`;
                     }
                     return `
@@ -33,7 +33,7 @@ export function showSalonSelection(cinemaId, filmId) {
                             <div class="salon-option">
                                 <img src="./assets/salons/${show.salon.image}" alt="${show.salon.name}" class="salon-image" style="width: 100%; cursor: pointer; border: 1px solid #ccc; border-radius: 5px;">
                                 <div>${show.salon.name} - ${show.time}</div>
-                                <p>Kapasität: ${show.salon.seats}, Preis: ${show.salon.price}€</p>
+                                <p>Kapazität: ${show.salon.seats}, Preis: ${show.salon.price}€</p>
                             </div>
                         </label>`;
                 })
@@ -44,7 +44,7 @@ export function showSalonSelection(cinemaId, filmId) {
 
     showModal(content);
 
-    // Radio butonlarına olay dinleyicileri ekle
+    // Radio-Buttons mit Event Listenern versehen
     document.querySelectorAll("input[name='salon']").forEach((radio) => {
         radio.addEventListener("change", (e) => {
             const selectedLabel = e.target.closest("label");
@@ -55,7 +55,7 @@ export function showSalonSelection(cinemaId, filmId) {
         });
     });
 
-    // Salon seçimini onayla
+    // Salonauswahl bestätigen
     document.getElementById("confirmSalon").addEventListener("click", () => {
         const selectedSalon = document.querySelector("input[name='salon']:checked");
         if (selectedSalon) {

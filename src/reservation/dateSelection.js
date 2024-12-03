@@ -3,24 +3,24 @@ import { cinemas } from "../data/cinemas.js";
 import { showSeatSelection } from "./seatSelection.js";
 
 export function showDateSelection(cinemaId, salonId) {
-  console.log(`showDateSelection çağrıldı. Cinema ID: ${cinemaId}, Salon ID: ${salonId}`);
+  //console.log(`showDateSelection aufgerufen. Cinema ID: ${cinemaId}, Salon ID: ${salonId}`);
   const mainContent = document.getElementById("mainContent");
   const selectedCinema = cinemas.find((c) => c.id === cinemaId);
   const selectedSalon = getCinemaSalons(cinemaId)?.find((s) => s.id === parseInt(salonId));
 
   if (!selectedCinema) {
-    console.error("Sinema verisi bulunamadı:", cinemaId);
-    alert("Sinema verisi bulunamadı.");
+    //console.error("Kinodaten nicht gefunden:", cinemaId);
+    alert("Kinodaten nicht gefunden.");
     return;
   }
 
   if (!selectedSalon) {
-    console.error("Salon verisi bulunamadı:", { salonId, cinemaId });
-    alert("Salon verisi bulunamadı.");
+    //console.error("Salondaten nicht gefunden:", { salonId, cinemaId });
+    alert("Salondaten nicht gefunden.");
     return;
   }
 
-  console.log("Bulunan salon:", selectedSalon);
+  //console.log("Gefundener Salon:", selectedSalon);
 
   mainContent.innerHTML = `
     <h2>${selectedCinema.name} - ${selectedSalon.name}</h2>
@@ -29,16 +29,16 @@ export function showDateSelection(cinemaId, salonId) {
         <input type="date" id="dateSelect" required>
         <label for="timeSelect">Uhrzeit:</label>
         <select id="timeSelect" required>
-            <option value="">Uhrzeit wählen...</option>
+            <option value="">Bitte wählen Sie eine Uhrzeit...</option>
             ${selectedSalon.shows.map(show => `<option value="${show.time}">${show.time}</option>`).join("")}
         </select>
         <button type="button" id="proceedToSeats" class="btn-primary">Weiter</button>
     </form>
   `;
 
-  // Bugünden önceki tarihler devre dışı bırakılıyor
+  // Daten vor dem heutigen Datum deaktivieren
   const dateSelect = document.getElementById("dateSelect");
-  const today = new Date().toISOString().split("T")[0]; // Bugünün tarihi (YYYY-MM-DD formatında)
+  const today = new Date().toISOString().split("T")[0]; // Heutiges Datum (im Format YYYY-MM-DD)
   dateSelect.min = today;
 
   document.getElementById("proceedToSeats")?.addEventListener("click", () => {
@@ -54,11 +54,7 @@ export function showDateSelection(cinemaId, salonId) {
   });
 }
 
-
-
-
-
-// "Salon Seçimi Onay" Event Listener (Dışarıya Taşındı)
+// "Salon Auswahl Bestätigen" Event Listener (Ausgelagert)
 export function attachConfirmSalonListener(cinemaId) {
   document.getElementById("confirmSalon")?.addEventListener("click", () => {
     const selectedSalon = document.querySelector("input[name='salon']:checked");
@@ -69,5 +65,3 @@ export function attachConfirmSalonListener(cinemaId) {
     }
   });
 }
-
-

@@ -6,23 +6,23 @@ import { showDateSelection } from "./dateSelection.js";
 export function startReservation(cinemaId) {
     const selectedCinema = cinemas.find((c) => c.id === cinemaId);
     if (!selectedCinema) {
-        console.error(`Seçilen sinema bulunamadı! Cinema ID: ${cinemaId}`);
+        console.error(`Das ausgewählte Kino wurde nicht gefunden! Kino ID: ${cinemaId}`);
         return;
     }
 
     const cinemaShows = getCinemaShows(cinemaId);
     if (!cinemaShows || cinemaShows.length === 0) {
-        alert("Bu sinema için gösterim bulunamadı!");
+        alert("Für dieses Kino sind keine Vorführungen verfügbar!");
         return;
     }
 
     const uniqueFilms = new Set();
     const mainContent = document.getElementById("mainContent");
 
-    // Dinamik carousel HTML'i oluşturma
+    // Dynamisches HTML für den Carousel erstellen
     mainContent.innerHTML = `
         <h2 class="film-title">Buchung oder Reservierung - ${selectedCinema.name}</h2>
-        <p class="film-instruction">Film wählen:</p>
+        <p class="film-instruction">Film auswählen:</p>
         <section>
           <ul class="carousel">
             ${cinemaShows
@@ -40,8 +40,8 @@ export function startReservation(cinemaId) {
                 .join("")}
           </ul>
           <div class="carousel-controls">
-            <button id="prev" class="carousel-btn">Prev</button>
-            <button id="next" class="carousel-btn">Next</button>
+            <button id="prev" class="carousel-btn">Zurück</button>
+            <button id="next" class="carousel-btn">Weiter</button>
           </div>
         </section>
     `;
@@ -112,9 +112,9 @@ function setupCarousel(cinemaShows, cinemaId) {
                         const salonId = button.dataset.id;
                         const time = button.dataset.time;
 
-                        console.log(`Salon seçildi: ID=${salonId}, Saat=${time}`);
-                        closeModal(); // Modalı kapat
-                        showDateSelection(cinemaId, salonId, time); // Gerekli bilgileri gönder
+                        //console.log(`Salon ausgewählt: ID=${salonId}, Uhrzeit=${time}`);
+                        closeModal(); // Modal schließen
+                        showDateSelection(cinemaId, salonId, time); // Benötigte Informationen weiterleiten
                     });
                 });
             }
