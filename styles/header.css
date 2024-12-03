@@ -43,6 +43,7 @@
   width: var(--sidebar-width);
   height: var(--sidebar-width);
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .header-logo h1 {

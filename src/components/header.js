@@ -21,10 +21,10 @@ export function loadHeader(cinema = null) {
                 </div>
             </div>
 
-            <!-- Header -->
+           <!-- Header -->
             <header class="grid-header">
                 <div class="header-logo">
-                  <img src="${cinema?.logo || cineGroupInfo.logo}" alt="${
+                  <img id="headerLogo" src="${cinema?.logo || cineGroupInfo.logo}" alt="${
     cinema?.name || "CineGrup"
   }">
                   <h1>${cinema?.name || cineGroupInfo.title}</h1>
@@ -81,9 +81,10 @@ export function loadHeader(cinema = null) {
 }
 
 
-function setupNavListeners() {
+function setupNavListeners(cinema) {
   const cartLink = document.getElementById("cartLink");
   const homeLink = document.getElementById("homeLink");
+  const headerLogo = document.getElementById("headerLogo");
   const hamburgerMenu = document.getElementById("hamburgerMenu");
   const navLinks = document.querySelector(".nav-links");
 
@@ -103,6 +104,18 @@ function setupNavListeners() {
       console.log("Navigating to main page");
       localStorage.removeItem("selectedCinema"); // Seçilen sinemayı temizle
       updateUI(null); // Varsayılan duruma dön
+    });
+  }
+
+  // Logo tıklama
+  if (headerLogo) {
+    headerLogo.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (cinema) {
+        updateUI(cinema); // Seçili sinema sayfasını yükle
+      } else {
+        updateUI(null); // Ana sayfayı yükle
+      }
     });
   }
 

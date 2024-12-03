@@ -1,40 +1,42 @@
 import { cineGroupInfo } from "../data/cinemas.js";
+import { updateUI } from "../../controllers/uiController.js";
 
 export function loadFooter(cinema = null) {
+  // Eğer sinema seçilmemişse localStorage'dan kontrol et
+  cinema = cinema || getSelectedCinema() || cineGroupInfo;
+
   const footer = document.getElementById("footer");
 
   if (!footer) {
-    console.error("Footer-Element nicht gefunden!");
+    console.error("Footer element bulunamadı!");
     return;
   }
 
-  const ogUrl = "https://orhanguezel.github.io/personal/";
-
   footer.innerHTML = `
         <div class="footer-container grid-footer">
-            <!-- Oberer Bereich -->
+            <!-- Üst Alan -->
             <div class="footer-oben">
-                <!-- Linke Seite -->
+                <!-- Sol Kısım -->
                 <div class="footer-left">
-                    <img src="${
-                      cinema ? cinema.footerLogo : cineGroupInfo.footerLogo
+                    <img id="footerLogo" src="${
+                      cinema?.footerLogo || cineGroupInfo.footerLogo
                     }" alt="CineGrup Logo">
-                    <p>${cinema ? cinema.address : cineGroupInfo.address}</p>
+                    <p>${cinema?.address || cineGroupInfo.address}</p>
                 </div>
-                
-                <!-- Mittleres Menü -->
+
+                <!-- Orta Menü -->
                 <div class="footer-center">
                     <nav class="footer-nav">
                         <ul>
-                            <li><a href="#" id="homeLink">Startseite</a></li>
-                            <li><a href="#" id="cartLink">Warenkorb</a></li>
+                            <li><a href="#" id="footerHomeLink">Startseite</a></li>
+                            <li><a href="#" id="footerCartLink">Warenkorb</a></li>
                             <li><a href="#">Über uns</a></li>
                             <li><a href="#">Filme</a></li>
                         </ul>
                     </nav>
                 </div>
-                
-                <!-- Rechte Seite -->
+
+                <!-- Sağ Kısım -->
                 <div class="footer-right">
                     <div class="payment-icons">
                         <img src="./assets/icons/paypal.png" alt="PayPal">
@@ -46,13 +48,59 @@ export function loadFooter(cinema = null) {
                     </div>
                 </div>
             </div>
-            
-            <!-- Unterer Bereich -->
+
+            <!-- Alt Alan -->
             <div class="footer-unten">
                 <div class="footer-bottom">
-                    <p>© 2024 CineGrup, entwickelt von <a href="${ogUrl}" target="_blank" rel="noopener noreferrer">OG</a></p>
+                    <p>© 2024 CineGrup, entwickelt von <a href="https://orhanguezel.github.io/personal/" target="_blank" rel="noopener noreferrer">OG</a></p>
                 </div>
             </div>
         </div>
     `;
+
+  setupFooterListeners(cinema);
+}
+
+function setupFooterListeners(cinema) {
+  const footerLogo = document.getElementById("footerLogo");
+  const footerHomeLink = document.getElementById("footerHomeLink");
+  const footerCartLink = document.getElementById("footerCartLink");
+
+  // Footer logosuna tıklama
+  if (footerLogo) {
+    footerLogo.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (cinema) {
+        console.log(`Navigating to cinema: ${cinema.name}`);
+        updateUI(cinema); // Seçili sinema sayfasını yükle
+      } else {
+        console.log("Navigating to main page");
+        updateUI(null); // Ana sayfayı yükle
+      }
+    });
+  }
+
+  // Ana sayfa linki
+  if (footerHomeLink) {
+    footerHomeLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("Navigating to main page via footer home link");
+      localStorage.removeItem("selectedCinema"); // Seçilen sinema bilgisini temizle
+      updateUI(null); // Ana sayfayı yükle
+    });
+  }
+
+  // Sepet linki
+  if (footerCartLink) {
+    footerCartLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("Cart modal opened from footer");
+      // Sepet modalı açma kodu buraya gelecek
+    });
+  }
+}
+
+function getSelectedCinema() {
+  const storedCinema = localStorage.getItem("selectedCinema");
+  return storedCinema ? JSON.parse(storedCinema) : cineGroupInfo;
 }
