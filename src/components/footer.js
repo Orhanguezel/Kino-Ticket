@@ -1,5 +1,7 @@
 import { cineGroupInfo } from "../data/cinemas.js";
 import { updateUI } from "../../controllers/uiController.js";
+import { showCartModal } from "../reservation/paymentHandler.js";
+
 
 export function loadFooter(cinema = null) {
   // Eğer sinema seçilmemişse localStorage'dan kontrol et
@@ -94,6 +96,7 @@ function setupFooterListeners(cinema) {
   if (footerCartLink) {
     footerCartLink.addEventListener("click", (e) => {
       e.preventDefault();
+      showCartModal();
       console.log("Cart modal opened from footer");
       // Sepet modalı açma kodu buraya gelecek
     });

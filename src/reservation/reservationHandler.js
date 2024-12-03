@@ -2,6 +2,7 @@ import { cinemas } from "../data/cinemas.js";
 import { getCinemaShows } from "../data/filmsData.js";
 import { showModal, closeModal } from "./modal.js";
 import { showDateSelection } from "./dateSelection.js";
+import { updateUI } from "../../controllers/uiController.js";
 
 export function startReservation(cinemaId) {
     const selectedCinema = cinemas.find((c) => c.id === cinemaId);
@@ -19,7 +20,7 @@ export function startReservation(cinemaId) {
     const uniqueFilms = new Set();
     const mainContent = document.getElementById("mainContent");
 
-    // Dynamisches HTML für den Carousel erstellen
+    // Dinamik HTML için carousel oluşturma
     mainContent.innerHTML = `
         <h2 class="film-title">Buchung oder Reservierung - ${selectedCinema.name}</h2>
         <p class="film-instruction">Film auswählen:</p>
@@ -40,16 +41,19 @@ export function startReservation(cinemaId) {
                 .join("")}
           </ul>
           <div class="carousel-controls">
-            <button id="prev" class="carousel-btn">Zurück</button>
-            <button id="next" class="carousel-btn">Weiter</button>
+            <button id="prev" class="carousel-btn">&lt;</button>
+            <button id="next" class="carousel-btn">&gt;</button>
+          </div>
+          <div class="back-container">
+            <button id="back" class="btn-secondary">Zürückt</button>
           </div>
         </section>
     `;
 
-    setupCarousel(cinemaShows, cinemaId);
+    setupCarousel(cinemaShows, cinemaId, selectedCinema);
 }
 
-function setupCarousel(cinemaShows, cinemaId) {
+function setupCarousel(cinemaShows, cinemaId, selectedCinema) {
     const items = document.querySelectorAll(".carousel .items");
     let currentItem = 0;
 
@@ -112,12 +116,24 @@ function setupCarousel(cinemaShows, cinemaId) {
                         const salonId = button.dataset.id;
                         const time = button.dataset.time;
 
-                        //console.log(`Salon ausgewählt: ID=${salonId}, Uhrzeit=${time}`);
-                        closeModal(); // Modal schließen
-                        showDateSelection(cinemaId, salonId, time); // Benötigte Informationen weiterleiten
+                        closeModal(); // Modal kapat
+                        showDateSelection(cinemaId, salonId, time); // Devam işlevi
                     });
                 });
             }
         });
     });
+
+    const backButton = document.getElementById("back");
+if (backButton) {
+    backButton.addEventListener("click", () => {
+        if (selectedCinema) {
+            // updateUI ile ana sinema sayfasını yükle
+            updateUI(selectedCinema);
+        } else {
+            console.error("No selected cinema to navigate back to!");
+            updateUI(null); // Varsayılan ana sayfaya dön
+        }
+    });
+}
 }
