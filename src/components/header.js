@@ -2,6 +2,7 @@ import { cineGroupInfo } from "../data/cinemas.js";
 import { showCartModal, updateCartCount } from "../reservation/paymentHandler.js";
 import { setupContactHamburgerMenu } from "./contactHamburger.js";
 import { getSelectedCinema, setupMainContent } from "../reservation/cinemaSelection.js"; 
+import { updateUI } from "../../controllers/uiController.js";
 
 export function loadHeader(cinema = null) {
   // Eğer sinema seçilmemişse localStorage'dan kontrol et
@@ -99,9 +100,9 @@ function setupNavListeners() {
   if (homeLink) {
     homeLink.addEventListener("click", (e) => {
       e.preventDefault();
-      localStorage.removeItem("selectedCinema");
-      console.log("Navigated to main page");
-      goToMainPage(); // Varsayılan duruma dön
+      console.log("Navigating to main page");
+      localStorage.removeItem("selectedCinema"); // Seçilen sinemayı temizle
+      updateUI(null); // Varsayılan duruma dön
     });
   }
 
