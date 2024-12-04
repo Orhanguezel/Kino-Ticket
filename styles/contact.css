@@ -1,8 +1,5 @@
 /* Sol Üst Hamburger Menü Stilleri */
-.grid-hamburger-menu {
-    grid-area: hamburger;
 
-}
 
 .grid-hamburger-menu .lines {
     display: flex;
@@ -77,7 +74,7 @@
 }
 
 .contact-overlay-content .social-icons a:hover {
-    color: var(--secondary-color); /* Hover durumunda farklı bir renk */
+    color: var(--secondary-color); 
 }
 
 .contact-overlay-content iframe {

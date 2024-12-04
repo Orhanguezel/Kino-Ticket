@@ -2,7 +2,6 @@
 
 /* Footer Grid Düzeni */
 .grid-footer {
-    grid-area: footer;
     background-color: var(--footer-color);
     padding: 0;
     text-align: center;

@@ -63,13 +63,14 @@ export function loadHeader(cinema = null) {
       
             <!-- Main Content -->
             <main class="grid-main">
+                <section class="main-content" id="mainContent"></section>
                 <section class="top-section">
                   <p>Willkommen in unserem Kino</p>
                   <h1>Erleben Sie die Magie des Kinos mit uns</h1>
                   <p>Es ist eine allgemein bekannte Tatsache, dass der Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich ihr Layout ansieht.</p>
                   <button class="explore-button">Mehr entdecken →</button>
                 </section>
-                <section class="main-content" id="mainContent"></section>
+
             </main>
         </div>
     `;

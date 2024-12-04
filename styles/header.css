@@ -1,7 +1,7 @@
 
 /* Hamburger Menü */
 .grid-hamburger-menu {
-  grid-area: hamburger;
+
   background-color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
 
 /* Header */
 .grid-header {
-  grid-area: logo / logo / header-nav / header-nav;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,6 +60,19 @@
   padding: 20px;
   background-color: var(--light-color);
   height: var(--sidebar-width);
+}
+
+.header-nav a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.header-nav a:hover {
+  color: var(--light-color);
 }
 
 
