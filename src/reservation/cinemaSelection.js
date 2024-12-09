@@ -30,7 +30,6 @@ export function setupMainContent(cinema) {
 
   if (!mainContent) return;
 
-  // Varsayılan sinema bilgisi kullan
   cinema = cinema || getSelectedCinema();
 
   mainContent.innerHTML = `

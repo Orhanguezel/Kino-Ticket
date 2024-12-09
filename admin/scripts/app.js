@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   appContainer.innerHTML = `
     <header>
-      <h1>CinoGrup Admin Panel</h1>
+      <h1>CineGrup Admin Panel</h1>
     </header>
     <main id="main-content">
       <div id="start-screen">
