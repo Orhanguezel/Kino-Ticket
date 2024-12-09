@@ -6,10 +6,10 @@ import {
   loadFilmsFromLocalStorage,
 } from "./stateManager.js";
 
-// LocalStorage'dan gösterimleri yükleyin veya boş bir dizi oluşturun
+// LocalStorage'dan Vorführungen yükleyin veya boş bir dizi oluşturun
 let showtimes = JSON.parse(localStorage.getItem("showtimes")) || [];
 
-// Cinemas ve Films'i LocalStorage'dan yükleyin
+// Kinos ve Filme LocalStorage'dan yükleyin
 let cinemas = loadCinemasFromLocalStorage();
 let films = loadFilmsFromLocalStorage();
 
@@ -24,7 +24,7 @@ if (!films.length) {
   films = [...defaultFilms];
 }
 
-// Rastgele film atama
+// Zufällige Filme zuweisen
 export function assignRandomFilms() {
   showtimes = [];
   cinemas.forEach((cinema) => {
@@ -71,7 +71,7 @@ export function assignOptimalFilms() {
   renderShowtimeView();
 }
 
-// Gösterim satırlarını render etme
+// Vorführungsreihen rendern
 function renderShowtimeRows() {
   return showtimes
     .map(
@@ -82,24 +82,25 @@ function renderShowtimeRows() {
         <td>${showtime.filmName}</td>
         <td>${showtime.times.join(", ")}</td>
         <td>
-          <button onclick="editShowtime(${index})">Düzenle</button>
-          <button onclick="removeShowtime(${index})">Sil</button>
+          <button onclick="editShowtime(${index})">Bearbeiten</button>
+          <button onclick="removeShowtime(${index})">Löschen</button>
         </td>
       </tr>
     `
     )
     .join("");
 }
-// Gösterim görünümü
+
+// Vorführungsansicht rendern
 export function renderShowtimeView() {
   const container = document.getElementById("main-content");
 
   container.innerHTML = `
-    <h2>Gösterimler</h2>
+    <h2>Vorführungen</h2>
     <div class="add-showtime-section">
-      <h3>Yeni Gösterim Ekle</h3>
+      <h3>Neue Vorführung Hinzufügen</h3>
       <form id="add-showtime-form">
-        <label for="cinema-select">Sinema:</label>
+        <label for="cinema-select">Kino:</label>
         <select id="cinema-select" required>
           ${cinemas
             .map(
@@ -108,9 +109,9 @@ export function renderShowtimeView() {
             .join("")}
         </select>
         
-        <label for="salon-select">Salon:</label>
+        <label for="salon-select">Saal:</label>
         <select id="salon-select" required>
-          <option value="">Önce sinema seçin</option>
+          <option value="">Wählen Sie zuerst ein Kino</option>
         </select>
         
         <label for="film-select">Film:</label>
@@ -120,29 +121,29 @@ export function renderShowtimeView() {
             .join("")}
         </select>
         
-        <label for="showtime-input">Gösterim Saatleri:</label>
+        <label for="showtime-input">Vorführungszeiten:</label>
         <div id="showtime-list"></div>
         <input type="time" id="showtime-input">
-        <button type="button" id="add-showtime-button">Saat Ekle</button>
+        <button type="button" id="add-showtime-button">Zeit Hinzufügen</button>
         
-        <button type="button" onclick="addShowtime()">Kaydet</button>
+        <button type="button" onclick="addShowtime()">Speichern</button>
       </form>
     </div>
     <div class="showtime-bulk-actions">
-      <h3>Toplu Gösterim Atama</h3>
-      <button onclick="assignRandomFilms()">Rastgele Atama</button>
-      <button onclick="assignOptimalFilms()">Optimal Atama</button>
+      <h3>Vorführungen Massenweise Zuweisen</h3>
+      <button onclick="assignRandomFilms()">Zufällige Zuweisung</button>
+      <button onclick="assignOptimalFilms()">Optimale Zuweisung</button>
     </div>
     <div class="current-showtimes-section">
-      <h3>Mevcut Gösterimler</h3>
+      <h3>Aktuelle Vorführungen</h3>
       <table>
         <thead>
           <tr>
-            <th>Sinema</th>
-            <th>Salon</th>
+            <th>Kino</th>
+            <th>Saal</th>
             <th>Film</th>
-            <th>Gösterim Saatleri</th>
-            <th>Aksiyon</th>
+            <th>Vorführungszeiten</th>
+            <th>Aktion</th>
           </tr>
         </thead>
         <tbody id="showtime-table">
@@ -152,12 +153,12 @@ export function renderShowtimeView() {
     </div>
   `;
 
-  // Varsayılan olarak ilk sinema salonlarını yükle
+  // Standardmäßig die Säle des ersten Kinos laden
   const cinemaSelect = document.getElementById("cinema-select");
   cinemaSelect.dispatchEvent(new Event("change"));
 }
 
-// Global hale getirme
+// Global machen
 window.assignRandomFilms = assignRandomFilms;
 window.assignOptimalFilms = assignOptimalFilms;
 window.renderShowtimeView = renderShowtimeView;

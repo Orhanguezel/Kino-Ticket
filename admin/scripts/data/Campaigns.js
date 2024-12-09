@@ -1,22 +1,22 @@
 export class Campaign {
-  constructor(id, name, targetAudience, discountType, discountValue, startDate, endDate, status = "active") {
+  constructor(id, name, targetAudience, discountType, discountValue, startDate, endDate, status = "aktiv") {
     this.id = id;
-    this.name = name; // Kampanya adı
-    this.targetAudience = targetAudience; // ["Öğrenci", "Çocuk"]
-    this.discountType = discountType; // "percentage" veya "fixed"
-    this.discountValue = discountValue; // İndirim miktarı (örn: %10 veya 5€)
-    this.startDate = startDate; // Başlangıç tarihi
-    this.endDate = endDate; // Bitiş tarihi
-    this.status = status; // "active" veya "inactive"
+    this.name = name; 
+    this.targetAudience = targetAudience; 
+    this.discountType = discountType; 
+    this.discountValue = discountValue; 
+    this.startDate = startDate; 
+    this.endDate = endDate; 
+    this.status = status; // "aktiv" oder "inaktiv"
   }
 }
 
-// Varsayılan kampanyalar
+// Standardkampagnen
 export const defaultCampaigns = [
   new Campaign(
     1,
-    "Öğrenci İndirimi",
-    ["Öğrenci"],
+    "Studentenrabatt",
+    ["Studenten"],
     "percentage",
     20,
     "2024-01-01",
@@ -24,8 +24,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     2,
-    "Çocuk İndirimi",
-    ["Çocuk"],
+    "Kinderrabatt",
+    ["Kinder"],
     "fixed",
     5,
     "2024-01-01",
@@ -33,8 +33,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     3,
-    "Halk Günü İndirimi",
-    ["Genel Halk"],
+    "Kinotag-Rabatt",
+    ["Alle"],
     "percentage",
     30,
     "2024-03-01",
@@ -42,8 +42,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     4,
-    "Aile Paketi",
-    ["Aile"],
+    "Familienpaket",
+    ["Familien"],
     "fixed",
     10,
     "2024-06-01",
@@ -51,8 +51,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     5,
-    "Hafta Sonu Kampanyası",
-    ["Genel"],
+    "Wochenendangebot",
+    ["Alle"],
     "percentage",
     15,
     "2024-01-06",
@@ -60,8 +60,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     6,
-    "Doğum Günü Özel",
-    ["Doğum Günü Kutlayanlar"],
+    "Geburtstags-Special",
+    ["Geburtstagskinder"],
     "fixed",
     20,
     "2024-01-01",
@@ -69,8 +69,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     7,
-    "Yılbaşı Özel İndirimi",
-    ["Genel"],
+    "Weihnachtsrabatt",
+    ["Alle"],
     "percentage",
     25,
     "2024-12-20",
@@ -78,8 +78,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     8,
-    "Kadınlar Günü Kampanyası",
-    ["Kadınlar"],
+    "Frauentagsaktion",
+    ["Frauen"],
     "percentage",
     20,
     "2024-03-01",
@@ -87,8 +87,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     9,
-    "Sezonluk Kombine Paket",
-    ["Genel"],
+    "Saisonkarte",
+    ["Alle"],
     "fixed",
     50,
     "2024-01-01",
@@ -96,8 +96,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     10,
-    "Erken Rezervasyon İndirimi",
-    ["Genel"],
+    "Frühbucherrabatt",
+    ["Alle"],
     "percentage",
     10,
     "2024-01-01",
@@ -105,8 +105,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     11,
-    "Memur İndirimi",
-    ["Memurlar"],
+    "Beamtenrabatt",
+    ["Beamte"],
     "percentage",
     15,
     "2024-01-01",
@@ -114,8 +114,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     12,
-    "Sosyal Yardım İndirimi",
-    ["Sosyal Yardım Alanlar"],
+    "Sozialhilfe-Rabatt",
+    ["Sozialhilfeempfänger"],
     "fixed",
     7,
     "2024-01-01",
@@ -123,8 +123,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     13,
-    "Bayram İndirimi",
-    ["Genel"],
+    "Feiertagsrabatt",
+    ["Alle"],
     "percentage",
     20,
     "2024-04-20",
@@ -132,8 +132,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     14,
-    "Öğretmenler Günü Kampanyası",
-    ["Öğretmenler"],
+    "Lehrertagsrabatt",
+    ["Lehrer"],
     "percentage",
     25,
     "2024-11-24",
@@ -141,8 +141,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     15,
-    "Engelli İndirimi",
-    ["Engelliler"],
+    "Inklusionsrabatt",
+    ["Menschen mit Behinderung"],
     "percentage",
     30,
     "2024-01-01",
@@ -150,8 +150,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     16,
-    "Sadakat Programı Ödülü",
-    ["Sadakat Kartı Sahipleri"],
+    "Treueprogramm-Bonus",
+    ["Treuekarteninhaber"],
     "fixed",
     10,
     "2024-01-01",
@@ -159,8 +159,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     17,
-    "Erken Seans İndirimi",
-    ["Genel"],
+    "Frühvorstellungs-Rabatt",
+    ["Alle"],
     "fixed",
     5,
     "2024-01-01",
@@ -168,8 +168,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     18,
-    "Gece Seansı İndirimi",
-    ["Genel"],
+    "Spätvorstellungs-Rabatt",
+    ["Alle"],
     "percentage",
     20,
     "2024-01-01",
@@ -177,8 +177,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     19,
-    "Bilet Alana İkincisi %50 İndirim",
-    ["Genel"],
+    "2 für 1: Zweites Ticket 50% Rabatt",
+    ["Alle"],
     "percentage",
     50,
     "2024-01-01",
@@ -186,8 +186,8 @@ export const defaultCampaigns = [
   ),
   new Campaign(
     20,
-    "Kombine Kampanya: Sinema + Yiyecek",
-    ["Genel"],
+    "Kombiticket: Kino + Snacks",
+    ["Alle"],
     "fixed",
     15,
     "2024-01-01",

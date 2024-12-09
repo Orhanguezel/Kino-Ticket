@@ -1,82 +1,70 @@
 import { films } from "../data/Film.js";
-import {
-  saveDataToLocalStorage,
-  loadDataFromLocalStorage,
-} from "./stateManager.js";
+import { saveDataToLocalStorage, loadDataFromLocalStorage } from "./stateManager.js";
 
 let localFilms = loadDataFromLocalStorage("films") || [];
 if (localFilms.length === 0) {
-  localFilms = [...films]; // Varsayılan filmleri yükle
-  saveDataToLocalStorage("films", localFilms); // LocalStorage'a kaydet
+  localFilms = [...films]; // Standardfilme laden
+  saveDataToLocalStorage("films", localFilms); // In LocalStorage speichern
 }
 
 export function renderFilmView() {
   const container = document.getElementById("main-content");
   if (!container) {
-    console.error("Ana içerik bölgesi bulunamadı!");
+    console.error("Hauptinhalt-Bereich nicht gefunden!");
     return;
   }
 
   container.innerHTML = `
-    <h2>Filmler</h2>
-    <button class="add-film-button"onclick="addFilm()">Yeni Film Ekle</button>
+    <h2>Filme</h2>
+    <button class="add-film-button"onclick="addFilm()">Neuen Film Hinzufügen</button>
     <div class="film-cards">
       ${localFilms
         .map(
           (film) => `
         <div class="film-card">
-          <img src="${film.image || "./assets/default-film.jpg"}" alt="${
-            film.name
-          }" class="film-image">
+          <img src="${film.image || './assets/default-film.jpg'}" alt="${film.name}" class="film-image">
           <div class="film-info">
             <h3>${film.name}</h3>
-            <p>Süre: ${film.duration} dk</p>
-            <p>Kategoriler: ${film.categories.join(", ")}</p>
-            <button onclick="editFilm(${film.id})">Düzenle</button>
-            <button onclick="removeFilm(${film.id})">Sil</button>
+            <p>Dauer: ${film.duration} Minuten</p>
+            <p>Kategorien: ${film.categories.join(", ")}</p>
+            <button onclick="editFilm(${film.id})">Bearbeiten</button>
+            <button onclick="removeFilm(${film.id})">Löschen</button>
           </div>
         </div>
       `
         )
         .join("")}
     </div>
-    
   `;
 }
 
 export function editFilm(filmId) {
   const film = localFilms.find((f) => f.id === filmId);
   if (!film) {
-    alert("Film bulunamadı!");
+    alert("Film nicht gefunden!");
     return;
   }
 
   const container = document.getElementById("main-content");
   container.innerHTML = `
-    <h2>${film.name} Düzenleme</h2>
+    <h2>${film.name} Bearbeiten</h2>
     <form id="film-form">
-      <label for="name">Film Adı:</label>
+      <label for="name">Filmtitel:</label>
       <input type="text" id="name" value="${film.name}" required>
 
-      <label for="duration">Süre (dk):</label>
+      <label for="duration">Dauer (Minuten):</label>
       <input type="number" id="duration" value="${film.duration}" required>
 
-      <label for="categories">Kategoriler (virgülle ayırın):</label>
-      <input type="text" id="categories" value="${film.categories.join(
-        ", "
-      )}" required>
+      <label for="categories">Kategorien (mit Komma trennen):</label>
+      <input type="text" id="categories" value="${film.categories.join(", ")}" required>
 
-      <label for="image">Film Görseli:</label>
+      <label for="image">Film Bild:</label>
       <input type="file" id="image" accept="image/*">
-      <img src="${film.image || "./assets/default-film.jpg"}" alt="${
-    film.name
-  }" class="film-image-preview">
+      <img src="${film.image || './assets/default-film.jpg'}" alt="${film.name}" class="film-image-preview">
 
-      <button type="button" onclick="saveFilmChanges(${
-        film.id
-      })">Kaydet</button>
+      <button type="button" onclick="saveFilmChanges(${film.id})">Speichern</button>
     </form>
-    <button onclick="renderFilmView()">Geri</button>
+    <button onclick="renderFilmView()">Zurück</button>
   `;
 }
 
@@ -85,10 +73,7 @@ export function saveFilmChanges(filmId) {
   if (filmIndex !== -1) {
     const name = document.getElementById("name").value;
     const duration = parseInt(document.getElementById("duration").value, 10);
-    const categories = document
-      .getElementById("categories")
-      .value.split(",")
-      .map((cat) => cat.trim());
+    const categories = document.getElementById("categories").value.split(",").map((cat) => cat.trim());
     const imageInput = document.getElementById("image");
 
     let image = localFilms[filmIndex].image || "./assets/default-film.jpg";
@@ -106,19 +91,19 @@ export function saveFilmChanges(filmId) {
     };
 
     saveDataToLocalStorage("films", localFilms);
-    alert("Film başarıyla güncellendi!");
+    alert("Film erfolgreich aktualisiert!");
     renderFilmView();
   } else {
-    alert("Film güncellenemedi!");
+    alert("Film konnte nicht aktualisiert werden!");
   }
 }
 
 export function removeFilm(filmId) {
-  if (confirm("Bu filmi silmek istediğinizden emin misiniz?")) {
+  if (confirm("Möchten Sie diesen Film wirklich löschen?")) {
     localFilms = localFilms.filter((f) => f.id !== filmId);
     saveDataToLocalStorage("films", localFilms);
 
-    alert("Film başarıyla silindi!");
+    alert("Film erfolgreich gelöscht!");
     renderFilmView();
   }
 }
@@ -126,35 +111,31 @@ export function removeFilm(filmId) {
 export function addFilm() {
   const container = document.getElementById("main-content");
   container.innerHTML = `
-    <h2>Yeni Film Ekle</h2>
+    <h2>Neuen Film Hinzufügen</h2>
     <form id="film-form">
-      <label for="name">Film Adı:</label>
-      <input type="text" id="name" placeholder="Film Adı" required>
+      <label for="name">Filmtitel:</label>
+      <input type="text" id="name" placeholder="Filmtitel" required>
 
-      <label for="duration">Süre (dk):</label>
-      <input type="number" id="duration" placeholder="Süre" required>
+      <label for="duration">Dauer (Minuten):</label>
+      <input type="number" id="duration" placeholder="Dauer" required>
 
-      <label for="categories">Kategoriler (virgülle ayırın):</label>
-      <input type="text" id="categories" placeholder="Kategoriler" required>
+      <label for="categories">Kategorien (mit Komma trennen):</label>
+      <input type="text" id="categories" placeholder="Kategorien" required>
 
-      <label for="image">Film Görseli:</label>
+      <label for="image">Film Bild:</label>
       <input type="file" id="image" accept="image/*">
 
-      <button type="button" onclick="saveNewFilm()">Kaydet</button>
+      <button type="button" onclick="saveNewFilm()">Speichern</button>
     </form>
-    <button onclick="renderFilmView()">Geri</button>
+    <button onclick="renderFilmView()">Zurück</button>
   `;
 }
 
 export function saveNewFilm() {
-  const id =
-    localFilms.length > 0 ? localFilms[localFilms.length - 1].id + 1 : 1;
+  const id = localFilms.length > 0 ? localFilms[localFilms.length - 1].id + 1 : 1;
   const name = document.getElementById("name").value;
   const duration = parseInt(document.getElementById("duration").value, 10);
-  const categories = document
-    .getElementById("categories")
-    .value.split(",")
-    .map((cat) => cat.trim());
+  const categories = document.getElementById("categories").value.split(",").map((cat) => cat.trim());
   const imageInput = document.getElementById("image");
 
   let image = "./assets/default-film.jpg";
@@ -174,11 +155,11 @@ export function saveNewFilm() {
   localFilms.push(newFilm);
   saveDataToLocalStorage("films", localFilms);
 
-  alert("Yeni film başarıyla eklendi!");
+  alert("Neuer Film erfolgreich hinzugefügt!");
   renderFilmView();
 }
 
-// Global fonksiyonları tanımlayın
+// Globale Funktionen
 window.renderFilmView = renderFilmView;
 window.editFilm = editFilm;
 window.removeFilm = removeFilm;

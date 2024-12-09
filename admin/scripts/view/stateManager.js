@@ -35,7 +35,7 @@ export function loadStateFromLocalStorage() {
   }
 }
 
-// Kampanyalar için LocalStorage işlemleri
+
 // Kampanyalar için LocalStorage işlemleri
 const CAMPAIGNS_STORAGE_KEY = "campaigns";
 

@@ -4,23 +4,23 @@ import {
 } from "./stateManager.js";
 import { cinemas as defaultCinemas } from "../data/Cinemas.js";
 
-// Cinemaları LocalStorage'dan yükle
+// Kinos aus LocalStorage laden
 let cinemas = loadCinemasFromLocalStorage();
 if (cinemas.length === 0) {
   cinemas = [...defaultCinemas];
   saveCinemasToLocalStorage(cinemas);
 }
 
-// Koltuk planı görünümünü oluştur
+// Sitzplan-Ansicht rendern
 export function renderSeatPlanView() {
   const container = document.getElementById("main-content");
   container.innerHTML = `
-      <h2>Koltuk Yerleşimi</h2>
+      <h2>Sitzplatzanordnung</h2>
       <div class="controls">
-          <label for="manualPercentage">Manuel Doluluk Oranı (%):</label>
+          <label for="manualPercentage">Manuelle Auslastung (%) :</label>
           <input id="manualPercentage" type="number" placeholder="0-100" min="0" max="100">
-          <button id="manualAssignButton">Manuel Doluluk</button>
-          <button id="optimalAssignButton">Optimum Doluluk</button>
+          <button id="manualAssignButton">Manuelle Zuweisung</button>
+          <button id="optimalAssignButton">Optimale Auslastung</button>
       </div>
       ${cinemas
         .map(
@@ -40,16 +40,16 @@ export function renderSeatPlanView() {
                         salon.showTimesSeats[salon.showTimes[0]];
                       const totalSeats = salon.seats;
                       const occupiedSeats = seatsList.filter(
-                        (seat) => seat.status === "dolu"
+                        (seat) => seat.status === "besetzt"
                       ).length;
                       const availableSeats = totalSeats - occupiedSeats;
 
                       return `
                               <div class="salon-container">
-                                  <h4>${salon.name} (${totalSeats} Koltuk)</h4>
-                                  <p>Dolu Koltuk: ${occupiedSeats}</p>
-                                  <p>Boş Koltuk: ${availableSeats}</p>
-                                  <div class="stage">Sahne</div>
+                                  <h4>${salon.name} (${totalSeats} Plätze)</h4>
+                                  <p>Besetzte Plätze: ${occupiedSeats}</p>
+                                  <p>Freie Plätze: ${availableSeats}</p>
+                                  <div class="stage">Bühne</div>
                                   <div class="seats-grid">
                                       ${seatsList
                                         .map(
@@ -71,53 +71,53 @@ export function renderSeatPlanView() {
         .join("")}
   `;
 
-  // Butonlara Event Listener ekleyin
+  // Event Listeners hinzufügen
   document.getElementById("manualAssignButton").onclick = () =>
     assignManualSeats();
   document.getElementById("optimalAssignButton").onclick = () =>
     assignOptimalSeats();
 }
 
-// Manuel doluluk atama// Manuel doluluk
+// Manuelle Zuweisung
 export function assignManualSeats() {
   const manualPercentageInput = document.getElementById("manualPercentage");
   const manualPercentage = parseInt(manualPercentageInput.value, 10);
 
-  // Kullanıcıdan alınan değeri kontrol edin
+  // Überprüfen Sie den Benutzerwert
   if (
     isNaN(manualPercentage) ||
     manualPercentage < 0 ||
     manualPercentage > 100
   ) {
-    alert("Lütfen 0 ile 100 arasında bir oran girin.");
+    alert("Bitte geben Sie einen Wert zwischen 0 und 100 ein.");
     return;
   }
 
   cinemas.forEach((cinema) => {
     cinema.salons.forEach((salon) => {
-      salon.showTimesSeats = salon.showTimesSeats || {}; // Eğer yoksa oluştur
+      salon.showTimesSeats = salon.showTimesSeats || {}; // Falls nicht vorhanden, erstellen
       salon.showTimes.forEach((showTime) => {
         if (!salon.showTimesSeats[showTime]) {
-          salon.showTimesSeats[showTime] = generateSeatsLayout(salon); // Koltuk yerleşimi oluştur
+          salon.showTimesSeats[showTime] = generateSeatsLayout(salon); // Sitzlayout erstellen
         }
 
         const seatsList = salon.showTimesSeats[showTime];
         const targetOccupiedSeats = Math.floor(
           salon.seats * (manualPercentage / 100)
-        ); // Kullanıcı oranı
+        ); // Benutzeranteil
         let occupiedCount = 0;
 
-        // Koltukları rastgele doldurun
+        // Sitzplätze zufällig belegen
         seatsList.forEach((seat) => {
           if (occupiedCount < targetOccupiedSeats) {
-            seat.status = Math.random() < 0.5 ? "dolu" : "boş";
-            if (seat.status === "dolu") occupiedCount++;
+            seat.status = Math.random() < 0.5 ? "besetzt" : "frei";
+            if (seat.status === "besetzt") occupiedCount++;
           } else {
-            seat.status = "boş";
+            seat.status = "frei";
           }
         });
 
-        salon.showTimesSeats[showTime] = seatsList; // Gösterim için kaydedin
+        salon.showTimesSeats[showTime] = seatsList; // Speichern
       });
     });
   });
@@ -126,29 +126,29 @@ export function assignManualSeats() {
   renderSeatPlanView();
 }
 
-// Optimum doluluk
+// Optimale Zuweisung
 export function assignOptimalSeats() {
   cinemas.forEach((cinema) => {
     cinema.salons.forEach((salon) => {
-      salon.showTimesSeats = salon.showTimesSeats || {}; // Eğer yoksa oluştur
+      salon.showTimesSeats = salon.showTimesSeats || {}; // Falls nicht vorhanden, erstellen
       salon.showTimes.forEach((showTime) => {
         if (!salon.showTimesSeats[showTime]) {
-          salon.showTimesSeats[showTime] = generateSeatsLayout(salon); // Koltuk yerleşimi oluştur
+          salon.showTimesSeats[showTime] = generateSeatsLayout(salon); // Sitzlayout erstellen
         }
 
         const seatsList = salon.showTimesSeats[showTime];
-        const targetOccupiedSeats = Math.floor(salon.seats * 0.7); // %70 doluluk hedefi
+        const targetOccupiedSeats = Math.floor(salon.seats * 0.7); // 70% Belegung
         let occupiedCount = 0;
 
-        // Koltukları rastgele şekilde doldur
+        // Sitzplätze zufällig belegen
         seatsList.forEach((seat) => {
           if (occupiedCount < targetOccupiedSeats) {
-            seat.status = Math.random() < 0.7 ? "dolu" : "boş"; // %70 doluluk şansı
-            if (seat.status === "dolu") occupiedCount++;
+            seat.status = Math.random() < 0.7 ? "besetzt" : "frei"; // 70% Wahrscheinlichkeit
+            if (seat.status === "besetzt") occupiedCount++;
           }
         });
 
-        salon.showTimesSeats[showTime] = seatsList; // Her gösterim için kaydet
+        salon.showTimesSeats[showTime] = seatsList; // Speichern
       });
     });
   });
@@ -157,8 +157,8 @@ export function assignOptimalSeats() {
 }
 
 export function generateSeatsLayout(salon) {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Satır etiketleri
-  const rows = Math.ceil(salon.seats / 10); // Her satırda 10 koltuk
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Reihenbeschriftung
+  const rows = Math.ceil(salon.seats / 10); // 10 Sitzplätze pro Reihe
   const seatsList = [];
   let seatIndex = 0;
 
@@ -169,7 +169,7 @@ export function generateSeatsLayout(salon) {
       seatsList.push({
         row: rowLabel,
         number: j + 1,
-        status: "boş", // Varsayılan olarak boş
+        status: "frei", // Standardmäßig frei
       });
       seatIndex++;
     }
@@ -186,9 +186,9 @@ export function calculateDailySales() {
       salon.showTimes.forEach((showTime) => {
         const seatsList = salon.showTimesSeats[showTime];
         const occupiedSeats = seatsList.filter(
-          (seat) => seat.status === "dolu"
+          (seat) => seat.status === "besetzt"
         ).length;
-        totalSales += occupiedSeats * salon.price; // Dolu koltuk * fiyat
+        totalSales += occupiedSeats * salon.price; // Besetzte Sitzplätze * Preis
       });
     });
   });
@@ -196,7 +196,7 @@ export function calculateDailySales() {
   return totalSales;
 }
 
-// Global fonksiyonları tanımlayın
+// Globale Funktionen definieren
 window.renderSeatPlanView = renderSeatPlanView;
 window.assignManualSeats = assignManualSeats;
 window.assignOptimalSeats = assignOptimalSeats;

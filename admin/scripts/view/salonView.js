@@ -6,23 +6,23 @@ import {
   saveStateToLocalStorage,
 } from "./stateManager.js";
 
-// LocalStorage'dan verileri yükle
+// LocalStorage'dan Daten laden
 let salons = loadSalonsFromLocalStorage();
 if (salons.length === 0) {
-  salons = [...defaultSalons]; // Varsayılan verileri kullan
-  saveSalonsToLocalStorage(salons); // LocalStorage'a kaydet
+  salons = [...defaultSalons]; // Standarddaten verwenden
+  saveSalonsToLocalStorage(salons); // In LocalStorage speichern
 }
 
 export function renderSalonView() {
   const container = document.getElementById("main-content");
   if (!container) {
-    console.error("Ana içerik bölgesi bulunamadı!");
+    console.error("Hauptinhaltsbereich nicht gefunden!");
     return;
   }
 
   container.innerHTML = `
-    <h2>Salonlar</h2>
-    <button class="add-salon-button" onclick="addSalon()">Yeni Salon Ekle</button>
+    <h2>Säle</h2>
+    <button class="add-salon-button" onclick="addSalon()">Neuen Saal Hinzufügen</button>
     <div class="salon-cards">
       ${salons
         .map(
@@ -31,35 +31,32 @@ export function renderSalonView() {
           <img src="${salon.image}" alt="${salon.name}" class="salon-image">
           <div class="salon-info">
             <h3>${salon.name}</h3>
-            <p>Kapasite: ${salon.seats}</p>
-            <p>Genişlik: ${salon.aisleWidth} m</p>
-            <p>Fiyat: ${salon.price} €</p>
-            <p>Özellikler: 
+            <p>Kapazität: ${salon.seats}</p>
+            <p>Reihenbreite: ${salon.aisleWidth} m</p>
+            <p>Preis: ${salon.price} €</p>
+            <p>Eigenschaften: 
               ${salon.features?.is3D ? "3D" : ""} 
               ${salon.features?.isVIP ? "VIP" : ""} 
-              ${salon.features?.sound || "Ses sistemi belirtilmedi"}
+              ${salon.features?.sound || "Kein Soundsystem angegeben"}
             </p>
-            <p>Gösterim Saatleri: ${
+            <p>Vorführungszeiten: ${
               Array.isArray(salon.showTimes)
                 ? salon.showTimes.join(", ")
-                : "Veri bulunamadı"
+                : "Keine Daten verfügbar"
             }</p>
-            <button class="update-salon-button onclick="editSalon(${
-              salon.type
-            })">Düzenle</button>
+            <button class="update-salon-button" onclick="editSalon(${salon.type})">Bearbeiten</button>
           </div>
         </div>
       `
         )
         .join("")}
     </div>
-   
   `;
 }
 
 function renderSalonForm(salon = {}) {
   const {
-    type = salons.length > 0 ? salons[salons.length - 1].type + 1 : 1, // Sıradaki tip numarası otomatik atanır
+    type = salons.length > 0 ? salons[salons.length - 1].type + 1 : 1,
     name = "",
     image = "./assets/default-salon.png",
     seats = "",
@@ -71,22 +68,22 @@ function renderSalonForm(salon = {}) {
 
   const container = document.getElementById("main-content");
   container.innerHTML = `
-    <h2>${salon.type ? "Salon Düzenleme" : "Yeni Salon Ekle"}</h2>
+    <h2>${salon.type ? "Saal Bearbeiten" : "Neuen Saal Hinzufügen"}</h2>
     <form id="salon-form">
-      <label for="salon-name">Salon Adı:</label>
+      <label for="salon-name">Name des Saals:</label>
       <input type="text" id="salon-name" value="${name}" required>
 
-      <label for="salon-image">Salon Görseli:</label>
+      <label for="salon-image">Saalbild:</label>
       <input type="file" id="salon-image" accept="image/*">
       <img src="${image}" alt="${name}" class="salon-image-preview">
 
-      <label for="salon-seats">Kapasite:</label>
+      <label for="salon-seats">Kapazität:</label>
       <input type="number" id="salon-seats" value="${seats}" required>
 
-      <label for="salon-aisleWidth">Koltuk Aralığı (m):</label>
+      <label for="salon-aisleWidth">Reihenbreite (m):</label>
       <input type="number" id="salon-aisleWidth" value="${aisleWidth}" required>
 
-      <label for="salon-features">Özellikler:</label>
+      <label for="salon-features">Eigenschaften:</label>
       <div>
         <input type="checkbox" id="salon-is3D" ${
           features.is3D ? "checked" : ""
@@ -96,20 +93,20 @@ function renderSalonForm(salon = {}) {
         }> <label for="salon-isVIP">VIP</label>
       </div>
 
-      <label for="salon-sound">Ses Sistemi:</label>
+      <label for="salon-sound">Soundsystem:</label>
       <input type="text" id="salon-sound" value="${features.sound}" required>
 
-      <label for="salon-price">Fiyat:</label>
+      <label for="salon-price">Preis:</label>
       <input type="number" id="salon-price" value="${price}" required>
 
-      <label for="salon-showTimes">Gösterim Saatleri:</label>
+      <label for="salon-showTimes">Vorführungszeiten:</label>
       <input type="text" id="salon-showTimes" value="${showTimes.join(", ")}">
 
       <button type="button" id="save-salon-button">${
-        salon.type ? "Kaydet" : "Oluştur"
+        salon.type ? "Speichern" : "Erstellen"
       }</button>
     </form>
-    <button onclick="renderSalonView()">Geri</button>
+    <button onclick="renderSalonView()">Zurück</button>
   `;
 
   document.getElementById("save-salon-button").onclick = () => {
@@ -118,7 +115,7 @@ function renderSalonForm(salon = {}) {
 }
 
 export function addSalon() {
-  renderSalonForm(); // Yeni salon ekleme formu
+  renderSalonForm();
 }
 
 export function editSalon(type) {
@@ -126,14 +123,14 @@ export function editSalon(type) {
   if (salon) {
     renderSalonForm(salon);
   } else {
-    console.warn(`Salon Tipi ${type} bulunamadı.`);
+    console.warn(`Saaltyp ${type} nicht gefunden.`);
   }
 }
 
 export function saveNewSalon() {
   const nameInput = document.getElementById("salon-name");
   if (!nameInput) {
-    console.error("Salon formundaki 'Salon Adı' alanı bulunamadı.");
+    console.error("Das Feld 'Name des Saals' wurde im Formular nicht gefunden.");
     return;
   }
 
@@ -171,26 +168,24 @@ export function saveNewSalon() {
 
   salons.push(newSalon);
 
-  // LocalStorage'a kaydet
   saveDataToLocalStorage("salons", salons);
 
-  alert("Salon başarıyla kaydedildi!");
+  alert("Saal erfolgreich gespeichert!");
   renderSalonView();
 }
 
 export function deleteSalon(type) {
-  if (confirm("Bu salonu silmek istediğinizden emin misiniz?")) {
+  if (confirm("Sind Sie sicher, dass Sie diesen Saal löschen möchten?")) {
     const salonIndex = salons.findIndex((salon) => salon.type === type);
     if (salonIndex !== -1) {
       salons.splice(salonIndex, 1);
 
-      // LocalStorage'a güncel veri yaz
       saveDataToLocalStorage("salons", salons);
 
-      alert("Salon başarıyla silindi!");
+      alert("Saal erfolgreich gelöscht!");
       renderSalonView();
     } else {
-      console.warn(`Salon Tipi ${type} bulunamadı.`);
+      console.warn(`Saaltyp ${type} nicht gefunden.`);
     }
   }
 }
@@ -223,43 +218,38 @@ export function saveSalonChanges(type) {
       showTimes,
     };
 
-    // LocalStorage'a kaydet
     saveSalonsToLocalStorage(salons);
 
-    alert("Salon güncellendi!");
+    alert("Saal erfolgreich aktualisiert!");
     renderSalonView();
   } else {
-    console.warn(`Salon Tipi ${type} bulunamadı.`);
+    console.warn(`Saaltyp ${type} nicht gefunden.`);
   }
 }
 
-// Yeni başlangıç verileri
+// Neue Startdaten
 const initialCinemas = [];
 const initialFilms = [];
 const initialSalons = [];
 
 export function resetAndInitializeData() {
-  // LocalStorage'ı temizle
   clearLocalStorage();
 
-  // Başlangıç verilerini ayarla
   initializeAppState(initialCinemas, initialFilms, initialSalons);
 
-  // Durumu kaydet
   saveStateToLocalStorage();
 
-  console.log("LocalStorage sıfırlandı ve başlangıç verileri eklendi.");
+  console.log("LocalStorage wurde zurückgesetzt und Startdaten hinzugefügt.");
 }
 
 export function renderResetButton() {
   const navbar = document.getElementById("navbar");
   const resetButton = document.createElement("button");
-  resetButton.textContent = "Sıfırla";
+  resetButton.textContent = "Zurücksetzen";
   resetButton.onclick = resetAndInitializeData;
   navbar.appendChild(resetButton);
 }
 
-// Global fonksiyonları tanımlayın
 window.addSalon = addSalon;
 window.editSalon = editSalon;
 window.deleteSalon = deleteSalon;

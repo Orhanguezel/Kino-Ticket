@@ -1,4 +1,4 @@
-//seatAssignment.js dosyası, koltukların otomatik olarak atanmasını sağlar.
+// seatAssignment.js Datei, sorgt für die automatische Zuweisung von Sitzplätzen.
 
 import { cinemas as defaultCinemas } from "../data/Cinemas.js";
 import { films as defaultFilms } from "../data/Film.js";
@@ -8,14 +8,14 @@ import {
   loadFilmsFromLocalStorage,
 } from "./stateManager.js";
 
-// LocalStorage'dan gösterimleri yükleyin veya boş bir dizi oluşturun
+// Zeigezeiten aus LocalStorage laden oder leere Liste erstellen
 let showtimes = JSON.parse(localStorage.getItem("showtimes")) || [];
 
-// Cinemas ve Films'i LocalStorage'dan yükleyin
+// Kinos und Filme aus LocalStorage laden
 let cinemas = loadCinemasFromLocalStorage();
 let films = loadFilmsFromLocalStorage();
 
-// Eğer LocalStorage'da veri yoksa, varsayılan değerlere dön
+// Wenn keine Daten im LocalStorage vorhanden sind, Standardwerte verwenden
 if (!cinemas.length) {
   const { cinemas: defaultCinemas } = require("../data/Cinemas.js");
   cinemas = [...defaultCinemas];
@@ -26,15 +26,15 @@ if (!films.length) {
   films = [...defaultFilms];
 }
 
-export function assignOptimalSeats(salons, strategy = "high") {
+export function assignOptimalSeats(salons, strategy = "hoch") {
   salons.forEach((salon) => {
-    let occupiedSeats = 0;
-    const targetOccupancy = strategy === "low" ? 0.4 : 0.8; // Doluluk oranı: 40% veya 80%
-    const maxOccupied = Math.ceil(salon.seats * targetOccupancy);
+    let besetzteSitze = 0;
+    const zielBelegung = strategy === "niedrig" ? 0.4 : 0.8; // Belegungsquote: 40% oder 80%
+    const maxBelegt = Math.ceil(salon.seats * zielBelegung);
 
-    salon.seatsList.forEach((seat) => {
-      seat.status = occupiedSeats < maxOccupied ? "dolu" : "boş";
-      if (seat.status === "dolu") occupiedSeats++;
+    salon.seatsList.forEach((sitz) => {
+      sitz.status = besetzteSitze < maxBelegt ? "besetzt" : "frei";
+      if (sitz.status === "besetzt") besetzteSitze++;
     });
   });
 
@@ -43,8 +43,8 @@ export function assignOptimalSeats(salons, strategy = "high") {
 
 export function assignRandomSeats(salons) {
   salons.forEach((salon) => {
-    salon.seatsList.forEach((seat) => {
-      seat.status = Math.random() > 0.5 ? "dolu" : "boş";
+    salon.seatsList.forEach((sitz) => {
+      sitz.status = Math.random() > 0.5 ? "besetzt" : "frei";
     });
   });
 
