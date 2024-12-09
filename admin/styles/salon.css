@@ -51,7 +51,9 @@
   margin-bottom: 10px;
 }
 
-button.add-salon-button, button.update-salon-button {
+button.add-salon-button, 
+button.update-salon-button,
+button.back-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -64,7 +66,8 @@ button.add-salon-button, button.update-salon-button {
   transition: background-color 0.3s ease;
 }
 
-button.add-salon-button:hover {
+button.add-salon-button:hover,
+button.back-button:hover {
   background-color: #218838;
 }
 

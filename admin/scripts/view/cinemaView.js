@@ -156,7 +156,7 @@ export function addCinema() {
 
       <button type="button" onclick="saveNewCinema()">Speichern</button>
     </form>
-    <button onclick="renderCinemaView()">Zurück</button>
+    <button class="ruck-button" onclick="renderCinemaView()">Zurück</button>
   `;
 }
 

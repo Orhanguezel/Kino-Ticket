@@ -106,7 +106,7 @@ function renderSalonForm(salon = {}) {
         salon.type ? "Speichern" : "Erstellen"
       }</button>
     </form>
-    <button onclick="renderSalonView()">Zurück</button>
+    <button class"back-button" onclick="renderSalonView()">Zurück</button>
   `;
 
   document.getElementById("save-salon-button").onclick = () => {
@@ -256,3 +256,5 @@ window.deleteSalon = deleteSalon;
 window.saveNewSalon = saveNewSalon;
 window.saveSalonChanges = saveSalonChanges;
 window.renderSalonView = renderSalonView;
+window.renderResetButton = renderResetButton;
+

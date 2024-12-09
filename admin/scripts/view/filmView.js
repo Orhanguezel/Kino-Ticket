@@ -1,4 +1,5 @@
 import { films } from "../data/Film.js";
+//import { category } from "../data/Category.js";//
 import { saveDataToLocalStorage, loadDataFromLocalStorage } from "./stateManager.js";
 
 let localFilms = loadDataFromLocalStorage("films") || [];
@@ -64,7 +65,7 @@ export function editFilm(filmId) {
 
       <button type="button" onclick="saveFilmChanges(${film.id})">Speichern</button>
     </form>
-    <button onclick="renderFilmView()">Zurück</button>
+    <button class"back-button" onclick="renderFilmView()">Zurück</button>
   `;
 }
 

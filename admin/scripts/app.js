@@ -1,5 +1,5 @@
-import { renderNavbar } from "./scripts/view/navbar.js";
-import { renderCinemaView } from "./scripts/view/cinemaView.js";
+import { renderNavbar } from "./view/navbar.js";
+import { renderCinemaView } from "./view/cinemaView.js";
 
 // Uygulama başlatma
 document.addEventListener("DOMContentLoaded", () => {

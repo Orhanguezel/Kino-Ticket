@@ -202,3 +202,5 @@ window.assignManualSeats = assignManualSeats;
 window.assignOptimalSeats = assignOptimalSeats;
 window.generateSeatsLayout = generateSeatsLayout;
 window.calculateDailySales = calculateDailySales;
+
+

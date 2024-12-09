@@ -1,3 +1,12 @@
+/* Ana İçerik Stili */
+#main-content {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 80vh;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 /* Sinema Kartları */
 .cinema-cards {
   display: flex;
@@ -33,14 +42,15 @@
 }
 
 .cinema-info h3 {
-  font-size: 1.4em;
+  font-size: 1.6em;
   margin-bottom: 10px;
-  color: #222;
+  color: #333;
 }
 
 .cinema-info p {
   margin: 5px 0;
-  color: #666;
+  color: #555;
+  font-size: 0.9em;
 }
 
 .cinema-card button {
@@ -48,18 +58,18 @@
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #007bff;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .cinema-card button:hover {
-  background-color: #45a049;
+  background-color: #0056b3;
 }
 
 /* Yeni Sinema Ekle Butonu */
-button.add-cinema-button {
+button.add-cinema-button, button.ruck-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -76,14 +86,77 @@ button.add-cinema-button:hover {
   background-color: #218838;
 }
 
+/* Form Stili */
+form {
+  margin: 20px auto;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+form textarea {
+  resize: vertical;
+}
+
+form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Görsel Önizleme */
+.cinema-logo-preview,
+.cinema-background-preview {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  max-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 /* Duyarlılık (Responsive) */
 @media (max-width: 768px) {
   .cinema-cards {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .cinema-card {
-      width: 90%;
+    width: 90%;
+  }
+
+  form {
+    padding: 15px;
   }
 }

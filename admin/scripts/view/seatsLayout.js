@@ -55,4 +55,3 @@ export function assignRandomSeats(salons) {
 
 window.assignRandomSeats = assignRandomSeats;
 window.assignOptimalSeats = assignOptimalSeats;
-window.generateSeatsLayout = generateSeatsLayout;
