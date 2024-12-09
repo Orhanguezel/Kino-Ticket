@@ -32,8 +32,6 @@ export function loadFooter(cinema = null) {
                         <ul>
                             <li><a href="#" id="footerHomeLink">Startseite</a></li>
                             <li><a href="#" id="footerCartLink">Warenkorb</a></li>
-                            <li><a href="#">Über uns</a></li>
-                            <li><a href="#">Filme</a></li>
                         </ul>
                     </nav>
                 </div>

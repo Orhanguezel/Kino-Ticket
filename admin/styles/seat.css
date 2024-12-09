@@ -1,0 +1,132 @@
+/* Koltuk Alanı */
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px; 
+  justify-content: center;
+  margin: 20px auto; 
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px; 
+}
+
+/* Koltuk */
+.seat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1; 
+  width: 100%; 
+  max-width: 50px; 
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.seat.boş {
+  background-color: #4caf50;
+}
+
+.seat.dolu {
+  background-color: #f44336;
+}
+
+.seat:hover {
+  transform: scale(1.1); 
+  opacity: 0.9;
+}
+
+/* Sahne */
+.stage {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px auto 10px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  max-width: 600px;
+}
+
+/* Kontrol Paneli */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 600px; 
+}
+
+.controls label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.controls input[type="number"] {
+  width: 80px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.controls button {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#manualAssignButton {
+  background-color: #4caf50;
+}
+
+#manualAssignButton:hover {
+  background-color: #45a049;
+}
+
+#optimalAssignButton {
+  background-color: #2196f3;
+}
+
+#optimalAssignButton:hover {
+  background-color: #1976d2;
+}
+
+/* Duyarlılık (Responsive Tasarım) */
+@media (max-width: 768px) {
+  .seat {
+    max-width: 40px; 
+    font-size: 12px;
+  }
+  .controls {
+    flex-direction: column; 
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .seat {
+    max-width: 30px; 
+    font-size: 10px;
+  }
+  .controls label,
+  .controls button {
+    font-size: 12px;
+  }
+  .controls input[type="number"] {
+    width: 60px;
+  }
+}

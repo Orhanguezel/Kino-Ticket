@@ -39,9 +39,8 @@ export function loadHeader(cinema = null) {
                     <div class="bar"></div>
                   </div>
                   <ul class="nav-links">
-                    <li><a href="#" id="homeLink">Startseite</a></li>
-                    <li><a href="#">Über uns</a></li>
-                    <li><a href="#">Filme</a></li>
+                    <li><a href="#" id="homeLink">Home</a></li>
+                    <li><a href="./admin/admin.html" target="_blank">Admin Panel</a></li>
                   </ul>
                 </nav>
             </header>
@@ -49,15 +48,14 @@ export function loadHeader(cinema = null) {
             <!-- Sidebar -->
             <aside class="grid-sidebar">
                 <div class="sidebar-login-register">
-                    <a href="#" id="homeLink">Login</a>
-                    <a href="#">Register</a>
+                    <a href="#" id="homeLink"></a>
+                    <a href="#"></a>
                 </div>
                 <div class="sidebar-cart" id="cartLink" data-count="0">
                   <i class="fas fa-shopping-cart"></i>
                   <span id="cartCount" class="cart-count">0</span>
                 </div>
-                <div class="sidebar-search">
-                    <i class="fas fa-search"></i>
+                <div class="">
                 </div>
             </aside>
       
@@ -65,10 +63,8 @@ export function loadHeader(cinema = null) {
             <main class="grid-main">
                 <section class="main-content" id="mainContent"></section>
                 <section class="top-section">
-                  <p>Willkommen in unserem Kino</p>
                   <h1>Erleben Sie die Magie des Kinos mit uns</h1>
                   <p>Es ist eine allgemein bekannte Tatsache, dass der Leser durch den lesbaren Inhalt einer Seite abgelenkt wird, wenn er sich ihr Layout ansieht.</p>
-                  <button class="explore-button">Mehr entdecken →</button>
                 </section>
 
             </main>

@@ -1,0 +1,29 @@
+/* Header Konteyner */
+header {
+  background-color: #4caf50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0; 
+}
+
+/* Yönetim Paneli Başlığı */
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+}
