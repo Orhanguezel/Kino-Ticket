@@ -1,5 +1,5 @@
 import { films } from "../data/Film.js";
-//import { category } from "../data/Category.js";//
+import { categories } from "../data/Category.js";
 import { saveDataToLocalStorage, loadDataFromLocalStorage } from "./stateManager.js";
 
 let localFilms = loadDataFromLocalStorage("films") || [];
@@ -7,6 +7,17 @@ if (localFilms.length === 0) {
   localFilms = [...films]; // Standardfilme laden
   saveDataToLocalStorage("films", localFilms); // In LocalStorage speichern
 }
+
+// Kategori ID'sinden kategori adını döndüren fonksiyon
+function getCategoryNames(categoryIds) {
+  return categoryIds
+    .map((id) => {
+      const category = categories.find((cat) => cat.id === id);
+      return category ? category.name : `ID ${id} (Bilinmeyen Kategori)`;
+    })
+    .join(", ");
+}
+
 
 export function renderFilmView() {
   const container = document.getElementById("main-content");
@@ -17,7 +28,7 @@ export function renderFilmView() {
 
   container.innerHTML = `
     <h2>Filme</h2>
-    <button class="add-film-button"onclick="addFilm()">Neuen Film Hinzufügen</button>
+    <button class="add-film-button" onclick="addFilm()">Neuen Film Hinzufügen</button>
     <div class="film-cards">
       ${localFilms
         .map(
@@ -27,7 +38,7 @@ export function renderFilmView() {
           <div class="film-info">
             <h3>${film.name}</h3>
             <p>Dauer: ${film.duration} Minuten</p>
-            <p>Kategorien: ${film.categories.join(", ")}</p>
+            <p>Kategorien: ${getCategoryNames(film.categories)}</p> <!-- Kategori adları burada doğru gösterilir -->
             <button onclick="editFilm(${film.id})">Bearbeiten</button>
             <button onclick="removeFilm(${film.id})">Löschen</button>
           </div>
@@ -57,7 +68,16 @@ export function editFilm(filmId) {
       <input type="number" id="duration" value="${film.duration}" required>
 
       <label for="categories">Kategorien (mit Komma trennen):</label>
-      <input type="text" id="categories" value="${film.categories.join(", ")}" required>
+      <select id="categories" multiple required>
+        ${categories
+          .map(
+            (category) =>
+              `<option value="${category.id}" ${
+                film.categories.includes(category.id) ? "selected" : ""
+              }>${category.name}</option>`
+          )
+          .join("")}
+      </select>
 
       <label for="image">Film Bild:</label>
       <input type="file" id="image" accept="image/*">
@@ -65,7 +85,7 @@ export function editFilm(filmId) {
 
       <button type="button" onclick="saveFilmChanges(${film.id})">Speichern</button>
     </form>
-    <button class"back-button" onclick="renderFilmView()">Zurück</button>
+    <button class="back-button" onclick="renderFilmView()">Zurück</button>
   `;
 }
 
@@ -74,7 +94,9 @@ export function saveFilmChanges(filmId) {
   if (filmIndex !== -1) {
     const name = document.getElementById("name").value;
     const duration = parseInt(document.getElementById("duration").value, 10);
-    const categories = document.getElementById("categories").value.split(",").map((cat) => cat.trim());
+    const categories = Array.from(
+      document.getElementById("categories").selectedOptions
+    ).map((option) => parseInt(option.value, 10));
     const imageInput = document.getElementById("image");
 
     let image = localFilms[filmIndex].image || "./assets/default-film.jpg";
@@ -120,8 +142,10 @@ export function addFilm() {
       <label for="duration">Dauer (Minuten):</label>
       <input type="number" id="duration" placeholder="Dauer" required>
 
-      <label for="categories">Kategorien (mit Komma trennen):</label>
-      <input type="text" id="categories" placeholder="Kategorien" required>
+      <label for="categories">Kategorien:</label>
+      <select id="categories" multiple required>
+        ${categories.map((category) => `<option value="${category.id}">${category.name}</option>`).join("")}
+      </select>
 
       <label for="image">Film Bild:</label>
       <input type="file" id="image" accept="image/*">
@@ -136,7 +160,9 @@ export function saveNewFilm() {
   const id = localFilms.length > 0 ? localFilms[localFilms.length - 1].id + 1 : 1;
   const name = document.getElementById("name").value;
   const duration = parseInt(document.getElementById("duration").value, 10);
-  const categories = document.getElementById("categories").value.split(",").map((cat) => cat.trim());
+  const categories = Array.from(
+    document.getElementById("categories").selectedOptions
+  ).map((option) => parseInt(option.value, 10));
   const imageInput = document.getElementById("image");
 
   let image = "./assets/default-film.jpg";
