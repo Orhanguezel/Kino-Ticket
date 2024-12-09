@@ -129,7 +129,7 @@ In diesem Projekt wurden folgende Technologien verwendet:
 
 4. **Tests ausführen**:
    ```bash
-   npm test
+   npx jest
    ```
 
 ---

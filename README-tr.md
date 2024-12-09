@@ -128,7 +128,7 @@ Projede kullanılan teknolojiler şunlardır:
 
 4. **Testleri Çalıştırın**:
    ```bash
-   npm test
+   npx jest
    ```
 
 ---
