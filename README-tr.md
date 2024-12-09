@@ -1,5 +1,3 @@
-
-```markdown
 # Kino-Ticket ve Yönetim Paneli 🎥🍿
 
 ## Proje Açıklaması

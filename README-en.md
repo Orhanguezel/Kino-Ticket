@@ -1,5 +1,4 @@
 
-```markdown
 # Kino-Ticket and Admin Panel 🎥🍿
 
 ## Project Description

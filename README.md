@@ -1,5 +1,4 @@
 
-```markdown
 # Kino-Ticket und Admin-Panel 🎥🍿
 
 ## Projektbeschreibung
