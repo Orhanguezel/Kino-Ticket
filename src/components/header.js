@@ -39,7 +39,7 @@ export function loadHeader(cinema = null) {
                     <div class="bar"></div>
                   </div>
                   <ul class="nav-links">
-                    <li><a href="#" id="homeLink">Home</a></li>
+                    <li><a href="#" id="homeLink">Startseite</a></li>
                     <li><a href="./admin/admin.html" target="_blank">Admin Panel</a></li>
                   </ul>
                 </nav>

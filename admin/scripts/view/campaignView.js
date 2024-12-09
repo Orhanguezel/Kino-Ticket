@@ -1,26 +1,26 @@
-// Kampagnen laden oder initialisieren
+// campaigns laden oder initialisieren
 import {
   initializeCampaigns,
   saveCampaignsToLocalStorage,
   loadCampaignsFromLocalStorage,
 } from "./stateManager.js";
-import { defaultCampaigns } from "../data/Campaigns.js"; // Standardkampagnen
+import { defaultCampaigns } from "../data/Campaigns.js"; // Standardcampaigns
 
-let kampagnen = loadCampaignsFromLocalStorage();
-if (kampagnen.length === 0) {
-  kampagnen = [...defaultCampaigns];
-  initializeCampaigns(kampagnen);
+let campaigns = loadCampaignsFromLocalStorage();
+if (campaigns.length === 0) {
+  campaigns = [...defaultCampaigns];
+  initializeCampaigns(campaigns);
 }
 
-// Kampagnenansicht rendern
+// campaignsansicht rendern
 export function renderCampaignView() {
   const container = document.getElementById("main-content");
 
   container.innerHTML = `
-    <h2>Rabatte und Kampagnen</h2>
+    <h2>Rabatte und kampagnen</h2>
     <div class="campaign-section">
       <div class="campaign-list">
-        <h3>Aktuelle Kampagnen</h3>
+        <h3>Aktuelle kampagnen</h3>
         <div id="campaign-table">
           ${renderCampaignTable()}
         </div>
@@ -62,7 +62,7 @@ export function renderCampaignView() {
   document.getElementById("campaign-table").innerHTML = renderCampaignTable();
 }
 
-// Kampagnentabelle rendern
+// campaignstabelle rendern
 function renderCampaignTable() {
   return `
     <table>
@@ -77,7 +77,7 @@ function renderCampaignTable() {
         </tr>
       </thead>
       <tbody>
-        ${kampagnen
+        ${campaigns
           .map(
             (campaign) => `
           <tr>
@@ -103,31 +103,41 @@ function renderCampaignTable() {
   `;
 }
 
-// Kampagne bearbeiten
+
 export function editCampaign(id) {
-  const campaignToEdit = kampagnen.find((campaign) => campaign.id === id);
+  const campaignToEdit = campaigns.find((campaign) => campaign.id === id);
 
   if (campaignToEdit) {
     document.getElementById("campaign-name").value = campaignToEdit.name;
-    const audienceOptions = Array.from(
-      document.getElementById("campaign-audience").options
-    );
+    const audienceOptions = Array.from(document.getElementById("campaign-audience").options);
     audienceOptions.forEach((option) => {
       option.selected = campaignToEdit.targetAudience.includes(option.value);
     });
-    document.getElementById("discount-type").value =
-      campaignToEdit.discountType;
-    document.getElementById("discount-value").value =
-      campaignToEdit.discountValue;
+    document.getElementById("discount-type").value = campaignToEdit.discountType;
+    document.getElementById("discount-value").value = campaignToEdit.discountValue;
     document.getElementById("start-date").value = campaignToEdit.startDate;
     document.getElementById("end-date").value = campaignToEdit.endDate;
 
+    // Status için aktif/pasif kontrolü
+    const statusSelect = document.createElement("select");
+    statusSelect.id = "campaign-status";
+    statusSelect.innerHTML = `
+      <option value="active" ${campaignToEdit.status === "active" ? "selected" : ""}>Aktiv</option>
+      <option value="inactive" ${campaignToEdit.status === "inactive" ? "selected" : ""}>Inaktiv</option>
+    `;
+    const statusLabel = document.createElement("label");
+    statusLabel.setAttribute("for", "campaign-status");
+    statusLabel.textContent = "Status:";
+    const form = document.getElementById("campaign-form");
+    form.appendChild(statusLabel);
+    form.appendChild(statusSelect);
+
+    // Kaydet butonunu güncelle
     const saveButton = document.createElement("button");
     saveButton.textContent = "Aktualisieren";
     saveButton.classList.add("update-campaign-btn");
     saveButton.onclick = () => updateCampaign(id);
 
-    const form = document.getElementById("campaign-form");
     const oldSaveButton = form.querySelector("button[type='button']");
     if (oldSaveButton) {
       form.replaceChild(saveButton, oldSaveButton);
@@ -135,63 +145,67 @@ export function editCampaign(id) {
   }
 }
 
+
+
+
+
 // Kampagne aktualisieren
+
 export function updateCampaign(id) {
   const updatedName = document.getElementById("campaign-name").value;
-  const updatedAudience = Array.from(
-    document.getElementById("campaign-audience").selectedOptions
-  ).map((option) => option.value);
-  const updatedDiscountType = document.getElementById("discount-type").value;
-  const updatedDiscountValue = parseFloat(
-    document.getElementById("discount-value").value
+  const updatedAudience = Array.from(document.getElementById("campaign-audience").selectedOptions).map(
+    (option) => option.value
   );
+  const updatedDiscountType = document.getElementById("discount-type").value;
+  const updatedDiscountValue = parseFloat(document.getElementById("discount-value").value);
   const updatedStartDate = document.getElementById("start-date").value;
   const updatedEndDate = document.getElementById("end-date").value;
+  const updatedStatus = document.getElementById("campaign-status").value; // Status bilgisi
 
-  const campaignIndex = kampagnen.findIndex((campaign) => campaign.id === id);
+  const campaignIndex = campaigns.findIndex((campaign) => campaign.id === id);
   if (campaignIndex !== -1) {
-    kampagnen[campaignIndex] = {
-      ...kampagnen[campaignIndex],
+    campaigns[campaignIndex] = {
+      ...campaigns[campaignIndex],
       name: updatedName,
       targetAudience: updatedAudience,
       discountType: updatedDiscountType,
       discountValue: updatedDiscountValue,
       startDate: updatedStartDate,
       endDate: updatedEndDate,
+      status: updatedStatus, // Status güncelleniyor
     };
 
-    saveCampaignsToLocalStorage(kampagnen);
+    saveCampaignsToLocalStorage(campaigns);
     alert("Kampagne erfolgreich aktualisiert!");
     renderCampaignView();
   }
 }
 
+
 // Kampagne hinzufügen
 export function addCampaign() {
   const name = document.getElementById("campaign-name").value;
-  const audience = Array.from(
-    document.getElementById("campaign-audience").selectedOptions
-  ).map((option) => option.value);
-  const discountType = document.getElementById("discount-type").value;
-  const discountValue = parseFloat(
-    document.getElementById("discount-value").value
+  const audience = Array.from(document.getElementById("campaign-audience").selectedOptions).map(
+    (option) => option.value
   );
+  const discountType = document.getElementById("discount-type").value;
+  const discountValue = parseFloat(document.getElementById("discount-value").value);
   const startDate = document.getElementById("start-date").value;
   const endDate = document.getElementById("end-date").value;
 
   const newCampaign = {
-    id: kampagnen.length + 1,
+    id: campaigns.length + 1,
     name,
     targetAudience: audience,
     discountType,
     discountValue,
     startDate,
     endDate,
-    status: "aktiv",
+    status: "active",
   };
 
-  kampagnen.push(newCampaign);
-  saveCampaignsToLocalStorage(kampagnen);
+  campaigns.push(newCampaign);
+  saveCampaignsToLocalStorage(campaigns);
 
   alert("Kampagne erfolgreich hinzugefügt!");
   renderCampaignView();
@@ -199,12 +213,13 @@ export function addCampaign() {
 
 // Kampagne löschen
 export function deleteCampaign(id) {
-  kampagnen = kampagnen.filter((campaign) => campaign.id !== id);
-  saveCampaignsToLocalStorage(kampagnen);
+  campaigns = campaigns.filter((campaign) => campaign.id !== id);
+  saveCampaignsToLocalStorage(campaigns);
 
-  alert("Kampagne erfolgreich gelöscht!");
+  alert("Kampagne erfolgreich hinzugefügt!");
   renderCampaignView();
 }
+
 
 // Funktionen zum globalen Fenster hinzufügen
 window.deleteCampaign = deleteCampaign;
