@@ -2,14 +2,16 @@
 .seats-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 10px; 
+  gap: 10px;
   justify-content: center;
-  margin: 20px auto; 
+  align-content: center;
+  margin: 20px auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px; 
+  max-width: 600px;
+  min-height: 200px;
 }
 
 /* Koltuk */
@@ -17,27 +19,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1; 
-  width: 100%; 
-  max-width: 50px; 
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 50px;
   border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
+  border: 1px solid #ccc;
 }
 
-.seat.boş {
-  background-color: #4caf50;
+.seat.frei {
+  background-color: #4caf50; /* Yeşil: Boş Koltuk */
+  border: 1px solid #388e3c;
 }
 
-.seat.dolu {
-  background-color: #f44336;
+.seat.besetzt {
+  background-color: #f44336; /* Kırmızı: Dolu Koltuk */
+  border: 1px solid #d32f2f;
 }
 
 .seat:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
   opacity: 0.9;
 }
 
@@ -47,22 +52,24 @@
   font-size: 18px;
   font-weight: bold;
   margin: 20px auto 10px;
-  padding: 10px;
+  padding: 15px;
   background-color: #333;
   color: white;
   border-radius: 5px;
   max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Kontrol Paneli */
 .controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   margin: 20px auto;
   padding: 10px;
-  max-width: 600px; 
+  max-width: 600px;
+  flex-wrap: wrap;
 }
 
 .controls label {
@@ -79,7 +86,7 @@
 }
 
 .controls button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-size: 14px;
   font-weight: bold;
   color: white;
@@ -108,18 +115,18 @@
 /* Duyarlılık (Responsive Tasarım) */
 @media (max-width: 768px) {
   .seat {
-    max-width: 40px; 
+    max-width: 40px;
     font-size: 12px;
   }
   .controls {
-    flex-direction: column; 
-    gap: 5px;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
 @media (max-width: 480px) {
   .seat {
-    max-width: 30px; 
+    max-width: 30px;
     font-size: 10px;
   }
   .controls label,

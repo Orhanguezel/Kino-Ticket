@@ -1,70 +1,165 @@
-# Kino-Ticket Web Application 🎥
+
+```markdown
+# Kino-Ticket and Admin Panel 🎥🍿
 
 ## Project Description
-The Kino-Ticket application allows users to select cinema tickets, reserve seats, and complete payment processes through a modern web interface. The project is designed as a **Single Page Application (SPA)** and features a **modular** architecture for future scalability.
+**Kino-Ticket and Admin Panel** is a platform for cinema ticket booking that enables users to select cinemas, films, seats, and showtimes and complete the booking process. The project also includes an **Admin Panel** for managing cinemas, films, and showtimes.
 
-The platform is based on the **CineGrup** infrastructure. Currently, two cinemas are supported, but the modular structure allows for easy addition of cinemas, movies, and seating plans.
-
-Visit the website here: [Kino-Ticket](https://orhanguezel.github.io/Kino-Ticket/).
-
----
-
-## Technologies Used
-- **HTML5**: For structuring the page content.
-- **CSS3 (SASS)**: For creating responsive and modern designs.
-- **JavaScript (ES6)**: For dynamic interactions and functionality.
-- **Node.js**: To manage the modular project structure.
-- **Jest**: For automated testing.
-- **Babel**: To ensure compatibility of modern JavaScript features.
-- **GitHub Pages**: For deploying the application.
+### Development Status:
+- The user interface (Kino-Ticket) is fully functional, allowing users to book tickets seamlessly.
+- **The Admin Panel** offers features to manage cinemas, films, and showtimes but is **not yet fully integrated with the user interface**. This integration will be completed in future development phases.
 
 ---
 
 ## Project Features
-- **Modular Design**: Easy to expand with new cinemas, movies, and seats.
-- **SPA (Single Page Application)**: Smooth and fast navigation without page reloads.
-- **Responsive Design**: Optimized for all devices (mobile, tablet, desktop).
-- **Dynamic Payment**: Simulated payment process with test card information.
-- **Local Storage**: Saves data locally to prevent loss during page reloads.
-- **Easy Management**: New content can be added by editing the data sources.
+
+### User Side:
+- **Ticket Booking**: Users can select cinemas, films, showtimes, and seats.
+- **Responsive Design**: Optimized for all devices (desktop, tablet, smartphone).
+- **Dynamic Payment System**: Users can complete payments with test card data.
+- **Local Storage**: Cart information is retained even after the page refreshes.
+- **User-Friendly Experience**: Provides an intuitive and seamless booking experience.
+
+### Admin Panel:
+- **Cinema and Hall Management**: Add and edit cinemas and halls.
+- **Film Management**: Add films with posters, categories, and durations.
+- **Showtime Scheduling**: Define and manage showtimes for films.
+- **Campaign Management**: Create promotional campaigns and offers for users.
 
 ---
 
-## Application Features
+## Project Structure
+The project consists of two main modules: the user interface and the admin panel. The files are organized in a modular structure:
 
-### 1. **Homepage**
-The homepage displays general information about CineGrup and the available cinemas.
+### **Main Directories**
+- `/src`: Components and reservation functions for the user interface.
+- `/admin`: Admin panel and related functionalities.
+- `/assets`: Images (film posters, cinema halls, icons).
+- `/styles`: CSS files for styling.
+- `/tests`: Test files (written using Jest).
 
-### 2. **Movie Selection**
-Users can view and select the available movies for each cinema.
-
-### 3. **Seat and Salon Selection**
-Users can select their preferred salon and seat for the chosen movie. Occupied, available, and selected seats are visually distinguished.
-
-### 4. **Cart**
-Selected tickets are saved in a cart, which is dynamically displayed as a modal. Users can proceed to payment from here.
-
-### 5. **Payment**
-Users can complete the payment with test card information. After successful payment, tickets are displayed to the user.
+### **Example Directory Structure**
+```
+/Kino-Ticket
+├── /admin
+│   ├── /scripts
+│   │   ├── /data
+│   │   ├── /view
+│   │   └── app.js
+│   ├── /styles
+│   │   ├── cinema.css
+│   │   ├── film.css
+│   │   └── showtimes.css
+│   └── admin.html
+├── /src
+│   ├── /components
+│   ├── /reservation
+│   └── /data
+├── /assets
+│   ├── /cinema
+│   ├── /filmafis
+│   └── /icons
+├── /styles
+├── /tests
+└── index.html
+```
 
 ---
 
-## Directory Structure
-The project structure follows a modular approach:
-- **/src/components**: Header, Footer, and other UI components.
-- **/src/reservation**: Functions for managing reservations.
-- **/src/data**: Static data such as movies and cinemas.
-- **/styles**: Individual CSS files for each component.
-- **/utils**: Helper functions (e.g., data formatting).
+## Project Features
+
+### User Functions:
+1. **Film Selection**:
+   - Users can choose cinemas and films.
+   - Films are visually presented with posters.
+
+2. **Hall and Seat Selection**:
+   - Users can select their preferred seats in the cinema hall.
+   - Occupied, selected, and available seats are clearly marked.
+
+3. **Cart and Payment**:
+   - Users can add their selected tickets to the cart and proceed with payment.
+   - Information is retained using Local Storage.
+
+4. **Responsive User Interface**:
+   - Optimized for a seamless experience on all devices.
+
+### Admin Panel Features:
+1. **Cinema and Hall Management**:
+   - Add, edit, and organize cinemas and halls.
+
+2. **Film Management**:
+   - Add films with posters, categories, and durations.
+
+3. **Showtime Scheduling**:
+   - Define and manage showtimes.
+
+4. **Campaign Management**:
+   - Create offers and campaigns for users.
 
 ---
 
-## Demo Image
-![Demo Image](https://orhanguezel.github.io/Kino-Ticket/assets/demo-image.png)
+## Technologies Used
+The following technologies have been used in this project:
+- **HTML5**, **CSS3**, **SASS**: For page structure and styling.
+- **JavaScript (ES6)**: For dynamic functionality and interactions.
+- **Node.js**: For development and module management.
+- **Local Storage**: For data persistence.
+- **Jest**: For test automation.
+- **GitHub Pages**: For deploying the application.
+
+---
+
+## How to Install the Project
+
+### Steps:
+1. **Clone the Project**:
+   ```bash
+   git clone https://github.com/orhanguezel/kino-ticket.git
+   cd kino-ticket
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the Project**:
+   ```bash
+   npm start
+   ```
+
+4. **Run Tests**:
+   ```bash
+   npm test
+   ```
+
+---
+
+## Demo Images
+### User Interface
+![User Interface](https://orhanguezel.github.io/Kino-Ticket/assets/demo-image.png)
+
+### Admin Panel
+![Admin Panel](https://orhanguezel.github.io/Kino-Ticket/assets/admin-panel.png)
+
+---
+
+## Future Development Plans
+1. **Integration of the User Interface and Admin Panel**:
+   - The Admin Panel will be fully integrated with the user interface.
+2. **User Login and Registration**:
+   - Users will be able to create accounts and log in.
 
 ---
 
 ## License
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the **MIT License**.
 
-We welcome feedback and contributions! 🎬
+---
+
+## Contact
+Developer: **Orhan Güzel**  
+Email: **orhan.guezel@dci-student.org**  
+GitHub: **[OrhanGuezel](https://github.com/OrhanGuezel)**
+```
