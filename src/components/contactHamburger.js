@@ -15,6 +15,7 @@ export function setupContactHamburgerMenu() {
       console.warn("Grid hamburger menu element not found.");
       return;
     }
+    
 
     // Daha önce eklenmiş bir overlay varsa tekrar oluşturma
     const existingOverlay = document.querySelector(".contact-overlay");
@@ -66,8 +67,8 @@ export function setupContactHamburgerMenu() {
 
     document.body.appendChild(contactOverlay);
 
-    // Hamburger menu click event
-    gridHamburgerMenu.addEventListener("click", () => {
+  // Hamburger menu click even
+  gridHamburgerMenu.addEventListener("click", () => {
       contactOverlay.classList.add("active");
     });
 
